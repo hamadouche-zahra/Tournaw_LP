@@ -69,12 +69,22 @@ export const Header = () => {
 
   const dropdownPanelStyle = {
     borderRadius: '20px',
-    background: 'rgba(20, 20, 20, 0.97)',
+    background: 'rgba(45, 45, 48, 0.85)',
     backdropFilter: 'blur(20px)',
     WebkitBackdropFilter: 'blur(20px)',
     border: '1px solid rgba(255,255,255,0.10)',
     boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
   };
+
+  const NavLink = ({ children }) => (
+    <li className="group flex items-center justify-between gap-2 cursor-pointer transition-colors hover:text-[hsl(var(--primary))]">
+      <span className="transition-colors group-hover:text-[hsl(var(--primary))]">{children}</span>
+      <ChevronDown
+        size={12}
+        className="opacity-0 -translate-x-1 -rotate-90 transition-all duration-150 group-hover:opacity-100 group-hover:translate-x-0 text-[hsl(var(--primary))] flex-shrink-0"
+      />
+    </li>
+  );
 
   return (
     <>
@@ -141,10 +151,10 @@ export const Header = () => {
                           {t('nav.management') || 'Management'}
                         </h4>
                         <ul className="space-y-2 text-[13px] text-white/70">
-                          <li>{t('nav.multiSportsManagement') || 'Multi Sports Competition Management'}</li>
-                          <li>{t('nav.athleteTeamsParticipation') || 'Athlete & Teams Participation'}</li>
-                          <li>{t('nav.orgGrowthMonetization') || 'Organizations Growth & Monetization'}</li>
-                          <li>{t('nav.sportCommunityBuilding') || 'Sport Community Building'}</li>
+                          <NavLink>Multi Sports Competition Management</NavLink>
+                          <NavLink>Athlete & Teams Participation</NavLink>
+                          <NavLink>Organizations Growth & Monetization</NavLink>
+                          <NavLink>Sport Community Building</NavLink>
                         </ul>
                       </div>
                       <div>
@@ -152,13 +162,13 @@ export const Header = () => {
                           {t('nav.for') || 'For'}
                         </h4>
                         <ul className="space-y-2 text-[13px] text-white/70">
-                          <li>{t('nav.federations') || 'Fédérations'}</li>
-                          <li>{t('nav.academies') || 'Académies'}</li>
-                          <li>{t('nav.schools') || 'Schools'}</li>
-                          <li>{t('nav.clubs') || 'Clubs'}</li>
-                          <li>{t('nav.individualOrganizers') || 'Individual Organizers'}</li>
-                          <li>{t('nav.sportFacilities') || 'Sport Facilities'}</li>
-                          <li>{t('nav.athletesCoaches') || 'Athletes & Coaches'}</li>
+                          <NavLink>Fédérations</NavLink>
+                          <NavLink>Académies</NavLink>
+                          <NavLink>Schools</NavLink>
+                          <NavLink>Clubs</NavLink>
+                          <NavLink>Individual Organizers</NavLink>
+                          <NavLink>Sport Facilities</NavLink>
+                          <NavLink>Athletes & Coaches</NavLink>
                         </ul>
                       </div>
                     </motion.div>
@@ -196,21 +206,21 @@ export const Header = () => {
                           {t('nav.organizations') || 'Organizations'}
                         </h4>
                         <ul className="space-y-1.5 text-[12.5px] text-white/70">
-                          <li>{t('nav.multiSportsManagement') || 'Multi Sports Competition Management'}</li>
-                          <li>{t('nav.leagueMultiFormat') || 'Tournament & League Multi Format'}</li>
-                          <li>{t('nav.participationManagement') || 'Participation Management'}</li>
-                          <li>{t('nav.teamPlayerMatching') || 'Team & Player Matching'}</li>
-                          <li>{t('nav.registrationPayment') || 'Registration & Payment'}</li>
-                          <li>{t('nav.schedulingFixtures') || 'Scheduling & Fixtures'}</li>
-                          <li>{t('nav.drawsSeeding') || 'Draws & Seeding'}</li>
-                          <li>{t('nav.liveCompetitionManagement') || 'Live Competition Management'}</li>
-                          <li>{t('nav.athleteExperienceManagement') || 'Athlète Experience Management'}</li>
-                          <li>{t('nav.communicationNotifications') || 'Communication & Smart Notifications'}</li>
-                          <li>{t('nav.brandingCustomization') || 'Branding & Customization'}</li>
-                          <li>{t('nav.analyticsReporting') || 'Analytics & Reporting'}</li>
-                          <li>{t('nav.facilityVenueManagement') || 'Facility and Venue Management'}</li>
-                          <li>{t('nav.organizationManagement') || 'Organization Management'}</li>
-                          <li>{t('nav.sponsorshipRevenueTools') || 'Sponsorship & Revenue Tools'}</li>
+                          <NavLink>Multi Sports Competition Management</NavLink>
+                          <NavLink>Tournament & League Multi Format</NavLink>
+                          <NavLink>Participation Management</NavLink>
+                          <NavLink>Team & Player Matching</NavLink>
+                          <NavLink>Registration & Payment</NavLink>
+                          <NavLink>Scheduling & Fixtures</NavLink>
+                          <NavLink>Draws & Seeding</NavLink>
+                          <NavLink>Live Competition Management</NavLink>
+                          <NavLink>Athlète Experience Management</NavLink>
+                          <NavLink>Communication & Smart Notifications</NavLink>
+                          <NavLink>Branding & Customization</NavLink>
+                          <NavLink>Analytics & Reporting</NavLink>
+                          <NavLink>Facility and Venue Management</NavLink>
+                          <NavLink>Organization Management</NavLink>
+                          <NavLink>Sponsorship & Revenue Tools</NavLink>
                           <li>{t('nav.andMore') || '…. & more'}</li>
                         </ul>
                       </div>
@@ -221,16 +231,16 @@ export const Header = () => {
                           {t('nav.athletes') || 'Athletes'}
                         </h4>
                         <ul className="space-y-1.5 text-[12.5px] text-white/70">
-                          <li>{t('nav.discoverJoinCompetition') || 'Discover & Join Compétition'}</li>
-                          <li>{t('nav.discoverJoinGamesClasses') || 'Discover & Join Games & Classes'}</li>
-                          <li>{t('nav.findPlayersPartnersTeams') || 'Find Players, Partners & Teams'}</li>
-                          <li>{t('nav.manageParticipation') || 'Manage Participation'}</li>
-                          <li>{t('nav.realtimeCompetitionExperience') || 'Real-time Competition Experience'}</li>
-                          <li>{t('nav.profileCareer') || 'Profile & Career'}</li>
-                          <li>{t('nav.parentsConsentManagement') || 'Parents Consent Management'}</li>
-                          <li>{t('nav.rankingPerformanceStats') || 'Ranking & Performance Statistics'}</li>
-                          <li>{t('nav.mediaHighlights') || 'Media & Highlights'}</li>
-                          <li>{t('nav.smartNotification') || 'Smart Notification'}</li>
+                          <NavLink>Discover & Join Compétition</NavLink>
+                          <NavLink>Discover & Join Games & Classes</NavLink>
+                          <NavLink>Find Players, Partners & Teams</NavLink>
+                          <NavLink>Manage Participation</NavLink>
+                          <NavLink>Real-time Competition Experience</NavLink>
+                          <NavLink>Profile & Career</NavLink>
+                          <NavLink>Parents Consent Management</NavLink>
+                          <NavLink>Ranking & Performance Statistics</NavLink>
+                          <NavLink>Media & Highlights</NavLink>
+                          <NavLink>Smart Notification</NavLink>
                           <li>{t('nav.andMoreDots') || '….. & more'}</li>
                         </ul>
                       </div>
@@ -241,12 +251,12 @@ export const Header = () => {
                           {t('nav.coaches') || 'Coaches'}
                         </h4>
                         <ul className="space-y-1.5 text-[12.5px] text-white/70">
-                          <li>{t('nav.teamAthleteManagement') || 'Team & athlete management'}</li>
-                          <li>{t('nav.trainingManagement') || 'Training Management'}</li>
-                          <li>{t('nav.competitionManagement') || 'Competition Management'}</li>
-                          <li>{t('nav.communicationCentre') || 'Communication Centre'}</li>
-                          <li>{t('nav.parentCollaboration') || 'Parent Collaboration'}</li>
-                          <li>{t('nav.coachProfile') || 'Coach Profile'}</li>
+                          <NavLink>Team & athlete management</NavLink>
+                          <NavLink>Training Management</NavLink>
+                          <NavLink>Competition Management</NavLink>
+                          <NavLink>Communication Centre</NavLink>
+                          <NavLink>Parent Collaboration</NavLink>
+                          <NavLink>Coach Profile</NavLink>
                           <li>{t('nav.andMoreDots') || '…. & more'}</li>
                         </ul>
                       </div>
@@ -439,11 +449,11 @@ export const Header = () => {
                         {t('nav.create') || 'Create'}
                       </h4>
                       <ul className="space-y-1.5 text-[13px] text-white/70 mb-4">
-                        <li>{t('nav.game') || 'Game'}</li>
-                        <li>{t('nav.trainingClasses') || 'Training Classes'}</li>
-                        <li>{t('nav.tournament') || 'Tournament'}</li>
-                        <li>{t('nav.league') || 'League'}</li>
-                        <li>{t('nav.venueFacilities') || 'Venue & Facilities'}</li>
+                        <NavLink>{t('nav.game') || 'Game'}</NavLink>
+                        <NavLink>{t('nav.trainingClasses') || 'Training Classes'}</NavLink>
+                        <NavLink>{t('nav.tournament') || 'Tournament'}</NavLink>
+                        <NavLink>{t('nav.league') || 'League'}</NavLink>
+                        <NavLink>{t('nav.venueFacilities') || 'Venue & Facilities'}</NavLink>
                       </ul>
                       <p className="text-center text-[11px] text-white/40 mb-3">
                         {t('nav.or') || 'or'}
@@ -451,7 +461,11 @@ export const Header = () => {
                       <button
                         data-testid="btn-launch-own-platform"
                         onClick={() => { setOpenDropdown(null); setIsContactOpen(true); }}
-                        className="w-full py-2.5 rounded-full text-[13px] font-semibold text-white border border-white/15 hover:bg-white/10 transition-colors"
+                        className="w-full py-2.5 rounded-full text-[13px] font-semibold text-white transition-opacity hover:opacity-90"
+                        style={{
+                          background: 'hsl(var(--primary))',
+                          boxShadow: '0 2px 16px hsla(var(--primary), 0.40)',
+                        }}
                       >
                         {t('nav.launchOwnPlatform') || 'Launch your Own Platform'}
                       </button>
@@ -487,7 +501,7 @@ export const Header = () => {
               className="absolute top-[96px] left-5 right-5 lg:hidden max-h-[80vh] overflow-y-auto"
               style={{
                 borderRadius: '24px',
-                background: 'rgba(20, 20, 20, 0.95)',
+                background: 'rgba(45, 45, 48, 0.85)',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
                 border: '1px solid rgba(255,255,255,0.10)',
