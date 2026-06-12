@@ -89,7 +89,11 @@ export const translations = {
       subheadline: "Launch, manage, and grow your own sports tournaments, leagues, and programs — all in one automated and customizable platform.",
       bullet1: "Simplified tournament management from start to finish",
       bullet2: "Built for organizers, clubs, academies, and schools",
-      bullet3: "Turn your events into scalable, revenue-generating platforms"
+      bullet3: "Turn your events into scalable, revenue-generating platforms",
+      "activeUsers": "Active users",
+      "statRegisteredAthletes": "Registered athletes",
+      "statTournamentsCreated": "Tournaments created",
+      "statSatisfaction": "Satisfaction"
     },
     
     // Positioning Strip
@@ -732,7 +736,11 @@ export const translations = {
       subheadline: "أطلق وأدِر ونمِّ بطولاتك ودورياتك وبرامجك الرياضية — كل ذلك في منصة واحدة آلية وقابلة للتخصيص.",
       bullet1: "إدارة مبسطة للبطولات من البداية إلى النهاية",
       bullet2: "مصممة للمنظمين والأندية والأكاديميات والمدارس",
-      bullet3: "حوّل فعالياتك إلى منصات قابلة للتوسع ومدرّة للدخل"
+      bullet3: "حوّل فعالياتك إلى منصات قابلة للتوسع ومدرّة للدخل",
+      "activeUsers": "مستخدم نشط",
+      "statRegisteredAthletes": "رياضي مسجل",
+      "statTournamentsCreated": "بطولة منظمة",
+      "statSatisfaction": "نسبة الرضا"
     },
     
     // Positioning Strip
