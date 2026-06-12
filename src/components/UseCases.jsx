@@ -41,22 +41,23 @@ const SportDot = () => (
 const ProgressChart = () => {
   const heights = [10, 16, 22, 28, 36, 60, 70, 78, 84, 90, 96, 100];
   return (
-    <div className="flex items-end gap-1" style={{ height: 56 }}>
+    <div className="flex items-end gap-1" style={{ height: 48 }}>
       {heights.map((h, i) => (
-        <div
+        <motion.div
           key={i}
+          initial={{ height: 0 }}
+          animate={{ height: `${h}%` }}
+          transition={{ duration: 0.5, delay: 0.03 * i, ease: 'easeOut' }}
           style={{
-            width: 6,
-            height: `${h}%`,
+            width: 5,
             borderRadius: 3,
-            background: i < 5 ? 'rgba(0,0,0,0.15)' : '#111',
+            background: i < 5 ? 'hsl(var(--border))' : 'hsl(var(--primary))',
           }}
         />
       ))}
     </div>
   );
 };
-
 /* ─── Activity card (screenshot 1 style) ─────────────────────────── */
 const ActivityCard = ({ image, title, desc, delay = 0 }) => (
   <motion.div
@@ -225,11 +226,11 @@ export const UseCases = () => {
         </div>
 
         {/* ── Tabs + content ─────────────────────────────────────────── */}
-        <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto">
 
-          {/* Tabs — pill outline style */}
+          {/* ── Tabs ─────────────────────────────────────────────────── */}
           <motion.div
-            className="flex flex-wrap justify-center gap-2 mb-10"
+            className="flex flex-wrap justify-center gap-2 mb-8"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -239,11 +240,12 @@ export const UseCases = () => {
               const Icon = item.icon;
               const isActive = active === i;
               return (
-                <button
+                <motion.button
                   key={i}
                   onClick={() => setActive(i)}
                   data-testid={`use-case-filter-${i}`}
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-200"
+                  whileTap={{ scale: 0.96 }}
                   style={{
                     fontSize: 12,
                     fontWeight: 700,
@@ -257,43 +259,51 @@ export const UseCases = () => {
                 >
                   <Icon style={{ width: 14, height: 14 }} />
                   {item.title}
-                </button>
+                </motion.button>
               );
             })}
           </motion.div>
 
-          {/* ── Content panel — style screenshot fourni ───────────────── */}
+          {/* ── Content panel ──────────────────────────────────────── */}
           <AnimatePresence mode="wait">
             <motion.div
               key={active}
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -14 }}
-              transition={{ duration: 0.28 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
               className="grid grid-cols-1 lg:grid-cols-2 overflow-hidden rounded-3xl"
-              style={{ border: '1px solid hsl(var(--border))', boxShadow: '0 8px 40px rgba(0,0,0,0.07)' }}
+              style={{ border: '1px solid hsl(var(--border))', boxShadow: '0 8px 40px rgba(0,0,0,0.06)' }}
               data-testid="use-case-content"
             >
-              {/* ── Left: image avec titre superposé + carte Progress ── */}
+              {/* ── Image avec titre + progress ─────────────────────── */}
               <div
                 className="relative overflow-hidden"
                 style={{ aspectRatio: '4/3', minHeight: 380 }}
               >
-                <img
+                <motion.img
+                  key={current.image}
                   src={current.image}
                   alt={current.title}
                   className="w-full h-full object-cover"
+                  initial={{ scale: 1.08, opacity: 0.7 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
                 />
-                {/* Dark gradient pour lisibilité du titre */}
+
                 <div
                   className="absolute inset-0"
                   style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.05) 35%, rgba(0,0,0,0.55) 100%)' }}
                 />
 
-                {/* Titre géant en haut-gauche */}
+                {/* Titre */}
                 <div className="absolute top-6 left-6 right-6">
-                  <h3
+                  <motion.h3
+                    key={`title-${active}`}
                     className="font-heading font-extrabold"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
                     style={{
                       fontSize: 'clamp(1.8rem, 3.2vw, 2.6rem)',
                       color: '#fff',
@@ -302,11 +312,15 @@ export const UseCases = () => {
                     }}
                   >
                     {current.title}
-                  </h3>
+                  </motion.h3>
                 </div>
 
-                {/* Carte "Progress" flottante en bas-gauche */}
-                <div
+                {/* Progress card */}
+                <motion.div
+                  key={`progress-${active}`}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.2 }}
                   className="absolute bottom-6 left-6 rounded-2xl"
                   style={{
                     background: '#fff',
@@ -319,16 +333,19 @@ export const UseCases = () => {
                     Progress
                   </p>
                   <ProgressChart />
-                </div>
+                </motion.div>
               </div>
 
-              {/* ── Right: details ─────────────────────────────────── */}
+              {/* ── Détails ──────────────────────────────────────────── */}
               <div
-                className="flex flex-col justify-between p-8 md:p-10"
+                className="flex flex-col justify-center p-8 md:p-10"
                 style={{ background: 'hsl(var(--card))' }}
               >
-                <div>
-                  {/* What we offer label */}
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.15 }}
+                >
                   <p
                     style={{
                       fontSize: 11,
@@ -339,20 +356,21 @@ export const UseCases = () => {
                       marginBottom: 14,
                     }}
                   >
-                    {t('useCases.highlight') || 'What we offer'}:
+                    {t('useCases.highlight') || 'What we offer'}
                   </p>
 
-                  {/* Description */}
-                  <p style={{ fontSize: 15, color: 'hsl(var(--foreground))', lineHeight: 1.75, marginBottom: 24, fontWeight: 500 }}>
+                  <p style={{ fontSize: 16, color: 'hsl(var(--foreground))', lineHeight: 1.75, marginBottom: 28, fontWeight: 500 }}>
                     {current.desc}
                   </p>
 
-                  {/* CTA — pill button avec flèche ronde */}
-                  <button
-                    className="inline-flex items-center gap-3 transition-all duration-200 hover:opacity-90 active:scale-95"
+                  {/* CTA */}
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="inline-flex items-center gap-3 transition-all duration-200"
                     style={{
                       background: 'hsl(var(--primary))',
-                      color: '#111',
+                      color: '#fff',
                       borderRadius: 999,
                       paddingLeft: 20,
                       paddingRight: 6,
@@ -362,60 +380,66 @@ export const UseCases = () => {
                       fontWeight: 700,
                       border: 'none',
                       cursor: 'pointer',
-                      marginBottom: 28,
+                      marginBottom: 32,
+                      boxShadow: '0 6px 20px hsla(var(--primary), 0.30)',
                     }}
                   >
                     <span>{t('useCases.cta') || 'Get Started'}</span>
                     <span
                       className="w-8 h-8 rounded-full flex items-center justify-center"
-                      style={{ background: '#111' }}
+                      style={{ background: 'rgba(255,255,255,0.20)' }}
                     >
                       <ArrowRight size={14} color="#fff" strokeWidth={2.5} />
                     </span>
-                  </button>
+                  </motion.button>
 
-                  {/* Séparateur */}
-                  <div style={{ height: 1, background: 'hsl(var(--border))', marginBottom: 24 }} />
+                  <div style={{ height: 1, background: 'hsl(var(--border))', marginBottom: 28 }} />
 
-                  {/* Stats côte à côte */}
-                  <div className="grid grid-cols-2 gap-4">
+                  {/* Stats */}
+                  <div className="grid grid-cols-2 gap-6">
                     {[current.stat1, current.stat2].map((s, i) => (
-                      <div key={i}>
-                        <div className="flex items-center justify-between mb-2">
-                          <p style={{ fontSize: 28, fontWeight: 800, color: 'hsl(var(--foreground))', lineHeight: 1 }}>
+                      <motion.div
+                        key={`${active}-${i}`}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.25 + i * 0.05 }}
+                      >
+                        <div className="flex items-center gap-3 mb-1">
+                          <p style={{ fontSize: 32, fontWeight: 800, color: 'hsl(var(--foreground))', lineHeight: 1 }}>
                             {s.value}
                           </p>
                           <div
-                            className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
-                            style={{ background: 'hsl(var(--primary))' }}
+                            className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
+                            style={{ background: 'hsla(var(--primary), 0.12)' }}
                           >
-                            <current.icon style={{ width: 14, height: 14, color: '#111' }} />
+                            <current.icon style={{ width: 15, height: 15, color: 'hsl(var(--primary))' }} />
                           </div>
                         </div>
                         <p style={{ fontSize: 12, color: 'hsl(var(--muted-foreground))' }}>{s.label}</p>
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           </AnimatePresence>
 
-          {/* Dot navigation */}
-          <div className="flex justify-center gap-2 mt-6">
+          {/* ── Dots ─────────────────────────────────────────────────── */}
+          <div className="flex justify-center gap-2 mt-7">
             {cases.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setActive(i)}
-                className="transition-all duration-200"
+                aria-label={`Slide ${i + 1}`}
                 style={{
-                  width: active === i ? 24 : 8,
+                  width: active === i ? 28 : 8,
                   height: 8,
                   borderRadius: 99,
                   background: active === i ? 'hsl(var(--primary))' : 'hsl(var(--border))',
                   border: 'none',
                   cursor: 'pointer',
                   padding: 0,
+                  transition: 'all 0.25s ease',
                 }}
               />
             ))}

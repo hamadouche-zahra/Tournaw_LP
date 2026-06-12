@@ -38,7 +38,7 @@ const STEPS = [
 
 export const FacilitiesBooking = () => {
   const { isRTL } = useLanguage();
-  const r = (en: string, ar: string) => (isRTL ? ar : en);
+  const r = (en, ar) => (isRTL ? ar : en);
 
   return (
     <section
@@ -230,30 +230,30 @@ export const FacilitiesBooking = () => {
               transition={{ duration: 0.35, delay: 0.42 }}
               className="mt-8"
             >
-              <button
-                className="inline-flex items-center gap-3 transition-all duration-200 hover:opacity-90 active:scale-95"
-                style={{
-                  background: 'hsl(var(--primary))',
-                  color: '#111',
-                  borderRadius: 999,
-                  paddingLeft: 20,
-                  paddingRight: 6,
-                  paddingTop: 6,
-                  paddingBottom: 6,
-                  fontSize: 13,
-                  fontWeight: 700,
-                  border: 'none',
-                  cursor: 'pointer',
-                }}
-              >
-                <span>{r('Join Waitlist', 'انضم للقائمة')}</span>
-                <span
-                  className="w-8 h-8 rounded-full flex items-center justify-center"
-                  style={{ background: '#111' }}
-                >
-                  <ArrowRight size={14} color="#fff" strokeWidth={2.5} />
-                </span>
-              </button>
+           <button
+            className="inline-flex items-center gap-3 transition-all duration-200 hover:opacity-90 active:scale-95"
+            style={{
+              background: 'hsl(var(--primary))',
+              color: '#fff',
+              borderRadius: 999,
+              paddingLeft: 20,
+              paddingRight: 6,
+              paddingTop: 6,
+              paddingBottom: 6,
+              fontSize: 13,
+              fontWeight: 700,
+              border: 'none',
+              cursor: 'pointer',
+              }}
+             >
+             <span>{r('Join Waitlist', 'انضم للقائمة')}</span>
+             <span
+              className="w-8 h-8 rounded-full flex items-center justify-center"
+              style={{ background: 'rgba(255,255,255,0.20)' }}
+             >
+              <ArrowRight size={14} color="#fff" strokeWidth={2.5} />
+              </span>
+             </button>
 
            
             </motion.div>
