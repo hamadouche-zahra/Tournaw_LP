@@ -30,6 +30,8 @@ function LandingPage() {
       <Header />
       <main>
         <HeroSection />
+        <ProblemSection/>
+        <SolutionSection/>
         <HowItWorks />
         <CoreFeatures />
         <FacilitiesBooking />
