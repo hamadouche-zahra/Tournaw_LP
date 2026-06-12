@@ -57,7 +57,7 @@ export const ProblemSection = () => {
               style={{ border: '6px solid hsl(var(--primary) / 0.15)' }}
             >
               <img
-                src="https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?w=600&q=80"
+                src="https://cdn.prod.website-files.com/6960c6244524cf1a07fc6fc3/69b39b43597c21fd5a62d601_program-img-05.jpg?w=600&q=80"
                 alt="Running Club"
                 className="w-full h-full object-cover brightness-90 group-hover:scale-105 transition-transform duration-500"
               />

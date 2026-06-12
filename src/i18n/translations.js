@@ -574,6 +574,7 @@ export const translations = {
     faq: {
       overline: "FAQ",
       title: "Frequently asked questions",
+      subtitle: "Find answers to the most common questions about organizing tournaments, managing registrations, payments, and using the platform.",
       q1: "What sports does Tournwa support?",
       a1: "Tournwa supports a wide range of sports including football, basketball, volleyball, tennis, padel, badminton, table tennis, and many more. Our platform is designed to be multi-sport and can accommodate virtually any sport with customizable rules and formats.",
       q2: "What tournament formats are available?",
@@ -1215,6 +1216,7 @@ export const translations = {
     faq: {
       overline: "الأسئلة الشائعة",
       title: "الأسئلة المتكررة",
+      subtitle: "اعثر على إجابات لأكثر الأسئلة شيوعًا حول تنظيم البطولات وإدارة التسجيلات والمدفوعات واستخدام المنصة.",
       q1: "ما الرياضات التي تدعمها تورنوا؟",
       a1: "تدعم تورنوا مجموعة واسعة من الرياضات بما في ذلك كرة القدم وكرة السلة والكرة الطائرة والتنس والبادل والريشة الطائرة وتنس الطاولة وغيرها الكثير. منصتنا مصممة لتكون متعددة الرياضات ويمكنها استيعاب أي رياضة تقريباً مع قواعد وأشكال قابلة للتخصيص.",
       q2: "ما أشكال البطولات المتاحة؟",
