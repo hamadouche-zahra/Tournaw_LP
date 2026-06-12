@@ -20,9 +20,6 @@ const STATS_CONFIG = [
   { end: 98,    suffix: '%',  divisor: 1,    key: 'statSatisfaction'       },
 ];
 
-const PARTNER_LOGOS = [
-  'Fritchtech', 'Blossom', 'Gedoly', 'Donelyede', 'Layers', 'Marblein',
-];
 
 /* Hook compteur animé */
 function useCounter(end, duration = 1800, start = false) {

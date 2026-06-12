@@ -248,12 +248,17 @@ export const Pricing = () => {
 
           {/* Section Header */}
           <div className="text-center max-w-4xl mx-auto mb-12">
+        
             <span
-              className="inline-block text-xs uppercase tracking-[0.2em] font-bold text-primary bg-primary/10 px-4 py-1.5 rounded-full mb-5"
-              data-testid="pricing-overline"
-            >
-              {t('pricing.overline')}
-            </span>
+            className="inline-block text-xs uppercase tracking-[0.2em] font-bold px-4 py-1.5 rounded-full mb-5"
+            style={{
+              background: 'hsla(var(--primary), 0.15)',
+              color: 'hsl(var(--primary))',
+              border: '1px solid hsl(var(--primary) / 0.30)',
+            }}
+          >
+            {t('pricing.overline')}
+          </span>
             <h2
               className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-4"
               data-testid="pricing-title"

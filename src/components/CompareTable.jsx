@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
-import { Check, X, Crown } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Check, X, Crown, ChevronDown } from 'lucide-react';
 import { PopupButton } from 'react-calendly';
-import { Button } from './ui/button';
 import { useLanguage } from '../i18n/LanguageContext';
 
 const plans = [
@@ -63,8 +63,11 @@ const CellValue = ({ value, isPro }) => {
   if (value === true) {
     return (
       <div className="flex justify-center">
-        <div className={`w-7 h-7 flex items-center justify-center rounded-full ${isPro ? 'bg-primary/20' : 'bg-primary/10'}`}>
-          <Check className="w-4 h-4 text-primary" />
+        <div
+          className="w-7 h-7 flex items-center justify-center rounded-full"
+          style={{ background: isPro ? 'hsla(var(--primary), 0.18)' : 'hsla(var(--primary), 0.10)' }}
+        >
+          <Check className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />
         </div>
       </div>
     );
@@ -72,166 +75,212 @@ const CellValue = ({ value, isPro }) => {
   if (value === false) {
     return (
       <div className="flex justify-center">
-        <X className="w-4 h-4 text-muted-foreground/30" />
+        <X className="w-4 h-4 text-muted-foreground/25" />
       </div>
     );
   }
-  return <span className={`text-sm ${isPro ? 'font-semibold text-foreground' : 'text-foreground'}`}>{value}</span>;
+  return <span className={`text-sm ${isPro ? 'font-semibold text-foreground' : 'text-muted-foreground'}`}>{value}</span>;
 };
 
 export const CompareTable = () => {
   const { isRTL } = useLanguage();
+  const [openSection, setOpenSection] = useState(0);
 
   return (
     <section
       data-testid="compare-plans-section"
-      className="py-16 md:py-20 bg-muted relative overflow-hidden"
+      className="py-16 md:py-24 bg-background relative overflow-hidden"
       dir={isRTL ? 'rtl' : 'ltr'}
     >
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/3 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-secondary/3 rounded-full blur-3xl" />
-      </div>
+      <div className="container mx-auto px-6 md:px-12 relative z-10 max-w-4xl">
 
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
-        {/* Header */}
+        {/* ── Header ─────────────────────────────────────────── */}
         <motion.div
-          className="text-center max-w-3xl mx-auto mb-14"
+          className="text-center max-w-2xl mx-auto mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-sm uppercase tracking-[0.2em] font-bold text-primary mb-4">
+          <span
+            className="inline-block text-xs uppercase tracking-[0.2em] font-bold px-4 py-1.5 rounded-full mb-5"
+            style={{
+              background: 'hsla(var(--primary), 0.12)',
+              color: 'hsl(var(--primary))',
+              border: '1px solid hsl(var(--primary) / 0.25)',
+            }}
+          >
             {isRTL ? 'مقارنة الخطط' : 'Compare Plans'}
-          </p>
-          <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-4" data-testid="compare-title">
+          </span>
+          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-4">
             {isRTL ? 'اختر الخطة المناسبة لك' : 'Find the right plan for your needs'}
           </h2>
-          <p className="text-base text-muted-foreground">
+          <p className="text-base text-muted-foreground leading-relaxed">
             {isRTL ? 'قارن الميزات عبر جميع الخطط' : 'Compare features across all plans side by side'}
           </p>
         </motion.div>
 
-        {/* Table Container */}
-        <motion.div
-          className="max-w-5xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
+        {/* ── Plan headers — sticky pills ──────────────────────── */}
+        <div className="grid grid-cols-[1.4fr_1fr_1fr_1fr] gap-2 mb-3 sticky top-2 z-20">
+          <div />
+          {plans.map((plan) => (
+            <div
+              key={plan.key}
+              className="text-center py-3 rounded-2xl"
+              style={{
+                background: plan.popular ? 'hsl(var(--primary))' : 'hsl(var(--card))',
+                border: plan.popular ? 'none' : '1px solid hsl(var(--border))',
+              }}
+            >
+              {plan.popular && (
+                <div className="flex items-center justify-center gap-1 mb-1">
+                  <Crown className="w-3 h-3 text-white" />
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-white">Popular</span>
+                </div>
+              )}
+              <p
+                className="font-heading text-sm font-bold"
+                style={{ color: plan.popular ? 'white' : 'hsl(var(--foreground))' }}
+              >
+                {plan.name}
+              </p>
+              <p
+                className="text-xs mt-0.5"
+                style={{ color: plan.popular ? 'rgba(255,255,255,0.75)' : 'hsl(var(--muted-foreground))' }}
+              >
+                {plan.price}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* ── Sections accordéon ───────────────────────────────── */}
+        <div className="space-y-3">
+          {sections.map((section, sIndex) => {
+            const isOpen = openSection === sIndex;
+            return (
+              <motion.div
+                key={sIndex}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.05 * sIndex }}
+                className="rounded-2xl border overflow-hidden"
+                style={{
+                  borderColor: isOpen ? 'hsl(var(--primary) / 0.30)' : 'hsl(var(--border))',
+                  background: 'hsl(var(--card))',
+                }}
+                data-testid={`compare-section-${sIndex}`}
+              >
+                {/* Header section — clickable */}
+                <button
+                  onClick={() => setOpenSection(isOpen ? -1 : sIndex)}
+                  className="w-full flex items-center justify-between px-5 py-4 text-left"
+                >
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="w-1.5 h-5 rounded-full transition-colors duration-300"
+                      style={{ background: isOpen ? 'hsl(var(--primary))' : 'hsl(var(--border))' }}
+                    />
+                    <span className="font-heading text-sm font-bold text-foreground">
+                      {section.title}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      ({section.features.length})
+                    </span>
+                  </div>
+                  <motion.div
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.25 }}
+                  >
+                    <ChevronDown className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />
+                  </motion.div>
+                </button>
+
+                {/* Contenu animé */}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      className="overflow-hidden"
+                    >
+                      <div
+                        className="border-t"
+                        style={{ borderColor: 'hsl(var(--border))' }}
+                      >
+                        {section.features.map((feature, fIndex) => (
+                          <motion.div
+                            key={fIndex}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.25, delay: 0.03 * fIndex }}
+                            className="grid grid-cols-[1.4fr_1fr_1fr_1fr] items-center px-5 py-3 border-b last:border-0 hover:bg-accent/30 transition-colors"
+                            style={{ borderColor: 'hsl(var(--border) / 0.5)' }}
+                            data-testid={`compare-row-${sIndex}-${fIndex}`}
+                          >
+                            <span className="text-sm font-medium text-foreground pr-2">
+                              {feature.name}
+                            </span>
+                            <div className="text-center"><CellValue value={feature.starter} /></div>
+                            <div
+                              className="text-center rounded-lg py-1"
+                              style={{ background: 'hsla(var(--primary), 0.04)' }}
+                            >
+                              <CellValue value={feature.pro} isPro />
+                            </div>
+                            <div className="text-center"><CellValue value={feature.elite} /></div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* ── CTA Row ──────────────────────────────────────────── */}
+ 
+
+          <motion.div
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-center mt-16"
+          data-testid="insights-cta"
         >
-          <div className="overflow-x-auto bg-card border border-border" data-testid="compare-table-container">
-            <table className="w-full">
-              {/* Plan Headers */}
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="text-start p-5 min-w-[240px] bg-card sticky left-0 z-10">
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Features</p>
-                  </th>
-                  {plans.map((plan) => (
-                    <th key={plan.key} className={`p-5 min-w-[180px] ${plan.popular ? 'bg-primary/[0.04]' : ''}`}>
-                      <div className="text-center">
-                        {plan.popular && (
-                          <div className="inline-flex items-center gap-1 px-3 py-1 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider mb-2">
-                            <Crown className="w-3 h-3" />
-                            Most Popular
-                          </div>
-                        )}
-                        <p className={`font-heading text-xl font-bold ${plan.popular ? 'text-primary' : 'text-foreground'}`}>
-                          {plan.name}
-                        </p>
-                        <p className="text-sm font-semibold text-muted-foreground mt-0.5">{plan.price}</p>
-                        <p className="text-xs text-muted-foreground/70 mt-1">{plan.sub}</p>
-                      </div>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
+          <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-6">
+          {isRTL ? 'ابدأ الآن' : 'Get started today'}          
+         </h3>
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            <button
+              data-testid="insights-view-all-btn"
+              className="px-7 py-3 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95"
+              style={{
+                background: 'hsl(var(--primary))',
+                boxShadow: '0 2px 16px hsla(var(--primary), 0.40)',
+              }}
+            >
+            e{isRTL ? 'ابدأ مجانًا' : 'Get Started Free'}
 
-              <tbody>
-                {sections.map((section, sIndex) => (
-                  <SectionBlock key={sIndex} section={section} sIndex={sIndex} />
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* CTA Row */}
-          <div className="mt-6 bg-card border border-border p-6" data-testid="compare-cta-row">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
-              <div className="hidden md:block">
-                <p className="text-sm font-bold text-foreground">{isRTL ? 'ابدأ الآن' : 'Get started today'}</p>
-                <p className="text-xs text-muted-foreground">{isRTL ? 'اختر خطتك وابدأ' : 'Choose your plan and launch'}</p>
-              </div>
-              <div className="text-center">
-                <Button variant="outline" className="w-full" data-testid="compare-cta-starter">
-                  {isRTL ? 'ابدأ مجانًا' : 'Get Started Free'}
-                </Button>
-              </div>
-              <div className="text-center">
-                <PopupButton
-                  url="https://calendly.com/tournwa/30min"
-                  rootElement={document.getElementById('root')}
-                  text={isRTL ? 'احجز عرضًا' : 'Book a Demo'}
-                  className="inline-flex items-center justify-center w-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all text-sm font-semibold px-4 py-2.5 shadow-lg shadow-primary/20"
-                  data-testid="compare-cta-pro"
-                />
-              </div>
-              <div className="text-center">
-                <PopupButton
-                  url="https://calendly.com/tournwa/30min"
-                  rootElement={document.getElementById('root')}
-                  text={isRTL ? 'تواصل مع المبيعات' : 'Contact Sales'}
-                  className="inline-flex items-center justify-center w-full bg-secondary text-white hover:bg-secondary/90 transition-all text-sm font-semibold px-4 py-2.5"
-                  data-testid="compare-cta-elite"
-                />
-              </div>
-            </div>
+            </button>
+          
+             <PopupButton
+              url="https://calendly.com/tournwa/30min"
+              rootElement={document.getElementById('root')}
+              text={isRTL ? 'تواصل مع المبيعات' : 'Contact Sales'}
+              className="flex items-center justify-center gap-2 font-semibold text-sm px-8 py-4 rounded-full transition-all active:scale-95 hover:scale-[1.03] border text-gray-800 dark:text-white bg-white/70 dark:bg-white/[0.08] border-gray-200 dark:border-white/15 backdrop-blur-sm"
+              data-testid="compare-cta-elite"
+            />
           </div>
         </motion.div>
+
       </div>
     </section>
   );
 };
-
-const SectionBlock = ({ section, sIndex }) => (
-  <>
-    <tr className="border-b border-border">
-      <td colSpan={4} className="px-5 pt-6 pb-3 bg-muted/50 sticky left-0">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="flex items-center gap-2"
-          data-testid={`compare-section-${sIndex}`}
-        >
-          <div className="w-1 h-4 bg-primary" />
-          <p className="text-xs uppercase tracking-[0.2em] font-bold text-primary">
-            {section.title}
-          </p>
-        </motion.div>
-      </td>
-    </tr>
-    {section.features.map((feature, fIndex) => (
-      <tr
-        key={fIndex}
-        className="border-b border-border/50 hover:bg-accent/30 transition-colors duration-150"
-        data-testid={`compare-row-${sIndex}-${fIndex}`}
-      >
-        <td className="px-5 py-3.5 text-sm font-medium text-foreground sticky left-0 bg-card">
-          {feature.name}
-        </td>
-        <td className="px-5 py-3.5 text-center">
-          <CellValue value={feature.starter} />
-        </td>
-        <td className="px-5 py-3.5 text-center bg-primary/[0.04]">
-          <CellValue value={feature.pro} isPro />
-        </td>
-        <td className="px-5 py-3.5 text-center">
-          <CellValue value={feature.elite} />
-        </td>
-      </tr>
-    ))}
-  </>
-);
