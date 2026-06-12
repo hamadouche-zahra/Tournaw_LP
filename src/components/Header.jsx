@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Sun, Moon, Menu, X, Plus, ChevronDown } from 'lucide-react';
+import { 
+  Sun, Moon, Menu, X, Plus, ChevronDown, 
+  Dribbble, GraduationCap, Trophy, Calendar, MapPin, 
+  Shield, School, Users, Award, Star, Activity, 
+  Briefcase, User, ClipboardList
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../i18n/LanguageContext';
 import { ContactFormModal } from './ContactFormModal';
@@ -13,7 +18,7 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen]       = useState(false);
   const [isScrolled, setIsScrolled]       = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
-  const [openDropdown, setOpenDropdown]   = useState(null); // 'solutions' | 'features' | 'compete' | 'organize' | null
+  const [openDropdown, setOpenDropdown]   = useState(null);
   const { t, toggleLanguage, isRTL }      = useLanguage();
   const location                          = useLocation();
   const isHome                            = location.pathname === '/';
@@ -32,7 +37,6 @@ export const Header = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Ferme les dropdowns au clic extérieur
   useEffect(() => {
     const onClick = (e) => {
       if (navRef.current && !navRef.current.contains(e.target)) {
@@ -62,23 +66,24 @@ export const Header = () => {
     { label: t('nav.news'),       href: '/insights'    },
   ];
 
-  // ── pill background : même couleur dark/light, juste l'opacité change au scroll
-  const pillBg = isScrolled
-    ? 'rgba(28, 28, 28, 0.92)'
-    : 'rgba(28, 28, 28, 0.60)';
+  const pillBg = isScrolled ? 'rgba(28, 28, 28, 0.92)' : 'rgba(28, 28, 28, 0.60)';
 
   const dropdownPanelStyle = {
     borderRadius: '20px',
-    background: 'rgba(45, 45, 48, 0.85)',
+    background: 'rgba(45, 45, 50, 0.98)', 
     backdropFilter: 'blur(20px)',
     WebkitBackdropFilter: 'blur(20px)',
-    border: '1px solid rgba(255,255,255,0.10)',
-    boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
+    border: '1px solid rgba(255, 255, 255, 0.12)',
+    boxShadow: '0 16px 40px rgba(0, 0, 0, 0.45)',
   };
 
-  const NavLink = ({ children }) => (
-    <li className="group flex items-center justify-between gap-2 cursor-pointer transition-colors hover:text-[hsl(var(--primary))]">
-      <span className="transition-colors group-hover:text-[hsl(var(--primary))]">{children}</span>
+  // Composant réutilisable pour les listes avec icônes à gauche
+  const NavLink = ({ children, icon: Icon }) => (
+    <li className="group flex items-center justify-between gap-2 cursor-pointer transition-colors text-white/85 hover:text-[hsl(var(--primary))]">
+      <div className="flex items-center gap-3">
+        {Icon && <Icon size={16} className="text-white/75 transition-colors group-hover:text-[hsl(var(--primary))]" />}
+        <span className="transition-colors">{children}</span>
+      </div>
       <ChevronDown
         size={12}
         className="opacity-0 -translate-x-1 -rotate-90 transition-all duration-150 group-hover:opacity-100 group-hover:translate-x-0 text-[hsl(var(--primary))] flex-shrink-0"
@@ -109,17 +114,11 @@ export const Header = () => {
         >
           {/* Logo */}
           <Link to="/" data-testid="logo-link" className="flex-shrink-0">
-            <img
-              src={LOGO_DARK}
-              alt="Tournwa"
-              className="h-9 w-auto"
-            />
+            <img src={LOGO_DARK} alt="Tournwa" className="h-9 w-auto" />
           </Link>
 
           {/* ── DESKTOP ─────────────────────────────────────────────── */}
           <div className="hidden lg:flex items-center gap-6 ml-8">
-
-            {/* Nav links */}
             <nav className="flex items-center gap-6">
 
               {/* Solutions dropdown */}
@@ -143,32 +142,21 @@ export const Header = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.18 }}
-                      className="absolute top-[calc(100%+14px)] left-1/2 -translate-x-1/2 w-[480px] p-6 grid grid-cols-2 gap-6"
+                      className="absolute top-[calc(100%+14px)] left-1/2 -translate-x-1/2 w-[280px] p-6"
                       style={dropdownPanelStyle}
                     >
                       <div>
                         <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-3">
-                          {t('nav.management') || 'Management'}
-                        </h4>
-                        <ul className="space-y-2 text-[13px] text-white/70">
-                          <NavLink>Multi Sports Competition Management</NavLink>
-                          <NavLink>Athlete & Teams Participation</NavLink>
-                          <NavLink>Organizations Growth & Monetization</NavLink>
-                          <NavLink>Sport Community Building</NavLink>
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-3">
                           {t('nav.for') || 'For'}
                         </h4>
-                        <ul className="space-y-2 text-[13px] text-white/70">
-                          <NavLink>Fédérations</NavLink>
-                          <NavLink>Académies</NavLink>
-                          <NavLink>Schools</NavLink>
-                          <NavLink>Clubs</NavLink>
-                          <NavLink>Individual Organizers</NavLink>
-                          <NavLink>Sport Facilities</NavLink>
-                          <NavLink>Athletes & Coaches</NavLink>
+                        <ul className="space-y-2 text-[13px]">
+                          <NavLink icon={Shield}>Fédérations</NavLink>
+                          <NavLink icon={School}>Académies</NavLink>
+                          <NavLink icon={GraduationCap}>Schools</NavLink>
+                          <NavLink icon={Users}>Clubs</NavLink>
+                          <NavLink icon={Award}>Individual Organizers</NavLink>
+                          <NavLink icon={Star}>Sport Facilities</NavLink>
+                          <NavLink icon={Activity}>Athletes & Coaches</NavLink>
                         </ul>
                       </div>
                     </motion.div>
@@ -202,10 +190,11 @@ export const Header = () => {
                     >
                       {/* Organizations */}
                       <div>
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-3">
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-3 flex items-center gap-2">
+                          <Briefcase size={14} className="text-white/80" />
                           {t('nav.organizations') || 'Organizations'}
                         </h4>
-                        <ul className="space-y-1.5 text-[12.5px] text-white/70">
+                        <ul className="space-y-1.5 text-[12.5px]">
                           <NavLink>Multi Sports Competition Management</NavLink>
                           <NavLink>Tournament & League Multi Format</NavLink>
                           <NavLink>Participation Management</NavLink>
@@ -221,16 +210,17 @@ export const Header = () => {
                           <NavLink>Facility and Venue Management</NavLink>
                           <NavLink>Organization Management</NavLink>
                           <NavLink>Sponsorship & Revenue Tools</NavLink>
-                          <li>{t('nav.andMore') || '…. & more'}</li>
+                          <li className="text-white/50 text-[12px] pl-1">{t('nav.andMore') || '…. & more'}</li>
                         </ul>
                       </div>
 
                       {/* Athletes */}
                       <div>
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-3">
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-3 flex items-center gap-2">
+                          <User size={14} className="text-white/80" />
                           {t('nav.athletes') || 'Athletes'}
                         </h4>
-                        <ul className="space-y-1.5 text-[12.5px] text-white/70">
+                        <ul className="space-y-1.5 text-[12.5px]">
                           <NavLink>Discover & Join Compétition</NavLink>
                           <NavLink>Discover & Join Games & Classes</NavLink>
                           <NavLink>Find Players, Partners & Teams</NavLink>
@@ -241,23 +231,24 @@ export const Header = () => {
                           <NavLink>Ranking & Performance Statistics</NavLink>
                           <NavLink>Media & Highlights</NavLink>
                           <NavLink>Smart Notification</NavLink>
-                          <li>{t('nav.andMoreDots') || '….. & more'}</li>
+                          <li className="text-white/50 text-[12px] pl-1">{t('nav.andMoreDots') || '….. & more'}</li>
                         </ul>
                       </div>
 
                       {/* Coaches */}
                       <div>
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-3">
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-3 flex items-center gap-2">
+                          <ClipboardList size={14} className="text-white/80" />
                           {t('nav.coaches') || 'Coaches'}
                         </h4>
-                        <ul className="space-y-1.5 text-[12.5px] text-white/70">
+                        <ul className="space-y-1.5 text-[12.5px]">
                           <NavLink>Team & athlete management</NavLink>
                           <NavLink>Training Management</NavLink>
                           <NavLink>Competition Management</NavLink>
                           <NavLink>Communication Centre</NavLink>
                           <NavLink>Parent Collaboration</NavLink>
                           <NavLink>Coach Profile</NavLink>
-                          <li>{t('nav.andMoreDots') || '…. & more'}</li>
+                          <li className="text-white/50 text-[12px] pl-1">{t('nav.andMoreDots') || '…. & more'}</li>
                         </ul>
                       </div>
                     </motion.div>
@@ -265,17 +256,13 @@ export const Header = () => {
                 </AnimatePresence>
               </div>
 
-              {/* Remaining static links */}
               {navLinks.map((link, i) => {
                 const href    = link.href.startsWith('#') && !isHome ? `/${link.href}` : link.href;
                 const isRoute = href.startsWith('/');
                 const active  = location.pathname === href;
-
                 const cls = [
                   'text-[13px] font-medium tracking-wide transition-colors whitespace-nowrap',
-                  active
-                    ? 'text-[hsl(var(--primary))]'
-                    : 'text-white/75 hover:text-white',
+                  active ? 'text-[hsl(var(--primary))]' : 'text-white/75 hover:text-white',
                 ].join(' ');
 
                 return isRoute
@@ -327,18 +314,13 @@ export const Header = () => {
                   )}
                 </AnimatePresence>
               </div>
-              <button
-                onClick={toggleTheme}
-                aria-label="thème"
-                className="p-2 text-white/50 hover:text-white transition-colors"
-              >
+              <button onClick={toggleTheme} aria-label="thème" className="p-2 text-white/50 hover:text-white transition-colors">
                 {isDark ? <Sun size={16} /> : <Moon size={16} />}
               </button>
             </div>
 
-            {/* ── Compete & Organize buttons with dropdown + plus icon ─────── */}
+            {/* Buttons Compete / Organize */}
             <div className="flex items-center gap-2.5 pl-1">
-
               {/* Compete */}
               <div className="relative">
                 <button
@@ -368,47 +350,22 @@ export const Header = () => {
                       style={dropdownPanelStyle}
                     >
                       <div className="flex gap-2 mb-4">
-                        <Link
-                          to="/login"
-                          onClick={() => setOpenDropdown(null)}
-                          className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white border border-white/15 hover:bg-white/10 transition-colors"
-                        >
+                        <Link to="/login" onClick={() => setOpenDropdown(null)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white border border-white/15 hover:bg-white/10 transition-colors">
                           {t('nav.login') || 'Login'}
                         </Link>
-                        <Link
-                          to="/signup"
-                          onClick={() => setOpenDropdown(null)}
-                          className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white transition-opacity hover:opacity-90"
-                          style={{ background: 'hsl(var(--primary))' }}
-                        >
+                        <Link to="/signup" onClick={() => setOpenDropdown(null)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white transition-opacity hover:opacity-90" style={{ background: 'hsl(var(--primary))' }}>
                           {t('nav.signup') || 'Sign up'}
                         </Link>
                       </div>
-
-                      <p className="text-center text-[12px] text-white/60 mb-1">
-                        {t('nav.exploreEvents') || 'To Explore all the sport Event'}
-                      </p>
-                      <p className="text-center text-[11px] text-white/40 mb-3">
-                        {t('nav.or') || 'or'}
-                      </p>
-                      <p className="text-center text-[12px] text-white/60 mb-4">
-                        {t('nav.downloadAppExperience') || 'Download the App to Enjoy the Ultimate Athlete experience'}
-                      </p>
-
+                      <p className="text-center text-[12px] text-white/60 mb-1">{t('nav.exploreEvents') || 'To Explore all the sport Event'}</p>
+                      <p className="text-center text-[11px] text-white/40 mb-3">{t('nav.or') || 'or'}</p>
+                      <p className="text-center text-[12px] text-white/60 mb-4">{t('nav.downloadAppExperience') || 'Download the App to Enjoy the Ultimate Athlete experience'}</p>
                       <div className="flex flex-col gap-2">
-                        <a
-                          href="#"
-                          className="flex items-center justify-center gap-2 text-center py-3 rounded-2xl text-[13px] font-medium text-white transition-colors hover:opacity-85"
-                          style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}
-                        >
+                        <a href="#" className="flex items-center justify-center gap-2 text-center py-3 rounded-2xl text-[13px] font-medium text-white transition-colors hover:opacity-85" style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}>
                           <svg width="16" height="16" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26-2 52.5-15.2 69.5-34.3z"/></svg>
                           {t('nav.appStore') || 'App Store'}
                         </a>
-                        <a
-                          href="#"
-                          className="flex items-center justify-center gap-2 text-center py-3 rounded-2xl text-[13px] font-medium text-white transition-colors hover:opacity-85"
-                          style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}
-                        >
+                        <a href="#" className="flex items-center justify-center gap-2 text-center py-3 rounded-2xl text-[13px] font-medium text-white transition-colors hover:opacity-85" style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}>
                           <svg width="16" height="16" viewBox="0 0 512 512" fill="currentColor"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34.9 6.3 27 17.8 27 32v448c0 14.2 7.9 25.7 20 32l281.9-281L47 0zm417.2 213.8L268.4 256l195.8 42.2C474.6 290 484 273.8 484 256s-9.4-34-19.8-42.2zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
                           {t('nav.googlePlay') || 'Google Play'}
                         </a>
@@ -418,7 +375,7 @@ export const Header = () => {
                 </AnimatePresence>
               </div>
 
-              {/* Organize */}
+              {/* Organize Dropdown (Modifié avec icônes demandées) */}
               <div className="relative">
                 <button
                   data-testid="btn-organize"
@@ -448,16 +405,14 @@ export const Header = () => {
                       <h4 className="text-sm font-bold text-white mb-3">
                         {t('nav.create') || 'Create'}
                       </h4>
-                      <ul className="space-y-1.5 text-[13px] text-white/70 mb-4">
-                        <NavLink>{t('nav.game') || 'Game'}</NavLink>
-                        <NavLink>{t('nav.trainingClasses') || 'Training Classes'}</NavLink>
-                        <NavLink>{t('nav.tournament') || 'Tournament'}</NavLink>
-                        <NavLink>{t('nav.league') || 'League'}</NavLink>
-                        <NavLink>{t('nav.venueFacilities') || 'Venue & Facilities'}</NavLink>
+                      <ul className="space-y-2 text-[13px] mb-4">
+                        <NavLink icon={Dribbble}>{t('nav.game') || 'Game'}</NavLink>
+                        <NavLink icon={GraduationCap}>{t('nav.trainingClasses') || 'Training Classes'}</NavLink>
+                        <NavLink icon={Trophy}>{t('nav.tournament') || 'Tournament'}</NavLink>
+                        <NavLink icon={Calendar}>{t('nav.league') || 'League'}</NavLink>
+                        <NavLink icon={MapPin}>{t('nav.venueFacilities') || 'Venue & Facilities'}</NavLink>
                       </ul>
-                      <p className="text-center text-[11px] text-white/40 mb-3">
-                        {t('nav.or') || 'or'}
-                      </p>
+                      <p className="text-center text-[11px] text-white/40 mb-3">{t('nav.or') || 'or'}</p>
                       <button
                         data-testid="btn-launch-own-platform"
                         onClick={() => { setOpenDropdown(null); setIsContactOpen(true); }}
@@ -476,7 +431,7 @@ export const Header = () => {
             </div>
           </div>
 
-          {/* ── MOBILE icons + burger ───────────────────────────────── */}
+          {/* ── MOBILE ───────────────────────────────────────────────── */}
           <div className="flex lg:hidden items-center gap-1">
             <button onClick={toggleLanguage} aria-label="langue" className="px-2 py-1.5 text-[12px] font-semibold text-white/70 hover:text-white rounded-full border border-white/10">
               {isRTL ? 'AR' : 'EN'}
@@ -490,7 +445,7 @@ export const Header = () => {
           </div>
         </div>
 
-        {/* ── MENU MOBILE ─────────────────────────────────────────────── */}
+        {/* ── MOBILE MENU PANEL ─────────────────────────────────────── */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
@@ -499,21 +454,12 @@ export const Header = () => {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
               className="absolute top-[96px] left-5 right-5 lg:hidden max-h-[80vh] overflow-y-auto"
-              style={{
-                borderRadius: '24px',
-                background: 'rgba(45, 45, 48, 0.85)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255,255,255,0.10)',
-                boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
-              }}
+              style={dropdownPanelStyle}
             >
               <div className="px-6 py-5 flex flex-col">
-                {/* Solutions */}
                 <Link to="/#solutions" onClick={() => setIsMenuOpen(false)} className="text-sm font-medium text-white/80 hover:text-white py-3 border-b border-white/10 block">
                   {t('nav.solutions') || 'Solutions'}
                 </Link>
-                {/* Features */}
                 <a href={isHome ? '#features' : '/#features'} onClick={() => setIsMenuOpen(false)} className="text-sm font-medium text-white/80 hover:text-white py-3 border-b border-white/10 block">
                   {t('nav.features')}
                 </a>
@@ -532,11 +478,7 @@ export const Header = () => {
                 })}
 
                 <div className="pt-4 flex gap-2">
-                  <Link
-                    to="/login"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="flex-1 text-center py-3 text-sm font-semibold text-white border border-white/15 rounded-full hover:bg-white/10 transition-colors"
-                  >
+                  <Link to="/login" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-3 text-sm font-semibold text-white border border-white/15 rounded-full hover:bg-white/10 transition-colors">
                     <span className="inline-flex items-center gap-1.5"><Plus size={14} />{t('nav.compete') || 'Compete'}</span>
                   </Link>
                   <button
