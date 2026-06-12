@@ -77,11 +77,15 @@ export const Header = () => {
     boxShadow: '0 16px 40px rgba(0, 0, 0, 0.45)',
   };
 
-  // Composant réutilisable pour les listes avec icônes à gauche
+  // Composant réutilisable avec icônes enveloppées dans un cercle
   const NavLink = ({ children, icon: Icon }) => (
     <li className="group flex items-center justify-between gap-2 cursor-pointer transition-colors text-white/85 hover:text-[hsl(var(--primary))]">
       <div className="flex items-center gap-3">
-        {Icon && <Icon size={16} className="text-white/75 transition-colors group-hover:text-[hsl(var(--primary))]" />}
+        {Icon && (
+          <div className="flex items-center justify-center w-7 h-7 rounded-full bg-white/5 border border-white/10 transition-colors group-hover:bg-[hsl(var(--primary))]/10 group-hover:border-[hsl(var(--primary))]/20 flex-shrink-0">
+            <Icon size={14} className="text-white/75 transition-colors group-hover:text-[hsl(var(--primary))]" />
+          </div>
+        )}
         <span className="transition-colors">{children}</span>
       </div>
       <ChevronDown
@@ -147,16 +151,16 @@ export const Header = () => {
                     >
                       <div>
                         <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-3">
-                          {t('nav.for') || 'For'}
+                          {t('nav.for')}
                         </h4>
                         <ul className="space-y-2 text-[13px]">
-                          <NavLink icon={Shield}>Fédérations</NavLink>
-                          <NavLink icon={School}>Académies</NavLink>
-                          <NavLink icon={GraduationCap}>Schools</NavLink>
-                          <NavLink icon={Users}>Clubs</NavLink>
-                          <NavLink icon={Award}>Individual Organizers</NavLink>
-                          <NavLink icon={Star}>Sport Facilities</NavLink>
-                          <NavLink icon={Activity}>Athletes & Coaches</NavLink>
+                          <NavLink icon={Shield}>{t('nav.federations')}</NavLink>
+                          <NavLink icon={School}>{t('nav.academies')}</NavLink>
+                          <NavLink icon={GraduationCap}>{t('nav.schools')}</NavLink>
+                          <NavLink icon={Users}>{t('nav.clubs')}</NavLink>
+                          <NavLink icon={Award}>{t('nav.individualOrganizers')}</NavLink>
+                          <NavLink icon={Star}>{t('nav.sportFacilities')}</NavLink>
+                          <NavLink icon={Activity}>{t('nav.athletesCoaches')}</NavLink>
                         </ul>
                       </div>
                     </motion.div>
@@ -191,64 +195,70 @@ export const Header = () => {
                       {/* Organizations */}
                       <div>
                         <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-3 flex items-center gap-2">
-                          <Briefcase size={14} className="text-white/80" />
-                          {t('nav.organizations') || 'Organizations'}
+                          <div className="w-7 h-7 rounded-full bg-[hsl(var(--primary))]/20 flex items-center justify-center">
+                            <Briefcase size={14} className="text-[hsl(var(--primary))]" />
+                          </div>                          
+                          {t('nav.organizations')}
                         </h4>
                         <ul className="space-y-1.5 text-[12.5px]">
-                          <NavLink>Multi Sports Competition Management</NavLink>
-                          <NavLink>Tournament & League Multi Format</NavLink>
-                          <NavLink>Participation Management</NavLink>
-                          <NavLink>Team & Player Matching</NavLink>
-                          <NavLink>Registration & Payment</NavLink>
-                          <NavLink>Scheduling & Fixtures</NavLink>
-                          <NavLink>Draws & Seeding</NavLink>
-                          <NavLink>Live Competition Management</NavLink>
-                          <NavLink>Athlète Experience Management</NavLink>
-                          <NavLink>Communication & Smart Notifications</NavLink>
-                          <NavLink>Branding & Customization</NavLink>
-                          <NavLink>Analytics & Reporting</NavLink>
-                          <NavLink>Facility and Venue Management</NavLink>
-                          <NavLink>Organization Management</NavLink>
-                          <NavLink>Sponsorship & Revenue Tools</NavLink>
-                          <li className="text-white/50 text-[12px] pl-1">{t('nav.andMore') || '…. & more'}</li>
+                          <NavLink>{t('nav.multiSportsManagement')}</NavLink>
+                          <NavLink>{t('nav.leagueMultiFormat')}</NavLink>
+                          <NavLink>{t('nav.participationManagement')}</NavLink>
+                          <NavLink>{t('nav.teamPlayerMatching')}</NavLink>
+                          <NavLink>{t('nav.registrationPayment')}</NavLink>
+                          <NavLink>{t('nav.schedulingFixtures')}</NavLink>
+                          <NavLink>{t('nav.drawsSeeding')}</NavLink>
+                          <NavLink>{t('nav.liveCompetitionManagement')}</NavLink>
+                          <NavLink>{t('nav.athleteExperienceManagement')}</NavLink>
+                          <NavLink>{t('nav.communicationNotifications')}</NavLink>
+                          <NavLink>{t('nav.brandingCustomization')}</NavLink>
+                          <NavLink>{t('nav.analyticsReporting')}</NavLink>
+                          <NavLink>{t('nav.facilityVenueManagement')}</NavLink>
+                          <NavLink>{t('nav.organizationManagement')}</NavLink>
+                          <NavLink>{t('nav.sponsorshipRevenueTools')}</NavLink>
+                          <li className="text-white/50 text-[12px] pl-1">{t('nav.andMore')}</li>
                         </ul>
                       </div>
 
                       {/* Athletes */}
                       <div>
                         <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-3 flex items-center gap-2">
-                          <User size={14} className="text-white/80" />
-                          {t('nav.athletes') || 'Athletes'}
+                         <div className="w-7 h-7 rounded-full bg-[hsl(var(--primary))]/20 flex items-center justify-center">
+                            <User size={14} className="text-[hsl(var(--primary))]" />
+                          </div>                          
+                          {t('nav.athletes')}
                         </h4>
                         <ul className="space-y-1.5 text-[12.5px]">
-                          <NavLink>Discover & Join Compétition</NavLink>
-                          <NavLink>Discover & Join Games & Classes</NavLink>
-                          <NavLink>Find Players, Partners & Teams</NavLink>
-                          <NavLink>Manage Participation</NavLink>
-                          <NavLink>Real-time Competition Experience</NavLink>
-                          <NavLink>Profile & Career</NavLink>
-                          <NavLink>Parents Consent Management</NavLink>
-                          <NavLink>Ranking & Performance Statistics</NavLink>
-                          <NavLink>Media & Highlights</NavLink>
-                          <NavLink>Smart Notification</NavLink>
-                          <li className="text-white/50 text-[12px] pl-1">{t('nav.andMoreDots') || '….. & more'}</li>
+                          <NavLink>{t('nav.discoverJoinCompetition')}</NavLink>
+                          <NavLink>{t('nav.discoverJoinGamesClasses')}</NavLink>
+                          <NavLink>{t('nav.findPlayersPartnersTeams')}</NavLink>
+                          <NavLink>{t('nav.manageParticipation')}</NavLink>
+                          <NavLink>{t('nav.realtimeCompetitionExperience')}</NavLink>
+                          <NavLink>{t('nav.profileCareer')}</NavLink>
+                          <NavLink>{t('nav.parentsConsentManagement')}</NavLink>
+                          <NavLink>{t('nav.rankingPerformanceStats')}</NavLink>
+                          <NavLink>{t('nav.mediaHighlights')}</NavLink>
+                          <NavLink>{t('nav.smartNotification')}</NavLink>
+                          <li className="text-white/50 text-[12px] pl-1">{t('nav.andMoreDots')}</li>
                         </ul>
                       </div>
 
                       {/* Coaches */}
                       <div>
                         <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-3 flex items-center gap-2">
-                          <ClipboardList size={14} className="text-white/80" />
-                          {t('nav.coaches') || 'Coaches'}
+                          <div className="w-7 h-7 rounded-full bg-[hsl(var(--primary))]/20 flex items-center justify-center">
+                            <ClipboardList size={14} className="text-[hsl(var(--primary))]" />
+                          </div>
+                          {t('nav.coaches')}
                         </h4>
                         <ul className="space-y-1.5 text-[12.5px]">
-                          <NavLink>Team & athlete management</NavLink>
-                          <NavLink>Training Management</NavLink>
-                          <NavLink>Competition Management</NavLink>
-                          <NavLink>Communication Centre</NavLink>
-                          <NavLink>Parent Collaboration</NavLink>
-                          <NavLink>Coach Profile</NavLink>
-                          <li className="text-white/50 text-[12px] pl-1">{t('nav.andMoreDots') || '…. & more'}</li>
+                          <NavLink>{t('nav.teamAthleteManagement')}</NavLink>
+                          <NavLink>{t('nav.trainingManagement')}</NavLink>
+                          <NavLink>{t('nav.competitionManagement')}</NavLink>
+                          <NavLink>{t('nav.communicationCentre')}</NavLink>
+                          <NavLink>{t('nav.parentCollaboration')}</NavLink>
+                          <NavLink>{t('nav.coachProfile')}</NavLink>
+                          <li className="text-white/50 text-[12px] pl-1">{t('nav.andMoreDots')}</li>
                         </ul>
                       </div>
                     </motion.div>
@@ -335,7 +345,7 @@ export const Header = () => {
                   }}
                 >
                   <Plus size={14} />
-                  {t('nav.compete') || 'Compete'}
+                  {t('nav.compete')}
                   <ChevronDown size={13} className={`transition-transform ${openDropdown === 'compete' ? 'rotate-180' : ''}`} />
                 </button>
 
@@ -351,23 +361,23 @@ export const Header = () => {
                     >
                       <div className="flex gap-2 mb-4">
                         <Link to="/login" onClick={() => setOpenDropdown(null)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white border border-white/15 hover:bg-white/10 transition-colors">
-                          {t('nav.login') || 'Login'}
+                          {t('nav.login')}
                         </Link>
                         <Link to="/signup" onClick={() => setOpenDropdown(null)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white transition-opacity hover:opacity-90" style={{ background: 'hsl(var(--primary))' }}>
-                          {t('nav.signup') || 'Sign up'}
+                          {t('nav.signup')}
                         </Link>
                       </div>
-                      <p className="text-center text-[12px] text-white/60 mb-1">{t('nav.exploreEvents') || 'To Explore all the sport Event'}</p>
-                      <p className="text-center text-[11px] text-white/40 mb-3">{t('nav.or') || 'or'}</p>
-                      <p className="text-center text-[12px] text-white/60 mb-4">{t('nav.downloadAppExperience') || 'Download the App to Enjoy the Ultimate Athlete experience'}</p>
+                      <p className="text-center text-[12px] text-white/60 mb-1">{t('nav.exploreEvents')}</p>
+                      <p className="text-center text-[11px] text-white/40 mb-3">{t('nav.or')}</p>
+                      <p className="text-center text-[12px] text-white/60 mb-4">{t('nav.downloadAppExperience')}</p>
                       <div className="flex flex-col gap-2">
                         <a href="#" className="flex items-center justify-center gap-2 text-center py-3 rounded-2xl text-[13px] font-medium text-white transition-colors hover:opacity-85" style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}>
                           <svg width="16" height="16" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26-2 52.5-15.2 69.5-34.3z"/></svg>
-                          {t('nav.appStore') || 'App Store'}
+                          {t('nav.appStore')}
                         </a>
                         <a href="#" className="flex items-center justify-center gap-2 text-center py-3 rounded-2xl text-[13px] font-medium text-white transition-colors hover:opacity-85" style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}>
                           <svg width="16" height="16" viewBox="0 0 512 512" fill="currentColor"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34.9 6.3 27 17.8 27 32v448c0 14.2 7.9 25.7 20 32l281.9-281L47 0zm417.2 213.8L268.4 256l195.8 42.2C474.6 290 484 273.8 484 256s-9.4-34-19.8-42.2zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
-                          {t('nav.googlePlay') || 'Google Play'}
+                          {t('nav.googlePlay')}
                         </a>
                       </div>
                     </motion.div>
@@ -375,7 +385,7 @@ export const Header = () => {
                 </AnimatePresence>
               </div>
 
-              {/* Organize Dropdown (Modifié avec icônes demandées) */}
+              {/* Organize Dropdown */}
               <div className="relative">
                 <button
                   data-testid="btn-organize"
@@ -388,7 +398,7 @@ export const Header = () => {
                   }}
                 >
                   <Plus size={14} />
-                  {t('nav.organize') || 'Organize'}
+                  {t('nav.organize')}
                   <ChevronDown size={13} className={`transition-transform ${openDropdown === 'organize' ? 'rotate-180' : ''}`} />
                 </button>
 
@@ -403,16 +413,16 @@ export const Header = () => {
                       style={dropdownPanelStyle}
                     >
                       <h4 className="text-sm font-bold text-white mb-3">
-                        {t('nav.create') || 'Create'}
+                        {t('nav.create')}
                       </h4>
                       <ul className="space-y-2 text-[13px] mb-4">
-                        <NavLink icon={Dribbble}>{t('nav.game') || 'Game'}</NavLink>
-                        <NavLink icon={GraduationCap}>{t('nav.trainingClasses') || 'Training Classes'}</NavLink>
-                        <NavLink icon={Trophy}>{t('nav.tournament') || 'Tournament'}</NavLink>
-                        <NavLink icon={Calendar}>{t('nav.league') || 'League'}</NavLink>
-                        <NavLink icon={MapPin}>{t('nav.venueFacilities') || 'Venue & Facilities'}</NavLink>
+                        <NavLink icon={Dribbble}>{t('nav.game')}</NavLink>
+                        <NavLink icon={GraduationCap}>{t('nav.trainingClasses')}</NavLink>
+                        <NavLink icon={Trophy}>{t('nav.tournament')}</NavLink>
+                        <NavLink icon={Calendar}>{t('nav.league')}</NavLink>
+                        <NavLink icon={MapPin}>{t('nav.venueFacilities')}</NavLink>
                       </ul>
-                      <p className="text-center text-[11px] text-white/40 mb-3">{t('nav.or') || 'or'}</p>
+                      <p className="text-center text-[11px] text-white/40 mb-3">{t('nav.or')}</p>
                       <button
                         data-testid="btn-launch-own-platform"
                         onClick={() => { setOpenDropdown(null); setIsContactOpen(true); }}
@@ -422,7 +432,7 @@ export const Header = () => {
                           boxShadow: '0 2px 16px hsla(var(--primary), 0.40)',
                         }}
                       >
-                        {t('nav.launchOwnPlatform') || 'Launch your Own Platform'}
+                        {t('nav.launchOwnPlatform')}
                       </button>
                     </motion.div>
                   )}
@@ -458,7 +468,7 @@ export const Header = () => {
             >
               <div className="px-6 py-5 flex flex-col">
                 <Link to="/#solutions" onClick={() => setIsMenuOpen(false)} className="text-sm font-medium text-white/80 hover:text-white py-3 border-b border-white/10 block">
-                  {t('nav.solutions') || 'Solutions'}
+                  {t('nav.solutions')}
                 </Link>
                 <a href={isHome ? '#features' : '/#features'} onClick={() => setIsMenuOpen(false)} className="text-sm font-medium text-white/80 hover:text-white py-3 border-b border-white/10 block">
                   {t('nav.features')}
@@ -479,7 +489,7 @@ export const Header = () => {
 
                 <div className="pt-4 flex gap-2">
                   <Link to="/login" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-3 text-sm font-semibold text-white border border-white/15 rounded-full hover:bg-white/10 transition-colors">
-                    <span className="inline-flex items-center gap-1.5"><Plus size={14} />{t('nav.compete') || 'Compete'}</span>
+                    <span className="inline-flex items-center gap-1.5"><Plus size={14} />{t('nav.compete')}</span>
                   </Link>
                   <button
                     onClick={() => { setIsMenuOpen(false); setIsContactOpen(true); }}
@@ -490,7 +500,7 @@ export const Header = () => {
                       boxShadow: '0 2px 16px hsla(var(--primary), 0.40)',
                     }}
                   >
-                    <span className="inline-flex items-center gap-1.5 justify-center"><Plus size={14} />{t('nav.organize') || 'Organize'}</span>
+                    <span className="inline-flex items-center gap-1.5 justify-center"><Plus size={14} />{t('nav.organize')}</span>
                   </button>
                 </div>
               </div>
