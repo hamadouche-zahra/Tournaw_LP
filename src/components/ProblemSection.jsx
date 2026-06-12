@@ -28,10 +28,14 @@ export const ProblemSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <span
-            className="inline-block text-xs uppercase tracking-[0.2em] font-bold mb-3"
-            style={{ color: 'hsl(var(--primary))' }}
-            data-testid="problem-overline"
+       
+            <span
+            className="inline-block text-xs uppercase tracking-[0.2em] font-bold px-4 py-1.5 rounded-full mb-5"
+            style={{
+              background: 'hsla(var(--primary), 0.15)',
+              color: 'hsl(var(--primary))',
+              border: '1px solid hsl(var(--primary) / 0.30)',
+            }}
           >
             {t('problem.overline')}
           </span>
@@ -113,13 +117,8 @@ export const ProblemSection = () => {
   );
 };
 
-type PainItemProps = {
-  point: { number: string; title: string; description: string };
-  index: number;
-  position: 'left' | 'right';
-};
 
-const PainItem = ({ point, index, position }: PainItemProps) => {
+const PainItem = ({ point, index, position }) => {
   const isRight = position === 'right';
 
   return (

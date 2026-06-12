@@ -11,6 +11,9 @@ const CARD_IMAGES = [
   'https://cdn.prod.website-files.com/69102ffe1bf5c5b6f957cf1f/69157d57c361162c62518b71_b0bb9e9e1f1eb7ce04b55c4716dd68da_full-shot-children-sitting-field%20%281%29%201.webp?w=500&q=80',
 ];
 
+// Hauteurs en pyramide : montent vers le centre, descendent sur les bords
+const CARD_HEIGHTS = ['230px', '290px', '350px', '350px', '290px', '230px'];
+
 export const CoreFeatures = () => {
   const { t, isRTL } = useLanguage();
 
@@ -90,11 +93,10 @@ export const CoreFeatures = () => {
           {t('features.highlight')}
         </motion.p>
 
-        {/* ── Cards ──────────────────────────────────────── */}
+        {/* ── Cards en pyramide ──────────────────────────── */}
         <div className="w-full max-w-6xl grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 items-end">
           {categories.map((cat, i) => {
             const Icon = cat.icon;
-            const isCenter = i === 1 || i === 2;
             return (
               <motion.div
                 key={i}
@@ -110,7 +112,7 @@ export const CoreFeatures = () => {
                 whileHover={{ y: -8, scale: 1.03 }}
                 data-testid={`feature-category-${i}`}
                 className="relative overflow-hidden rounded-2xl group cursor-default"
-                style={{ height: isCenter ? '340px' : '270px' }}
+                style={{ height: CARD_HEIGHTS[i] }}
               >
                 {/* Image */}
                 <img

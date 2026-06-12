@@ -2,19 +2,11 @@ import { motion } from 'framer-motion';
 import { CalendarPlus, UserPlus, Settings2, Play, Trophy, LucideIcon } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 
-type Step = {
-  icon: LucideIcon;
-  number: string;
-  title: string;
-  desc: string;
-  highlight?: boolean;
-  image: string;
-};
 
 export const HowItWorks = () => {
   const { t, isRTL } = useLanguage();
 
-  const steps: Step[] = [
+  const steps = [
     {
       icon: CalendarPlus,
       number: '01',
