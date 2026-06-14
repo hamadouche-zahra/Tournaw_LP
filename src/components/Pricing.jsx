@@ -10,6 +10,7 @@ export const Pricing = () => {
   const { t, isRTL } = useLanguage();
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
+  const [billingCycle, setBillingCycle] = useState('monthly'); // 'monthly' | 'yearly'
 
   const athletePlan = {
     id: 'athletes',
@@ -137,6 +138,17 @@ export const Pricing = () => {
     if (action === 'demo') setIsContactOpen(true);
   };
 
+  // Helper pour afficher le prix selon le cycle (utile quand les prix Pro/Elite seront connus)
+  const getDisplayPrice = (plan) => {
+    if (plan.price === t('pricing.free') || plan.price === 'Available Soon') return plan.price;
+    return billingCycle === 'yearly' && plan.priceYearly ? plan.priceYearly : plan.price;
+  };
+
+  const getPriceNote = (plan) => {
+    if (plan.price === t('pricing.free') || plan.price === 'Available Soon') return '';
+    return billingCycle === 'yearly' ? t('pricing.perYear') : t('pricing.perMonth');
+  };
+
   /* ── CARD — style ref photos ─────────────────────────────────────── */
   const renderPlanCard = (plan, index) => {
     const allFeatureItems = plan.features.flatMap(g => g.items);
@@ -156,9 +168,10 @@ export const Pricing = () => {
         data-testid={`pricing-plan-${plan.id}`}
       >
         {/* ── TOP SECTION ── */}
+       {/* ── TOP SECTION ── */}
         <div className="p-6 pb-5">
           {/* Badge plan name — style ref */}
-          <div className="mb-5">
+          <div className="mb-5 h-6 flex items-center">
             <span
               className="inline-block text-xs font-semibold px-3 py-1 rounded-full"
               style={{ background: plan.badgeBg, color: plan.badgeText }}
@@ -168,17 +181,17 @@ export const Pricing = () => {
           </div>
 
           {/* Price */}
-          <div className="flex items-baseline gap-1 mb-2">
-            <span className="text-4xl font-black tracking-tight text-foreground">
-              {plan.price}
+          <div className="flex items-baseline gap-1 mb-2 min-h-[96px]">
+            <span className="text-4xl font-black tracking-tight text-foreground leading-tight">
+              {getDisplayPrice(plan)}
             </span>
-            {plan.priceNote && (
-              <span className="text-sm text-muted-foreground">/{plan.priceNote}</span>
+            {getPriceNote(plan) && (
+              <span className="text-sm text-muted-foreground">/{getPriceNote(plan)}</span>
             )}
           </div>
 
           {/* Description */}
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-sm text-muted-foreground leading-relaxed min-h-[72px]">
             {plan.description}
           </p>
         </div>
@@ -188,11 +201,14 @@ export const Pricing = () => {
 
         {/* ── FEATURES ── */}
         <div className="flex-1 px-6 py-5">
-          {plan.includesPrevious && (
-            <p className="text-sm font-semibold mb-3" style={{ color: plan.badgeText }}>
-              {plan.includesPrevious}
-            </p>
-          )}
+          {/* Slot fixe pour "Everything in X, plus:" afin d'aligner toutes les cards */}
+          <div className="h-6 mb-3 flex items-center">
+            {plan.includesPrevious && (
+              <p className="text-sm font-semibold" style={{ color: plan.badgeText }}>
+                {plan.includesPrevious}
+              </p>
+            )}
+          </div>
           <ul className="space-y-2.5">
             {allFeatureItems.map((item, i) => (
               <li key={i} className="flex items-start gap-2.5 text-sm text-foreground">
@@ -277,7 +293,7 @@ export const Pricing = () => {
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex justify-center mb-12" data-testid="pricing-filter">
+          <div className="flex justify-center mb-6" data-testid="pricing-filter">
             <div className="inline-flex p-1.5 bg-muted rounded-full border border-border gap-1">
               {[
                 { key: 'all',       label: t('pricing.filterAll'),       testId: 'filter-all'       },
@@ -300,10 +316,49 @@ export const Pricing = () => {
             </div>
           </div>
 
+       {/* Billing Cycle Toggle */}
+          {activeFilter !== 'athlete' && (
+            <div className="flex justify-center items-center gap-3 mb-12" data-testid="pricing-billing-toggle">
+              <div className="relative inline-flex p-1 bg-muted rounded-full border border-border">
+                {/* Sliding background */}
+                <motion.div
+                  className="absolute top-1 bottom-1 rounded-full bg-primary"
+                  initial={false}
+                  animate={{
+                    left: billingCycle === 'monthly' ? '4px' : '50%',
+                    width: 'calc(50% - 4px)',
+                  }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                />
+
+                <button
+                  onClick={() => setBillingCycle('monthly')}
+                  data-testid="billing-toggle-monthly"
+                  className={`relative z-10 px-6 py-2 text-sm font-semibold rounded-full transition-colors duration-200 ${
+                    billingCycle === 'monthly' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                >
+                  {t('pricing.monthly')}
+                </button>
+
+                <button
+                  onClick={() => setBillingCycle('yearly')}
+                  data-testid="billing-toggle-yearly"
+                  className={`relative z-10 px-6 py-2 text-sm font-semibold rounded-full transition-colors duration-200 flex items-center gap-2 ${
+                    billingCycle === 'yearly' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                >
+                  {t('pricing.yearly')}
+                 
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Pricing Cards */}
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeFilter}
+              key={`${activeFilter}-${billingCycle}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}

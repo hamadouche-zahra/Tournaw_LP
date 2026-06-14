@@ -32,10 +32,10 @@ function LandingPage() {
         <HeroSection />
         <ProblemSection/>
         <SolutionSection/>
-        <HowItWorks />
         <CoreFeatures />
-        <FacilitiesBooking />
+        <HowItWorks />
         <UseCases />
+        <FacilitiesBooking />
         <AppPromo />
         <Pricing />
         <FAQ />

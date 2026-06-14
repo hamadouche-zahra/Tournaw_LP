@@ -419,7 +419,11 @@ export const translations = {
       perMonth: "month",
       month: "month",
       usageBased: "usage-based",
-      
+      monthly: 'Monthly',
+      yearly: 'Yearly',
+      yearlyDiscount: 'Save 20%',
+      perMonth: 'month',
+      perYear: 'year',
       // Athletes & Teams
       athletesName: "Athletes & Teams",
       athletesTagline: "Everything you need to play, compete, and grow",
@@ -1065,6 +1069,11 @@ export const translations = {
       perMonth: "شهر",
       month: "شهر",
       usageBased: "حسب الاستخدام",
+      monthly: 'شهري',
+      yearly: 'سنوي',
+      yearlyDiscount: 'وفر 20%',
+      perMonth: 'شهر',
+      perYear: 'سنة',
       
       // الرياضيون والفرق
       athletesName: "الرياضيون والفرق",
