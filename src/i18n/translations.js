@@ -625,7 +625,11 @@ export const translations = {
       madeWith: "Made with passion for sports in the GCC",
       downloadApp: "Download App",
       appStore: "App Store",
-      googlePlay: "Google Play"
+      googlePlay: "Google Play",
+      solutions: 'Solutions',
+      helpSupport: 'Help & Support',
+      securePayments: 'Secure Payments',
+      poweredBy: 'Powered by',
     },
     
     // Contact Form
@@ -1273,7 +1277,11 @@ export const translations = {
       madeWith: "صنع بشغف للرياضة في الخليج",
       downloadApp: "حمّل التطبيق",
       appStore: "آب ستور",
-      googlePlay: "جوجل بلاي"
+      googlePlay: "جوجل بلاي",
+      solutions: 'الحلول',
+      helpSupport: 'المساعدة والدعم',
+      securePayments: 'دفعات آمنة',
+      poweredBy: 'بدعم من',
     },
     
     // Contact Form
