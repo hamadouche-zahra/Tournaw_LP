@@ -246,39 +246,7 @@ export const CompareTable = () => {
         {/* ── CTA Row ──────────────────────────────────────────── */}
  
 
-          <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-center mt-16"
-          data-testid="insights-cta"
-        >
-          <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-6">
-          {isRTL ? 'ابدأ الآن' : 'Get started today'}          
-         </h3>
-          <div className="flex items-center justify-center gap-3 flex-wrap">
-            <button
-              data-testid="insights-view-all-btn"
-              className="px-7 py-3 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95"
-              style={{
-                background: 'hsl(var(--primary))',
-                boxShadow: '0 2px 16px hsla(var(--primary), 0.40)',
-              }}
-            >
-            e{isRTL ? 'ابدأ مجانًا' : 'Get Started Free'}
-
-            </button>
-          
-             <PopupButton
-              url="https://calendly.com/tournwa/30min"
-              rootElement={document.getElementById('root')}
-              text={isRTL ? 'تواصل مع المبيعات' : 'Contact Sales'}
-              className="flex items-center justify-center gap-2 font-semibold text-sm px-8 py-4 rounded-full transition-all active:scale-95 hover:scale-[1.03] border text-gray-800 dark:text-white bg-white/70 dark:bg-white/[0.08] border-gray-200 dark:border-white/15 backdrop-blur-sm"
-              data-testid="compare-cta-elite"
-            />
-          </div>
-        </motion.div>
+        
 
       </div>
     </section>
