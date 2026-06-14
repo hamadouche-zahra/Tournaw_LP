@@ -35,10 +35,8 @@ function LandingPage() {
         <HowItWorks />
         <CoreFeatures />
         <FacilitiesBooking />
-        <UniqueFeatures />
         <UseCases />
         <AppPromo />
-        <FoundingOffer />
         <Pricing />
         <FAQ />
         <FinalCTA />

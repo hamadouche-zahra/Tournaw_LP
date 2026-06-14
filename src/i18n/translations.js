@@ -79,7 +79,9 @@ export const translations = {
       "tournament": "Tournament",
       "league": "League",
       "venueFacilities": "Venue & Facilities",
-      "launchOwnPlatform": "Launch Your Own Platform"
+      "launchOwnPlatform": "Launch Your Own Platform",
+      availableSoon: 'Available soon',
+
     },
     
     // Hero Section
@@ -727,7 +729,8 @@ export const translations = {
       "tournament": "بطولة",
       "league": "دوري",
       "venueFacilities": "الملاعب والمرافق",
-      "launchOwnPlatform": "أطلق منصتك الخاصة"
+      "launchOwnPlatform": "أطلق منصتك الخاصة",
+      availableSoon: 'قريباً'
     },
     
     // Hero Section

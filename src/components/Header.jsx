@@ -449,24 +449,34 @@ export const Header = () => {
                         {t('nav.create')}
                       </h4>
                       <ul className="space-y-2 text-[13px] mb-4">
-                        <NavLink icon={Dribbble}>{t('nav.game')}</NavLink>
-                        <NavLink icon={GraduationCap}>{t('nav.trainingClasses')}</NavLink>
-                        <NavLink icon={Trophy}>{t('nav.tournament')}</NavLink>
-                        <NavLink icon={Calendar}>{t('nav.league')}</NavLink>
-                        <NavLink icon={MapPin}>{t('nav.venueFacilities')}</NavLink>
-                      </ul>
-                      <p className="text-center text-[11px] text-white/40 mb-3">{t('nav.or')}</p>
-                      <button
-                        data-testid="btn-launch-own-platform"
-                        onClick={() => { setOpenDropdown(null); setIsContactOpen(true); }}
-                        className="w-full py-2.5 rounded-full text-[13px] font-semibold text-white transition-opacity hover:opacity-90"
-                        style={{
-                          background: 'hsl(var(--primary))',
-                          boxShadow: '0 2px 16px hsla(var(--primary), 0.40)',
-                        }}
-                      >
-                        {t('nav.launchOwnPlatform')}
-                      </button>
+  <NavLink icon={Dribbble}>{t('nav.game')}</NavLink>
+  <NavLink icon={GraduationCap}>{t('nav.trainingClasses')}</NavLink>
+  <NavLink icon={Trophy}>{t('nav.tournament')}</NavLink>
+  <NavLink icon={Calendar}>{t('nav.league')}</NavLink>
+  <li className="flex items-center justify-between gap-2 text-white/85">
+    <div className="flex items-center gap-3">
+      <div className="flex items-center justify-center w-7 h-7 rounded-full bg-white/5 border border-white/10 flex-shrink-0">
+        <MapPin size={14} className="text-white/75" />
+      </div>
+      <span className="font-bold">{t('nav.venueFacilities')}</span>
+    </div>
+    <span className="text-[11px] font-semibold text-[hsl(var(--primary))] whitespace-nowrap">
+      {t('nav.availableSoon')}
+    </span>
+  </li>
+</ul>
+<p className="text-center text-[11px] text-white/40 mb-3">{t('nav.or')}</p>
+<button
+  data-testid="btn-launch-own-platform"
+  onClick={() => { setOpenDropdown(null); setIsContactOpen(true); }}
+  className="w-full py-2.5 rounded-full text-[13px] font-semibold text-white transition-opacity hover:opacity-90"
+  style={{
+    background: 'hsl(var(--primary))',
+    boxShadow: '0 2px 16px hsla(var(--primary), 0.40)',
+  }}
+>
+  {t('nav.launchOwnPlatform')}
+</button>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -640,23 +650,33 @@ export const Header = () => {
                     {t('nav.create')}
                   </p>
                   <ul className="space-y-2 text-[13px] mb-4">
-                    <NavLink icon={Dribbble}>{t('nav.game')}</NavLink>
-                    <NavLink icon={GraduationCap}>{t('nav.trainingClasses')}</NavLink>
-                    <NavLink icon={Trophy}>{t('nav.tournament')}</NavLink>
-                    <NavLink icon={Calendar}>{t('nav.league')}</NavLink>
-                    <NavLink icon={MapPin}>{t('nav.venueFacilities')}</NavLink>
-                  </ul>
-                  <button
-                    onClick={() => { setIsMenuOpen(false); setIsContactOpen(true); }}
-                    className="w-full py-3 text-sm font-semibold text-white transition-all duration-200 hover:opacity-90"
-                    style={{
-                      borderRadius: '50px',
-                      background: 'hsl(var(--primary))',
-                      boxShadow: '0 2px 16px hsla(var(--primary), 0.40)',
-                    }}
-                  >
-                    <span className="inline-flex items-center gap-1.5 justify-center"><Plus size={14} />{t('nav.launchOwnPlatform')}</span>
-                  </button>
+  <NavLink icon={Dribbble}>{t('nav.game')}</NavLink>
+  <NavLink icon={GraduationCap}>{t('nav.trainingClasses')}</NavLink>
+  <NavLink icon={Trophy}>{t('nav.tournament')}</NavLink>
+  <NavLink icon={Calendar}>{t('nav.league')}</NavLink>
+  <li className="flex items-center justify-between gap-2 text-white/85">
+    <div className="flex items-center gap-3">
+      <div className="flex items-center justify-center w-7 h-7 rounded-full bg-white/5 border border-white/10 flex-shrink-0">
+        <MapPin size={14} className="text-white/75" />
+      </div>
+      <span className="font-bold">{t('nav.venueFacilities')}</span>
+    </div>
+    <span className="text-[11px] font-semibold text-[hsl(var(--primary))] whitespace-nowrap">
+      {t('nav.availableSoon')}
+    </span>
+  </li>
+</ul>
+<button
+  onClick={() => { setIsMenuOpen(false); setIsContactOpen(true); }}
+  className="w-full py-3 text-sm font-semibold text-white transition-all duration-200 hover:opacity-90"
+  style={{
+    borderRadius: '50px',
+    background: 'hsl(var(--primary))',
+    boxShadow: '0 2px 16px hsla(var(--primary), 0.40)',
+  }}
+>
+  <span className="inline-flex items-center gap-1.5 justify-center"><Plus size={14} />{t('nav.launchOwnPlatform')}</span>
+</button>
                 </div>
               </div>
             </motion.div>
