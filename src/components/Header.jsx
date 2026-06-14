@@ -19,6 +19,7 @@ export const Header = () => {
   const [isScrolled, setIsScrolled]       = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [openDropdown, setOpenDropdown]   = useState(null);
+  const [openMobileSection, setOpenMobileSection] = useState(null);
   const { t, toggleLanguage, isRTL }      = useLanguage();
   const location                          = useLocation();
   const isHome                            = location.pathname === '/';
@@ -58,6 +59,10 @@ export const Header = () => {
     setOpenDropdown((prev) => (prev === key ? null : key));
   };
 
+  const toggleMobileSection = (key) => {
+    setOpenMobileSection((prev) => (prev === key ? null : key));
+  };
+
   const navLinks = [
     { label: t('nav.howItWorks'), href: '#how-it-works' },
     { label: t('nav.useCases'),   href: '#use-cases'   },
@@ -93,6 +98,34 @@ export const Header = () => {
         className="opacity-0 -translate-x-1 -rotate-90 transition-all duration-150 group-hover:opacity-100 group-hover:translate-x-0 text-[hsl(var(--primary))] flex-shrink-0"
       />
     </li>
+  );
+
+  // Section accordéon pour le menu mobile
+  const MobileAccordion = ({ id, title, children }) => (
+    <div className="border-b border-white/10">
+      <button
+        onClick={() => toggleMobileSection(id)}
+        className="w-full flex items-center justify-between py-3 text-sm font-medium text-white/80 hover:text-white transition-colors"
+      >
+        {title}
+        <ChevronDown size={16} className={`transition-transform ${openMobileSection === id ? 'rotate-180' : ''}`} />
+      </button>
+      <AnimatePresence>
+        {openMobileSection === id && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden"
+          >
+            <div className="pb-3">
+              {children}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 
   return (
@@ -467,13 +500,99 @@ export const Header = () => {
               style={dropdownPanelStyle}
             >
               <div className="px-6 py-5 flex flex-col">
-                <Link to="/#solutions" onClick={() => setIsMenuOpen(false)} className="text-sm font-medium text-white/80 hover:text-white py-3 border-b border-white/10 block">
-                  {t('nav.solutions')}
-                </Link>
-                <a href={isHome ? '#features' : '/#features'} onClick={() => setIsMenuOpen(false)} className="text-sm font-medium text-white/80 hover:text-white py-3 border-b border-white/10 block">
-                  {t('nav.features')}
-                </a>
 
+                {/* Solutions accordion */}
+                <MobileAccordion id="solutions" title={t('nav.solutions')}>
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-2 pl-1">
+                    {t('nav.for')}
+                  </p>
+                  <ul className="space-y-2 text-[13px] pl-1">
+                    <NavLink icon={Shield}>{t('nav.federations')}</NavLink>
+                    <NavLink icon={School}>{t('nav.academies')}</NavLink>
+                    <NavLink icon={GraduationCap}>{t('nav.schools')}</NavLink>
+                    <NavLink icon={Users}>{t('nav.clubs')}</NavLink>
+                    <NavLink icon={Award}>{t('nav.individualOrganizers')}</NavLink>
+                    <NavLink icon={Star}>{t('nav.sportFacilities')}</NavLink>
+                    <NavLink icon={Activity}>{t('nav.athletesCoaches')}</NavLink>
+                  </ul>
+                </MobileAccordion>
+
+                {/* Features accordion */}
+                <MobileAccordion id="features" title={t('nav.features')}>
+                  <div className="space-y-5">
+                    {/* Organizations */}
+                    <div>
+                      <h4 className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-2 flex items-center gap-2 pl-1">
+                        <div className="w-6 h-6 rounded-full bg-[hsl(var(--primary))]/20 flex items-center justify-center">
+                          <Briefcase size={12} className="text-[hsl(var(--primary))]" />
+                        </div>
+                        {t('nav.organizations')}
+                      </h4>
+                      <ul className="space-y-1.5 text-[12.5px] pl-1">
+                        <NavLink>{t('nav.multiSportsManagement')}</NavLink>
+                        <NavLink>{t('nav.leagueMultiFormat')}</NavLink>
+                        <NavLink>{t('nav.participationManagement')}</NavLink>
+                        <NavLink>{t('nav.teamPlayerMatching')}</NavLink>
+                        <NavLink>{t('nav.registrationPayment')}</NavLink>
+                        <NavLink>{t('nav.schedulingFixtures')}</NavLink>
+                        <NavLink>{t('nav.drawsSeeding')}</NavLink>
+                        <NavLink>{t('nav.liveCompetitionManagement')}</NavLink>
+                        <NavLink>{t('nav.athleteExperienceManagement')}</NavLink>
+                        <NavLink>{t('nav.communicationNotifications')}</NavLink>
+                        <NavLink>{t('nav.brandingCustomization')}</NavLink>
+                        <NavLink>{t('nav.analyticsReporting')}</NavLink>
+                        <NavLink>{t('nav.facilityVenueManagement')}</NavLink>
+                        <NavLink>{t('nav.organizationManagement')}</NavLink>
+                        <NavLink>{t('nav.sponsorshipRevenueTools')}</NavLink>
+                        <li className="text-white/50 text-[12px] pl-1">{t('nav.andMore')}</li>
+                      </ul>
+                    </div>
+
+                    {/* Athletes */}
+                    <div>
+                      <h4 className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-2 flex items-center gap-2 pl-1">
+                        <div className="w-6 h-6 rounded-full bg-[hsl(var(--primary))]/20 flex items-center justify-center">
+                          <User size={12} className="text-[hsl(var(--primary))]" />
+                        </div>
+                        {t('nav.athletes')}
+                      </h4>
+                      <ul className="space-y-1.5 text-[12.5px] pl-1">
+                        <NavLink>{t('nav.discoverJoinCompetition')}</NavLink>
+                        <NavLink>{t('nav.discoverJoinGamesClasses')}</NavLink>
+                        <NavLink>{t('nav.findPlayersPartnersTeams')}</NavLink>
+                        <NavLink>{t('nav.manageParticipation')}</NavLink>
+                        <NavLink>{t('nav.realtimeCompetitionExperience')}</NavLink>
+                        <NavLink>{t('nav.profileCareer')}</NavLink>
+                        <NavLink>{t('nav.parentsConsentManagement')}</NavLink>
+                        <NavLink>{t('nav.rankingPerformanceStats')}</NavLink>
+                        <NavLink>{t('nav.mediaHighlights')}</NavLink>
+                        <NavLink>{t('nav.smartNotification')}</NavLink>
+                        <li className="text-white/50 text-[12px] pl-1">{t('nav.andMoreDots')}</li>
+                      </ul>
+                    </div>
+
+                    {/* Coaches */}
+                    <div>
+                      <h4 className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-2 flex items-center gap-2 pl-1">
+                        <div className="w-6 h-6 rounded-full bg-[hsl(var(--primary))]/20 flex items-center justify-center">
+                          <ClipboardList size={12} className="text-[hsl(var(--primary))]" />
+                        </div>
+                        {t('nav.coaches')}
+                      </h4>
+                      <ul className="space-y-1.5 text-[12.5px] pl-1">
+                        <NavLink>{t('nav.teamAthleteManagement')}</NavLink>
+                        <NavLink>{t('nav.trainingManagement')}</NavLink>
+                        <NavLink>{t('nav.competitionManagement')}</NavLink>
+                        <NavLink>{t('nav.communicationCentre')}</NavLink>
+                        <NavLink>{t('nav.parentCollaboration')}</NavLink>
+                        <NavLink>{t('nav.coachProfile')}</NavLink>
+                        <li className="text-white/50 text-[12px] pl-1">{t('nav.andMoreDots')}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </MobileAccordion>
+
+                {/* Standard nav links */}
                 {navLinks.map((link, i) => {
                   const href    = link.href.startsWith('#') && !isHome ? `/${link.href}` : link.href;
                   const isRoute = href.startsWith('/');
@@ -487,20 +606,56 @@ export const Header = () => {
                     : <a    key={i} href={href} onClick={() => setIsMenuOpen(false)} className={cls}>{link.label}</a>;
                 })}
 
-                <div className="pt-4 flex gap-2">
-                  <Link to="/login" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-3 text-sm font-semibold text-white border border-white/15 rounded-full hover:bg-white/10 transition-colors">
-                    <span className="inline-flex items-center gap-1.5"><Plus size={14} />{t('nav.compete')}</span>
-                  </Link>
+                {/* Compete options */}
+                <div className="pt-4 border-b border-white/10 pb-4">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-3">
+                    {t('nav.compete')}
+                  </p>
+                  <div className="flex gap-2 mb-4">
+                    <Link to="/login" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white border border-white/15 hover:bg-white/10 transition-colors">
+                      {t('nav.login')}
+                    </Link>
+                    <Link to="/signup" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white transition-opacity hover:opacity-90" style={{ background: 'hsl(var(--primary))' }}>
+                      {t('nav.signup')}
+                    </Link>
+                  </div>
+                  <p className="text-center text-[12px] text-white/60 mb-1">{t('nav.exploreEvents')}</p>
+                  <p className="text-center text-[11px] text-white/40 mb-3">{t('nav.or')}</p>
+                  <p className="text-center text-[12px] text-white/60 mb-4">{t('nav.downloadAppExperience')}</p>
+                  <div className="flex flex-col gap-2">
+                    <a href="#" className="flex items-center justify-center gap-2 text-center py-3 rounded-2xl text-[13px] font-medium text-white transition-colors hover:opacity-85" style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}>
+                      <svg width="16" height="16" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26-2 52.5-15.2 69.5-34.3z"/></svg>
+                      {t('nav.appStore')}
+                    </a>
+                    <a href="#" className="flex items-center justify-center gap-2 text-center py-3 rounded-2xl text-[13px] font-medium text-white transition-colors hover:opacity-85" style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}>
+                      <svg width="16" height="16" viewBox="0 0 512 512" fill="currentColor"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34.9 6.3 27 17.8 27 32v448c0 14.2 7.9 25.7 20 32l281.9-281L47 0zm417.2 213.8L268.4 256l195.8 42.2C474.6 290 484 273.8 484 256s-9.4-34-19.8-42.2zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
+                      {t('nav.googlePlay')}
+                    </a>
+                  </div>
+                </div>
+
+                {/* Organize options */}
+                <div className="pt-4">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-3">
+                    {t('nav.create')}
+                  </p>
+                  <ul className="space-y-2 text-[13px] mb-4">
+                    <NavLink icon={Dribbble}>{t('nav.game')}</NavLink>
+                    <NavLink icon={GraduationCap}>{t('nav.trainingClasses')}</NavLink>
+                    <NavLink icon={Trophy}>{t('nav.tournament')}</NavLink>
+                    <NavLink icon={Calendar}>{t('nav.league')}</NavLink>
+                    <NavLink icon={MapPin}>{t('nav.venueFacilities')}</NavLink>
+                  </ul>
                   <button
                     onClick={() => { setIsMenuOpen(false); setIsContactOpen(true); }}
-                    className="flex-1 py-3 text-sm font-semibold text-white transition-all duration-200 hover:opacity-90"
+                    className="w-full py-3 text-sm font-semibold text-white transition-all duration-200 hover:opacity-90"
                     style={{
                       borderRadius: '50px',
                       background: 'hsl(var(--primary))',
                       boxShadow: '0 2px 16px hsla(var(--primary), 0.40)',
                     }}
                   >
-                    <span className="inline-flex items-center gap-1.5 justify-center"><Plus size={14} />{t('nav.organize')}</span>
+                    <span className="inline-flex items-center gap-1.5 justify-center"><Plus size={14} />{t('nav.launchOwnPlatform')}</span>
                   </button>
                 </div>
               </div>
