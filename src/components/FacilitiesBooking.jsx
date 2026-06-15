@@ -1,17 +1,9 @@
 import { motion } from 'framer-motion';
-import { MapPin, Calendar, CreditCard, Building2, ArrowRight } from 'lucide-react';
+import { MapPin, Calendar, CreditCard, Building2 } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 
 const FACILITY_IMG =
   'https://customer-assets.emergentagent.com/job_event-platform-54/artifacts/z1hpmmoc_ref%202.jpg';
-
-// Real-looking profile photos from randomuser.me (free, no auth required)
-const AVATARS = [
-  'https://randomuser.me/api/portraits/men/32.jpg',
-  'https://randomuser.me/api/portraits/women/44.jpg',
-  'https://randomuser.me/api/portraits/men/65.jpg',
-  'https://randomuser.me/api/portraits/women/17.jpg',
-];
 
 const STEPS = [
   {
@@ -65,144 +57,96 @@ export const FacilitiesBooking = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.1 }}
-            className="flex items-center gap-2 text-sm text-muted-foreground"
           >
-              <span
-            className="inline-block text-xs uppercase tracking-[0.2em] font-bold px-4 py-1.5 rounded-full mb-5"
-            style={{
-              background: 'hsla(var(--primary), 0.15)',
-              color: 'hsl(var(--primary))',
-              border: '1px solid hsl(var(--primary) / 0.30)',
-            }}
-          >
+            <span
+              className="inline-block text-xs uppercase tracking-[0.2em] font-bold px-4 py-1.5 rounded-full mb-5"
+              style={{
+                background: 'hsla(var(--primary), 0.15)',
+                color: 'hsl(var(--primary))',
+                border: '1px solid hsl(var(--primary) / 0.30)',
+              }}
+            >
               {r('Coming Soon\u00a0', 'قريباً\u00a0')}
-          </span>
-            <span className="font-medium">
             </span>
           </motion.div>
         </div>
 
         {/* ── Two-column layout ─────────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10" style={{ alignItems: 'stretch' }}>
 
-          {/* LEFT — images + stats */}
+          {/* LEFT — image qui prend toute la hauteur de la colonne droite */}
           <motion.div
-            initial={{ opacity: 0, x: -16 }}
+            initial={{ opacity: 0, x: isRTL ? 16 : -16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col gap-4"
+            className="relative rounded-lg overflow-hidden shadow-2xl min-h-[400px]"
           >
-             <div className="relative rounded-2xl overflow-hidden">
-  {/* Image moitié haute */}
-  <div className="h-44 relative">
-    <img
-      src={FACILITY_IMG}
-      alt="Sports facility"
-      className="absolute inset-0 w-full h-full object-cover"
-    />
-    <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/80" />
-  </div>
+            {/* Image en absolute pour remplir toute la hauteur */}
+            <img
+              src={FACILITY_IMG}
+              alt="Sports facility - padel court"
+              className="absolute inset-0 w-full h-full object-cover"
+              data-testid="facilities-image"
+            />
 
-  {/* Card calendrier — moitié basse */}
-  {/* Card calendrier — moitié basse */}
-<div className="p-4 bg-card" style={{ backdropFilter: 'blur(12px)' }}>
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-  {/* Header */}
-  <div className="flex items-center justify-between mb-3">
-    <div>
-      <p className="text-[9px] uppercase tracking-widest font-semibold text-muted-foreground mb-0.5">
-        {r('Court Booking', 'حجز الملعب')}
-      </p>
-      <p className="text-sm font-bold text-foreground">Padel Court A</p>
-    </div>
-    <span
-      className="text-[10px] font-bold px-3 py-1 rounded-full"
-      style={{
-        background: 'rgba(34,197,94,0.15)',
-        color: 'rgb(74,222,128)',
-        border: '1px solid rgba(34,197,94,0.25)',
-      }}
-    >
-      {r('Open', 'متاح')}
-    </span>
-  </div>
-
-  {/* Mini calendar */}
-  <div className="mb-3">
-    <p className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-      {r('June 2026', 'يونيو 2026')}
-    </p>
-    <div className="grid grid-cols-7 gap-0.5 text-center">
-      {['M','T','W','T','F','S','S'].map((d, i) => (
-        <span key={i} className="text-[9px] font-semibold text-muted-foreground pb-1">{d}</span>
-      ))}
-      {[1,2,3,4,5,6,7].map((d) => (
-        <span
-          key={d}
-          className={`text-[11px] py-1 rounded-lg font-medium transition-all ${
-            d === 4
-              ? 'bg-primary text-primary-foreground font-bold'
-              : 'text-foreground hover:bg-muted'
-          }`}
-        >
-          {d}
-        </span>
-      ))}
-    </div>
-  </div>
-
-  {/* Time slots */}
-  <div className="grid grid-cols-4 gap-1.5">
-    {[
-      { time: '18:00', active: false },
-      { time: '19:00', active: false },
-      { time: '20:00', active: false },
-      { time: '21:00', active: false },
-    ].map(({ time, active }) => (
-      <div
-        key={time}
-        className={`py-2 text-center text-[11px] font-semibold rounded-xl transition-all ${
-          active
-            ? 'bg-primary text-primary-foreground'
-            : 'bg-muted text-muted-foreground border border-border'
-        }`}
-      >
-        {time}
-      </div>
-    ))}
-  </div>
-
-</div>
-</div>
-            {/* Secondary image */}
-            <div className="relative rounded-2xl overflow-hidden h-36">
-              <img
-                src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800&q=80"
-                alt="Padel court"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4">
-                <p className="text-[12px] font-bold text-white leading-snug">
-                  {r(
-                    'Padel · Football · Basketball · and more',
-                    'بادل · كرة قدم · كرة سلة · والمزيد',
-                  )}
-                </p>
+            {/* Booking UI overlay en bas */}
+            <div className="absolute bottom-0 left-0 right-0 p-5">
+              <div className="bg-white/95 dark:bg-card/95 backdrop-blur-sm rounded-lg p-4 shadow-lg">
+                <div className="flex items-center justify-between mb-3">
+                  <div>
+                    <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
+                      {isRTL ? 'حجز الملعب' : 'Court Booking'}
+                    </p>
+                    <p className="text-sm font-bold text-foreground">Padel Court A</p>
+                  </div>
+                  <div className="px-2 py-1 bg-green-500/10 rounded">
+                    <p className="text-xs font-semibold text-green-600">Open</p>
+                  </div>
+                </div>
+                {/* Mini calendar */}
+                <div className="mb-2">
+                  <p className="text-[10px] font-semibold text-muted-foreground mb-1.5">June 2026</p>
+                  <div className="grid grid-cols-7 gap-0.5 text-center">
+                    {['M','T','W','T','F','S','S'].map((d, i) => (
+                      <span key={i} className="text-[9px] font-medium text-muted-foreground">{d}</span>
+                    ))}
+                    {[1,2,3,4,5,6,7].map((d) => (
+                      <span
+                        key={d}
+                        className={`text-[10px] py-0.5 rounded ${d === 4 ? 'bg-primary text-white font-bold' : 'text-foreground'}`}
+                      >
+                        {d}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  {['18:00', '19:00', '20:00', '21:00'].map((time) => (
+                    <div
+                      key={time}
+                      className="flex-1 py-1.5 text-center text-xs font-medium bg-primary/10 text-primary rounded"
+                    >
+                      {time}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>
 
           {/* RIGHT — numbered steps */}
           <motion.div
-            initial={{ opacity: 0, x: 16 }}
+            initial={{ opacity: 0, x: isRTL ? -16 : 16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex flex-col"
+            className="flex flex-col justify-between"
           >
-            <ul className="divide-y divide-border">
+            <ul className="divide-y divide-border h-full flex flex-col justify-between">
               {STEPS.map(({ icon: Icon, en, ar }, idx) => {
                 const step = isRTL ? ar : en;
                 const num = String(idx + 1).padStart(2, '0');
@@ -213,7 +157,7 @@ export const FacilitiesBooking = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.35, delay: 0.1 + idx * 0.07 }}
-                    className="flex items-start gap-4 py-5 first:pt-0"
+                    className="flex items-start gap-4 py-5 first:pt-0 last:pb-0"
                   >
                     <div className="w-10 h-10 rounded-xl border border-border flex items-center justify-center flex-shrink-0 bg-background">
                       <Icon className="w-[18px] h-[18px] text-muted-foreground" />
@@ -231,42 +175,6 @@ export const FacilitiesBooking = () => {
                 );
               })}
             </ul>
-
-            {/* CTA button — new style */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: 0.42 }}
-              className="mt-8"
-            >
-           <button
-            className="inline-flex items-center gap-3 transition-all duration-200 hover:opacity-90 active:scale-95"
-            style={{
-              background: 'hsl(var(--primary))',
-              color: '#fff',
-              borderRadius: 999,
-              paddingLeft: 20,
-              paddingRight: 6,
-              paddingTop: 6,
-              paddingBottom: 6,
-              fontSize: 13,
-              fontWeight: 700,
-              border: 'none',
-              cursor: 'pointer',
-              }}
-             >
-             <span>{r('Join Waitlist', 'انضم للقائمة')}</span>
-             <span
-              className="w-8 h-8 rounded-full flex items-center justify-center"
-              style={{ background: 'rgba(255,255,255,0.20)' }}
-             >
-              <ArrowRight size={14} color="#fff" strokeWidth={2.5} />
-              </span>
-             </button>
-
-           
-            </motion.div>
           </motion.div>
 
         </div>
