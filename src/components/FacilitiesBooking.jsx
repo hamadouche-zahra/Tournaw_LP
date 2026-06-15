@@ -93,33 +93,25 @@ export const FacilitiesBooking = () => {
             transition={{ duration: 0.5 }}
             className="flex flex-col gap-4"
           >
-            {/* Main tall image */}
-            <div className="relative rounded-2xl overflow-hidden h-64">
-              <img
-                src={FACILITY_IMG}
-                alt="Sports facility"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4">
-                <p className="text-[13px] font-bold text-white leading-snug">
-                  {r(
-                    'Premium courts & venues\u00a0— ready to book',
-                    'ملاعب ومنشآت مميزة\u00a0— جاهزة للحجز',
-                  )}
-                </p>
-              </div>
-            </div>
+             <div className="relative rounded-2xl overflow-hidden">
+  {/* Image moitié haute */}
+  <div className="h-44 relative">
+    <img
+      src={FACILITY_IMG}
+      alt="Sports facility"
+      className="absolute inset-0 w-full h-full object-cover"
+    />
+    <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/80" />
+  </div>
 
-            {/* Stats row */}
-            
-           {/* Stats row — calendrier booking UI */}
-<div className="rounded-2xl p-5 border border-border bg-card">
+  {/* Card calendrier — moitié basse */}
+  {/* Card calendrier — moitié basse */}
+<div className="p-4 bg-card" style={{ backdropFilter: 'blur(12px)' }}>
 
   {/* Header */}
-  <div className="flex items-center justify-between mb-4">
+  <div className="flex items-center justify-between mb-3">
     <div>
-      <p className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground mb-0.5">
+      <p className="text-[9px] uppercase tracking-widest font-semibold text-muted-foreground mb-0.5">
         {r('Court Booking', 'حجز الملعب')}
       </p>
       <p className="text-sm font-bold text-foreground">Padel Court A</p>
@@ -127,21 +119,21 @@ export const FacilitiesBooking = () => {
     <span
       className="text-[10px] font-bold px-3 py-1 rounded-full"
       style={{
-        background: 'rgba(34,197,94,0.12)',
+        background: 'rgba(34,197,94,0.15)',
         color: 'rgb(74,222,128)',
-        border: '1px solid rgba(34,197,94,0.20)',
+        border: '1px solid rgba(34,197,94,0.25)',
       }}
     >
-      {r('Available', 'متاح')}
+      {r('Open', 'متاح')}
     </span>
   </div>
 
   {/* Mini calendar */}
-  <div className="mb-4">
-    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+  <div className="mb-3">
+    <p className="text-[9px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">
       {r('June 2026', 'يونيو 2026')}
     </p>
-    <div className="grid grid-cols-7 gap-1 text-center">
+    <div className="grid grid-cols-7 gap-0.5 text-center">
       {['M','T','W','T','F','S','S'].map((d, i) => (
         <span key={i} className="text-[9px] font-semibold text-muted-foreground pb-1">{d}</span>
       ))}
@@ -161,16 +153,16 @@ export const FacilitiesBooking = () => {
   </div>
 
   {/* Time slots */}
-  <div className="flex gap-2">
+  <div className="grid grid-cols-4 gap-1.5">
     {[
       { time: '18:00', active: false },
-      { time: '19:00', active: true },
+      { time: '19:00', active: false },
       { time: '20:00', active: false },
       { time: '21:00', active: false },
     ].map(({ time, active }) => (
       <div
         key={time}
-        className={`flex-1 py-2 text-center text-[11px] font-semibold rounded-xl transition-all ${
+        className={`py-2 text-center text-[11px] font-semibold rounded-xl transition-all ${
           active
             ? 'bg-primary text-primary-foreground'
             : 'bg-muted text-muted-foreground border border-border'
@@ -181,6 +173,7 @@ export const FacilitiesBooking = () => {
     ))}
   </div>
 
+</div>
 </div>
             {/* Secondary image */}
             <div className="relative rounded-2xl overflow-hidden h-36">
