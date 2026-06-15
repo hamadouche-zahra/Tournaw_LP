@@ -112,59 +112,76 @@ export const FacilitiesBooking = () => {
             </div>
 
             {/* Stats row */}
-            <div className="grid grid-cols-2 gap-4">
+            
+           {/* Stats row — calendrier booking UI */}
+<div className="rounded-2xl p-5 border border-border bg-card">
 
-              {/* Stat 1 — venues count with real avatar photos */}
-              <div className="rounded-2xl border border-border bg-card p-5 flex flex-col gap-3">
-                {/* Avatar stack with real profile photos */}
-                <div className="flex items-center">
-                  {AVATARS.map((src, i) => (
-                    <div
-                      key={i}
-                      className="w-8 h-8 rounded-full border-2 border-card overflow-hidden flex-shrink-0"
-                      style={{ marginLeft: i === 0 ? 0 : -10, zIndex: AVATARS.length - i }}
-                    >
-                      <img
-                        src={src}
-                        alt={`User ${i + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-                <div>
-                  <p className="text-[30px] font-extrabold text-foreground leading-none mb-1">50+</p>
-                  <p className="text-[11px] text-muted-foreground leading-snug">
-                    {r('Verified venues &\nsports facilities', 'منشآت رياضية\nموثوقة')}
-                  </p>
-                </div>
-              </div>
+  {/* Header */}
+  <div className="flex items-center justify-between mb-4">
+    <div>
+      <p className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground mb-0.5">
+        {r('Court Booking', 'حجز الملعب')}
+      </p>
+      <p className="text-sm font-bold text-foreground">Padel Court A</p>
+    </div>
+    <span
+      className="text-[10px] font-bold px-3 py-1 rounded-full"
+      style={{
+        background: 'rgba(34,197,94,0.12)',
+        color: 'rgb(74,222,128)',
+        border: '1px solid rgba(34,197,94,0.20)',
+      }}
+    >
+      {r('Available', 'متاح')}
+    </span>
+  </div>
 
-              {/* Stat 2 — live availability */}
-              <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between gap-3">
-                <div className="flex items-end gap-[3px] h-8">
-                  {[40, 65, 45, 80, 55, 90, 60].map((h, i) => (
-                    <span
-                      key={i}
-                      className="flex-1 rounded-sm"
-                      style={{
-                        height: `${h}%`,
-                        background: i === 5 ? 'hsl(var(--primary))' : 'hsl(var(--primary) / 0.2)',
-                      }}
-                    />
-                  ))}
-                </div>
-                <div>
-                  <p className="text-[30px] font-extrabold text-foreground leading-none mb-1">
-                    {r('Live', 'مباشر')}
-                  </p>
-                  <p className="text-[11px] text-muted-foreground leading-snug">
-                    {r('Real-time availability,\nno double bookings', 'توفر فوري بدون\nتعارض في الحجوزات')}
-                  </p>
-                </div>
-              </div>
-            </div>
+  {/* Mini calendar */}
+  <div className="mb-4">
+    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+      {r('June 2026', 'يونيو 2026')}
+    </p>
+    <div className="grid grid-cols-7 gap-1 text-center">
+      {['M','T','W','T','F','S','S'].map((d, i) => (
+        <span key={i} className="text-[9px] font-semibold text-muted-foreground pb-1">{d}</span>
+      ))}
+      {[1,2,3,4,5,6,7].map((d) => (
+        <span
+          key={d}
+          className={`text-[11px] py-1 rounded-lg font-medium transition-all ${
+            d === 4
+              ? 'bg-primary text-primary-foreground font-bold'
+              : 'text-foreground hover:bg-muted'
+          }`}
+        >
+          {d}
+        </span>
+      ))}
+    </div>
+  </div>
 
+  {/* Time slots */}
+  <div className="flex gap-2">
+    {[
+      { time: '18:00', active: false },
+      { time: '19:00', active: true },
+      { time: '20:00', active: false },
+      { time: '21:00', active: false },
+    ].map(({ time, active }) => (
+      <div
+        key={time}
+        className={`flex-1 py-2 text-center text-[11px] font-semibold rounded-xl transition-all ${
+          active
+            ? 'bg-primary text-primary-foreground'
+            : 'bg-muted text-muted-foreground border border-border'
+        }`}
+      >
+        {time}
+      </div>
+    ))}
+  </div>
+
+</div>
             {/* Secondary image */}
             <div className="relative rounded-2xl overflow-hidden h-36">
               <img

@@ -17,7 +17,7 @@ export const SolutionSection = () => {
   return (
     <section
       data-testid="solution-section"
-      className="py-16 md:py-24 lg:py-32 bg-[#f0f4f8]"
+      className="py-16 md:py-24 lg:py-32 bg-[#f0f4f8]  dark:bg-[#0b0f1a] "
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <div className="container mx-auto px-6 md:px-12">
