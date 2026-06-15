@@ -95,8 +95,9 @@ export const translations = {
       "activeUsers": "Active users",
       "statRegisteredAthletes": "Registered athletes",
       "statTournamentsCreated": "Tournaments created",
-      "statSatisfaction": "Satisfaction"
-    },
+      "statSatisfaction": "Satisfaction",
+      "bookDemo": "Discover Events",
+      "launchPlatform": "Become an Organizer"    },
     
     // Positioning Strip
     positioning: {
@@ -752,7 +753,8 @@ export const translations = {
       "activeUsers": "مستخدم نشط",
       "statRegisteredAthletes": "رياضي مسجل",
       "statTournamentsCreated": "بطولة منظمة",
-      "statSatisfaction": "نسبة الرضا"
+      "statSatisfaction": "نسبة الرضا",
+      
     },
     
     // Positioning Strip

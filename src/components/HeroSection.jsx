@@ -15,7 +15,7 @@ const AVATARS = [
 ];
 
 const STATS_CONFIG = [
-  { end: 50000, suffix: 'K+', divisor: 1000, key: 'statRegisteredAthletes' },
+  { end: 10000, suffix: 'K+', divisor: 1000, key: 'statRegisteredAthletes' },
   { end: 2000,  suffix: 'K+', divisor: 1000, key: 'statTournamentsCreated' },
   { end: 98,    suffix: '%',  divisor: 1,    key: 'statSatisfaction'       },
 ];
@@ -156,7 +156,7 @@ export const HeroSection = () => {
                   boxShadow: '0 8px 24px hsla(var(--primary),0.35)',
                 }}
               >
-                {t('nav.bookDemo')}
+                {t('hero.bookDemo')}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
                   <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
@@ -166,7 +166,7 @@ export const HeroSection = () => {
               <PopupButton
                 url="https://calendly.com/tournwa/30min"
                 rootElement={document.getElementById('root')}
-                text={t('nav.launchPlatform')}
+                text={t('hero.launchPlatform')}
                 data-testid="hero-launch-btn"
                 className="flex items-center justify-center gap-2 font-semibold text-sm px-8 py-4 rounded-full transition-all active:scale-95 hover:scale-[1.03] border text-gray-800 dark:text-white bg-white/70 dark:bg-white/[0.08] border-gray-200 dark:border-white/15 backdrop-blur-sm"
               />
