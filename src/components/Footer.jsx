@@ -218,9 +218,9 @@ export const Footer = () => {
   </p>
   <div className="flex items-center gap-2">
     {[
-      { src: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/visa.svg", alt: "Visa" },
-      { src: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/mastercard.svg", alt: "Mastercard" },
-      { src: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/paypal.svg", alt: "PayPal" },
+        { src: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/visa.svg", alt: "Visa" },
+    { src: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/mastercard.svg", alt: "Mastercard" },
+    { src: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/stripe.svg", alt: "Stripe" },
     ].map(({ src, alt }) => (
       <div
         key={alt}
@@ -234,7 +234,7 @@ export const Footer = () => {
       </div>
     ))}
   </div>
-</div>
+        </div>
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-3">
