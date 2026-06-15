@@ -20,6 +20,24 @@ const STATS_CONFIG = [
   { end: 98,    suffix: '%',  divisor: 1,    key: 'statSatisfaction'       },
 ];
 
+const SPORTS = [
+  { en: 'Football',      ar: 'كرة القدم'    },
+  { en: 'Basketball',    ar: 'كرة السلة'    },
+  { en: 'Tennis',        ar: 'تنس'          },
+  { en: 'Padel',         ar: 'بادل'         },
+  { en: 'Volleyball',    ar: 'كرة الطائرة'  },
+  { en: 'Table Tennis',  ar: 'تنس الطاولة'  },
+  { en: 'Swimming',      ar: 'سباحة'        },
+  { en: 'Athletics',     ar: 'ألعاب القوى'  },
+  { en: 'Cycling',       ar: 'دراجات'       },
+  { en: 'Boxing',        ar: 'ملاكمة'       },
+  { en: 'Martial Arts',  ar: 'فنون قتالية'  },
+  { en: 'Rugby',         ar: 'ركبي'         },
+  { en: 'Hockey',        ar: 'هوكي'         },
+  { en: 'Baseball',      ar: 'بيسبول'       },
+  { en: 'Golf',          ar: 'غولف'         },
+  { en: 'Badminton',     ar: 'بادمينتون'    },
+];
 
 /* Hook compteur animé */
 function useCounter(end, duration = 1800, start = false) {
@@ -53,6 +71,58 @@ function StatItem({ stat, started, t }) {
   );
 }
 
+/* Marquee infini */
+function SportsMarquee({ isRTL }) {
+  const items = [...SPORTS, ...SPORTS]; // dupliqué pour boucle seamless
+
+  return (
+    <div className="relative w-full overflow-hidden py-6">
+      {/* fade gauche */}
+      <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+        style={{ background: 'linear-gradient(to right, var(--bg-fade, #f0f4f8), transparent)' }} />
+      {/* fade droite */}
+      <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+        style={{ background: 'linear-gradient(to left, var(--bg-fade, #f0f4f8), transparent)' }} />
+
+      <style>{`
+        .dark .sports-fade-left  { background: linear-gradient(to right, #0b0f1a, transparent) !important; }
+        .dark .sports-fade-right { background: linear-gradient(to left,  #0b0f1a, transparent) !important; }
+        @keyframes marquee-ltr { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        @keyframes marquee-rtl { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+        .marquee-track { display: flex; width: max-content; animation: marquee-ltr 30s linear infinite; }
+        .marquee-track-rtl { display: flex; width: max-content; animation: marquee-rtl 30s linear infinite; }
+        .marquee-track:hover, .marquee-track-rtl:hover { animation-play-state: paused; }
+      `}</style>
+
+      {/* fade gauche dark */}
+      <div className="sports-fade-left absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+        style={{ background: 'linear-gradient(to right, #f0f4f8, transparent)' }} />
+      <div className="sports-fade-right absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+        style={{ background: 'linear-gradient(to left, #f0f4f8, transparent)' }} />
+
+      <div className={isRTL ? 'marquee-track-rtl' : 'marquee-track'}>
+        {items.map(({ en, ar }, i) => (
+          <div
+            key={i}
+            className="flex items-center gap-2 mx-4 px-5 py-2.5 rounded-full flex-shrink-0 cursor-default select-none transition-all hover:scale-105"
+            style={{
+              background: 'hsla(var(--primary), 0.08)',
+              border: '1px solid hsla(var(--primary), 0.18)',
+            }}
+          >
+            <span
+              className="text-sm font-semibold whitespace-nowrap"
+              style={{ color: 'hsl(var(--primary))' }}
+            >
+              {isRTL ? ar : en}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export const HeroSection = () => {
   const { t, isRTL } = useLanguage();
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -73,7 +143,7 @@ export const HeroSection = () => {
       <section
         data-testid="hero-section"
         dir={isRTL ? 'rtl' : 'ltr'}
-        className="relative overflow-hidden bg-[#f0f4f8] dark:bg-[#0b0f1a] pt-32 pb-20"
+        className="relative overflow-hidden bg-[#f0f4f8] dark:bg-[#0b0f1a] pt-32 pb-18"
       >
         {/* Glow blobs */}
         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full pointer-events-none"
@@ -180,7 +250,6 @@ export const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.25 }}
           >
-            {/* Glow derrière */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
@@ -189,7 +258,6 @@ export const HeroSection = () => {
               }}
             />
 
-            {/* Dashboard screenshot */}
             <motion.div
               className="relative z-10"
               animate={{ y: [0, -8, 0] }}
@@ -202,7 +270,6 @@ export const HeroSection = () => {
                 className="w-full h-auto rounded-2xl shadow-2xl object-cover object-top border border-white/10"
               />
 
-              {/* Mobile mockup — superposé à droite, comme la référence */}
               <motion.div
                 className="absolute -bottom-10 -right-6 md:-right-12 z-20 w-[140px] md:w-[200px] lg:w-[230px]"
                 initial={{ opacity: 0, y: 24 }}
@@ -224,7 +291,7 @@ export const HeroSection = () => {
           {/* ══ STATS ════════════════════════════════════════════════ */}
           <motion.div
             ref={statsRef}
-            className="flex justify-center gap-12 md:gap-20 mt-24 mb-16"
+            className="flex justify-center gap-12 md:gap-20 mt-24 mb-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.5 }}
@@ -234,9 +301,19 @@ export const HeroSection = () => {
             ))}
           </motion.div>
 
-        
-
         </div>
+
+        {/* ══ SPORTS MARQUEE — pleine largeur, hors container ══════════ */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="mt-12"
+
+        >
+          <SportsMarquee isRTL={isRTL} />
+        </motion.div>
+
       </section>
 
       <ContactFormModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
