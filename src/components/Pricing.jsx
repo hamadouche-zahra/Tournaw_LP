@@ -71,7 +71,7 @@ export const Pricing = () => {
       name: t('pricing.proName'),
       tagline: t('pricing.proTagline'),
       description: t('pricing.proDesc'),
-      price: 'Available Soon',
+      price: t('pricing.availableSoon'),
       priceNote: '',
       featured: true,
       color: 'bg-primary',
@@ -98,7 +98,7 @@ export const Pricing = () => {
       name: t('pricing.eliteName'),
       tagline: t('pricing.eliteTagline'),
       description: t('pricing.eliteDesc'),
-      price: 'Available Soon',
+      price: t('pricing.availableSoon'),
       priceNote: '',
       color: 'bg-secondary',
       colorLight: 'bg-secondary/10',
@@ -179,6 +179,16 @@ export const Pricing = () => {
               {plan.name}
             </span>
           </div>
+          {plan.featured && (
+  <div className="absolute top-0 right-0 left-0 flex justify-center">
+    <span
+      className="text-xs font-bold px-4 py-1 rounded-b-full text-white"
+      style={{ background: 'hsl(var(--primary))' }}
+    >
+      {t('pricing.mostPopular')}
+    </span>
+  </div>
+)}
 
           {/* Price */}
           <div className="flex items-baseline gap-1 mb-2 min-h-[96px]">
@@ -317,43 +327,68 @@ export const Pricing = () => {
           </div>
 
        {/* Billing Cycle Toggle */}
-          {activeFilter !== 'athlete' && (
-            <div className="flex justify-center items-center gap-3 mb-12" data-testid="pricing-billing-toggle">
-              <div className="relative inline-flex p-1 bg-muted rounded-full border border-border">
-                {/* Sliding background */}
-                <motion.div
-                  className="absolute top-1 bottom-1 rounded-full bg-primary"
-                  initial={false}
-                  animate={{
-                    left: billingCycle === 'monthly' ? '4px' : '50%',
-                    width: 'calc(50% - 4px)',
-                  }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                />
+        {/* Billing Cycle Toggle */}
+{activeFilter !== 'athlete' && (
+  <div className="flex justify-center items-center gap-3 mb-12" data-testid="pricing-billing-toggle">
+    <div className="relative inline-flex p-1 bg-muted rounded-full border border-border">
+      <motion.div
+        className="absolute top-1 bottom-1 rounded-full bg-primary"
+        initial={false}
+        animate={{
+          left: isRTL
+            ? billingCycle === 'monthly' ? '50%' : '4px'
+            : billingCycle === 'monthly' ? '4px' : '50%',
+          width: 'calc(50% - 4px)',
+        }}
+        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+      />
 
-                <button
-                  onClick={() => setBillingCycle('monthly')}
-                  data-testid="billing-toggle-monthly"
-                  className={`relative z-10 px-6 py-2 text-sm font-semibold rounded-full transition-colors duration-200 ${
-                    billingCycle === 'monthly' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {t('pricing.monthly')}
-                </button>
-
-                <button
-                  onClick={() => setBillingCycle('yearly')}
-                  data-testid="billing-toggle-yearly"
-                  className={`relative z-10 px-6 py-2 text-sm font-semibold rounded-full transition-colors duration-200 flex items-center gap-2 ${
-                    billingCycle === 'yearly' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {t('pricing.yearly')}
-                 
-                </button>
-              </div>
-            </div>
-          )}
+      {isRTL ? (
+        <>
+                   <button
+            onClick={() => setBillingCycle('monthly')}
+            data-testid="billing-toggle-monthly"
+            className={`relative z-10 px-4 py-1.5 text-xs font-semibold rounded-full transition-colors duration-200 ${
+              billingCycle === 'monthly' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            {t('pricing.monthly')}
+          </button>
+          <button
+            onClick={() => setBillingCycle('yearly')}
+            data-testid="billing-toggle-yearly"
+            className={`relative z-10 px-4 py-1.5 text-xs font-semibold rounded-full transition-colors duration-200 flex items-center gap-1.5 ${
+              billingCycle === 'yearly' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            {t('pricing.yearly')}
+          </button>
+        </>
+      ) : (
+        <>
+          <button
+            onClick={() => setBillingCycle('monthly')}
+            data-testid="billing-toggle-monthly"
+            className={`relative z-10 px-4 py-1.5 text-xs font-semibold rounded-full transition-colors duration-200 ${
+              billingCycle === 'monthly' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            {t('pricing.monthly')}
+          </button>
+          <button
+            onClick={() => setBillingCycle('yearly')}
+            data-testid="billing-toggle-yearly"
+            className={`relative z-10 px-4 py-1.5 text-xs font-semibold rounded-full transition-colors duration-200 flex items-center gap-1.5 ${
+              billingCycle === 'yearly' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            {t('pricing.yearly')}
+          </button>
+        </>
+      )}
+    </div>
+  </div>
+)}
 
           {/* Pricing Cards */}
           <AnimatePresence mode="wait">
@@ -378,75 +413,6 @@ export const Pricing = () => {
 
        
 
-          {/* Early Access */}
-           {/* Early Access */}
-<motion.div
-  initial={{ opacity: 0, y: 24 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.55, delay: 0.2 }}
-  className="mt-16 rounded-3xl overflow-hidden"
-  style={{
-    border: '1px solid hsla(var(--primary), 0.20)',
-    boxShadow: '0 8px 40px rgba(0,0,0,0.15)',
-  }}
-  data-testid="pricing-early-access"
->
-  {/* image prend tout le bg */}
-  <div className="relative min-h-[260px]">
-
-    {/* Image full background */}
-    <img
-      src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1200&q=80"
-      alt="Sport"
-      className="absolute inset-0 w-full h-full object-cover object-center"
-    />
-
-    {/* Overlay vert semi-transparent par dessus l'image */}
-    <div
-      className="absolute inset-0"
-      style={{
-        background: 'linear-gradient(to right, hsla(var(--primary), 0.80) 0%, hsla(var(--primary), 0.45) 50%, hsla(var(--primary), 0.15) 100%)',
-      }}
-    />
-
-    {/* Contenu par dessus */}
-    <div className="relative z-10 flex flex-col justify-center px-8 md:px-14 py-12 max-w-xl">
-
-      {/* Titre */}
-      <h3 className="text-2xl md:text-3xl font-black text-white leading-tight mb-3">
-        🎁 {t('pricing.earlyAccessBadge')}{' '}
-        <span className="font-normal">{t('pricing.earlyAccessTitle')}</span>
-      </h3>
-
-      {/* Desc */}
-      <p className="text-white/75 text-sm leading-relaxed max-w-sm mb-7">
-        {t('pricing.earlyAccessDesc')}
-      </p>
-
-      {/* CTA */}
-      <div>
-        <motion.button
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.97 }}
-          onClick={() => setIsContactOpen(true)}
-          data-testid="early-access-cta"
-          className="inline-flex items-center gap-2 px-7 py-3 rounded-full font-bold text-sm text-white transition-all"
-          style={{
-            background: 'hsl(var(--primary))',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
-            border: '1px solid rgba(255,255,255,0.20)',
-          }}
-        >
-          {t('pricing.earlyAccessCta')}
-          <ArrowRight className="w-4 h-4" />
-        </motion.button>
-      </div>
-
-    </div>
-  </div>
-
-</motion.div>
 
         </div>
       </section>

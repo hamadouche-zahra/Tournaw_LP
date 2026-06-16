@@ -425,6 +425,8 @@ export const translations = {
       yearlyDiscount: 'Save 20%',
       perMonth: 'month',
       perYear: 'year',
+      availableSoon: "Available Soon",
+
       // Athletes & Teams
       athletesName: "Athletes & Teams",
       athletesTagline: "Everything you need to play, compete, and grow",
@@ -453,7 +455,7 @@ export const translations = {
       downloadApp: "Download the App",
       
       // Starter
-      starterName: "Starter",
+      starterName: "Challenger",
       starterTagline: "Start organizing your competitions with zero cost",
       starterDesc: "Perfect for new organizers and small tournaments.",
       eventManagement: "Event Management",
@@ -472,7 +474,7 @@ export const translations = {
       getStartedFree: "Get Started Free",
       
       // Pro
-      proName: "Pro",
+      proName: "Challenger",
       proTagline: "Simplify operations and elevate the participant experience",
       proDesc: "Best for academies, clubs, schools, and recurring organizers.",
       everythingInStarter: "Everything in Starter, plus:",
@@ -494,7 +496,7 @@ export const translations = {
       bookDemo: "Book a Demo",
       
       // Elite
-      eliteName: "Elite (Custom)",
+      eliteName: "Premier (Custom)",
       eliteTagline: "Launch and scale your own sports platform",
       eliteDesc: "For federations, large academies, and multi-organization ecosystems.",
       everythingInPro: "Everything in Pro, plus:",
@@ -1071,6 +1073,7 @@ export const translations = {
       titleSub: "استثمر في توسيع مؤسستك",
       subtitle: "ابدأ مجاناً، أدِر باحترافية، وتوسع إلى منصتك الرياضية الخاصة في جميع أنحاء الخليج.",
       mostPopular: "الأكثر شعبية",
+
       free: "مجاني",
       perMonth: "شهر",
       month: "شهر",
@@ -1080,7 +1083,7 @@ export const translations = {
       yearlyDiscount: 'وفر 20%',
       perMonth: 'شهر',
       perYear: 'سنة',
-      
+      availableSoon: "قريباً",
       // الرياضيون والفرق
       athletesName: "الرياضيون والفرق",
       athletesTagline: "كل ما تحتاجه للعب والمنافسة والنمو",
@@ -1128,7 +1131,7 @@ export const translations = {
       getStartedFree: "ابدأ مجاناً",
       
       // برو
-      proName: "برو",
+     "proName": "البطل",
       proTagline: "بسّط العمليات وارتقِ بتجربة المشاركين",
       proDesc: "الأفضل للأكاديميات والأندية والمدارس والمنظمين المتكررين.",
       everythingInStarter: "كل شيء في المبتدئ، بالإضافة إلى:",
@@ -1150,7 +1153,7 @@ export const translations = {
       bookDemo: "احجز عرضاً",
       
       // إليت
-      eliteName: "إليت (مخصص)",
+     "eliteName": "النخبة (مخصص)",
       eliteTagline: "أطلق ووسّع منصتك الرياضية الخاصة",
       eliteDesc: "للاتحادات والأكاديميات الكبيرة والمنظومات متعددة المؤسسات.",
       everythingInPro: "كل شيء في برو، بالإضافة إلى:",
