@@ -577,7 +577,15 @@ export const translations = {
       card6Date: "Upcoming",
       ctaTitle: "Stay connected with our journey",
       ctaViewAll: "View All Updates",
-      ctaSocial: "Follow us on social media"
+      ctaSocial: "Follow us on social media",
+       searchPlaceholder: "Enter search keyword",
+       search: "Search",
+       recentPosts: "Recent Posts",
+      categories: "Categories",
+      catTechnology: "Technology",
+      catProduct: "Product",
+       catInsights: "Insights",
+        catAnnouncement: "Announcement",
     },
 
     faq: {
@@ -1231,7 +1239,15 @@ export const translations = {
       card6Date: "قادم",
       ctaTitle: "ابقَ على تواصل مع رحلتنا",
       ctaViewAll: "عرض جميع التحديثات",
-      ctaSocial: "تابعنا على وسائل التواصل الاجتماعي"
+      ctaSocial: "تابعنا على وسائل التواصل الاجتماعي",
+      searchPlaceholder: "أدخل كلمة البحث",
+search: "بحث",
+recentPosts: "أحدث المقالات",
+categories: "التصنيفات",
+catTechnology: "التكنولوجيا",
+catProduct: "المنتج",
+catInsights: "رؤى",
+catAnnouncement: "إعلان",
     },
 
     faq: {
