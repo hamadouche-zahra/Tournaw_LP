@@ -474,7 +474,7 @@ export const translations = {
       getStartedFree: "Get Started Free",
       
       // Pro
-      proName: "Challenger",
+      proName: "Champion",
       proTagline: "Simplify operations and elevate the participant experience",
       proDesc: "Best for academies, clubs, schools, and recurring organizers.",
       everythingInStarter: "Everything in Starter, plus:",
@@ -584,8 +584,10 @@ export const translations = {
       categories: "Categories",
       catTechnology: "Technology",
       catProduct: "Product",
-       catInsights: "Insights",
-        catAnnouncement: "Announcement",
+      catInsights: "Insights",
+      catAnnouncement: "Announcement",
+      "nextPost": "Next Post",
+      "prevPost": "Previous Post"
     },
 
     faq: {
@@ -771,6 +773,9 @@ export const translations = {
       "statRegisteredAthletes": "رياضي مسجل",
       "statTournamentsCreated": "بطولة منظمة",
       "statSatisfaction": "نسبة الرضا",
+      "bookDemo": "استكشف الفعاليات",
+      "launchPlatform": "أصبح منظّم فعاليات"
+
       
     },
     
@@ -907,7 +912,8 @@ export const translations = {
       step5F2: "ملفات الرياضيين تُحدّث تلقائيًا",
       step5F3: "النتائج تُنشر على تطبيق الجوال",
       step5F4: "ابنِ مجتمعك ونمِّ الفعاليات المستقبلية",
-      highlight: "كل شيء متصل. مؤتمت بالكامل. في الوقت الفعلي للجميع."
+      highlight: "كل شيء متصل. مؤتمت بالكامل. في الوقت الفعلي للجميع.",
+      "learnMore": "المزيد من المعلومات"
     },
     
     // Core Features
@@ -1040,7 +1046,9 @@ export const translations = {
       act3Title: "جلسات التدريب",
       act3Desc: "برامج منظمة وتطوير اللاعبين",
       act4Title: "المباريات الودية",
-      act4Desc: "إعداد وتنسيق سريع للفعاليات"
+      act4Desc: "إعداد وتنسيق سريع للفعاليات",
+      "cta": "ابدأ الآن"
+
     },
     
     // Benefits
@@ -1127,7 +1135,7 @@ export const translations = {
       downloadApp: "حمّل التطبيق",
       
       // المبتدئ
-      starterName: "المبتدئ",
+      starterName: "المتحدي",
       starterTagline: "ابدأ تنظيم منافساتك بدون تكلفة",
       starterDesc: "مثالي للمنظمين الجدد والبطولات الصغيرة.",
       eventManagement: "إدارة الفعاليات",
@@ -1255,6 +1263,8 @@ catTechnology: "التكنولوجيا",
 catProduct: "المنتج",
 catInsights: "رؤى",
 catAnnouncement: "إعلان",
+ "nextPost": "المقال التالي",
+    "prevPost": "المقال السابق"
     },
 
     faq: {
