@@ -1,73 +1,188 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Check, X, Crown, ChevronDown } from 'lucide-react';
-import { PopupButton } from 'react-calendly';
+import { motion } from 'framer-motion';
+import { Check, X, Crown, Zap, Star } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 
-const plans = [
-  { key: 'starter', name: 'Starter', price: 'Free', sub: 'For individuals getting started', popular: false },
-  { key: 'pro', name: 'Pro', price: 'Available Soon', sub: 'For growing organizers', popular: true },
-  { key: 'elite', name: 'Elite', price: 'Available Soon', sub: 'For organizations & federations', popular: false },
-];
+const plansData = {
+  en: [
+    {
+      key: 'starter',
+      icon: Star,
+      name: 'Starter',
+      price: 'Free',
+      sub: 'For individuals getting started',
+      popular: false,
+      cta: 'Get Started',
+      features: [
+        { label: 'Tournaments', value: 'Up to 8 teams / 32 players' },
+        { label: 'Leagues', value: false },
+        { label: 'Friendly Games & Training', value: true },
+        { label: 'Formats', value: 'Basic' },
+        { label: 'Seeding & Automated Draws', value: false },
+        { label: 'Match Scheduling', value: 'Basic' },
+        { label: 'Live Scores', value: false },
+        { label: 'Live Standings & Rankings', value: false },
+        { label: 'Participant Management', value: 'Basic' },
+        { label: 'Registration Types', value: 'Individual / Team' },
+        { label: 'Payment Collection', value: 'Basic (online)' },
+        { label: 'Sponsorship Tools', value: false },
+        { label: 'Analytics & Insights', value: false },
+        { label: 'Branding', value: false },
+        { label: 'Custom Domain', value: false },
+        { label: 'Support Level', value: 'Standard' },
+      ],
+    },
+    {
+      key: 'pro',
+      icon: Zap,
+      name: 'Pro',
+      price: 'Available Soon',
+      sub: 'For growing organizers',
+      popular: true,
+      cta: 'Join Waitlist',
+      features: [
+        { label: 'Tournaments', value: 'Unlimited' },
+        { label: 'Leagues', value: true },
+        { label: 'Friendly Games & Training', value: true },
+        { label: 'Formats', value: 'Advanced' },
+        { label: 'Seeding & Automated Draws', value: true },
+        { label: 'Match Scheduling', value: 'Automated' },
+        { label: 'Live Scores', value: true },
+        { label: 'Live Standings & Rankings', value: true },
+        { label: 'Participant Management', value: 'Advanced' },
+        { label: 'Registration Types', value: 'Ind. / Team / Hybrid' },
+        { label: 'Payment Collection', value: 'Integrated' },
+        { label: 'Sponsorship Tools', value: false },
+        { label: 'Analytics & Insights', value: 'Basic' },
+        { label: 'Branding', value: 'Basic (logo, colors)' },
+        { label: 'Custom Domain', value: false },
+        { label: 'Support Level', value: 'Priority' },
+      ],
+    },
+    {
+      key: 'elite',
+      icon: Crown,
+      name: 'Elite',
+      price: 'Available Soon',
+      sub: 'For organizations & federations',
+      popular: false,
+      cta: 'Contact Us',
+      features: [
+        { label: 'Tournaments', value: 'Unlimited' },
+        { label: 'Leagues', value: true },
+        { label: 'Friendly Games & Training', value: true },
+        { label: 'Formats', value: 'Advanced' },
+        { label: 'Seeding & Automated Draws', value: true },
+        { label: 'Match Scheduling', value: 'Automated' },
+        { label: 'Live Scores', value: true },
+        { label: 'Live Standings & Rankings', value: true },
+        { label: 'Participant Management', value: 'Advanced' },
+        { label: 'Registration Types', value: 'Full flexibility' },
+        { label: 'Payment Collection', value: 'Advanced + custom' },
+        { label: 'Sponsorship Tools', value: true },
+        { label: 'Analytics & Insights', value: 'Advanced' },
+        { label: 'Branding', value: 'Full (white-label)' },
+        { label: 'Custom Domain', value: true },
+        { label: 'Support Level', value: 'Dedicated' },
+      ],
+    },
+  ],
+  ar: [
+    {
+      key: 'starter',
+      icon: Star,
+      name: 'المبتدئ',
+      price: 'مجاني',
+      sub: 'للأفراد الذين يبدؤون للتو',
+      popular: false,
+      cta: 'ابدأ الآن',
+      features: [
+        { label: 'البطولات', value: 'حتى 8 فرق / 32 لاعب' },
+        { label: 'الدوريات', value: false },
+        { label: 'مباريات ودية وتدريب', value: true },
+        { label: 'الصيغ', value: 'أساسي' },
+        { label: 'التأهيل والقرعة التلقائية', value: false },
+        { label: 'جدولة المباريات', value: 'أساسي' },
+        { label: 'النتائج المباشرة', value: false },
+        { label: 'الترتيب المباشر', value: false },
+        { label: 'إدارة المشاركين', value: 'أساسي' },
+        { label: 'أنواع التسجيل', value: 'فردي / فريق' },
+        { label: 'تحصيل المدفوعات', value: 'أساسي (عبر الإنترنت)' },
+        { label: 'أدوات الرعاية', value: false },
+        { label: 'التحليلات والإحصاءات', value: false },
+        { label: 'العلامة التجارية', value: false },
+        { label: 'نطاق مخصص', value: false },
+        { label: 'مستوى الدعم', value: 'عادي' },
+      ],
+    },
+    {
+      key: 'pro',
+      icon: Zap,
+      name: 'برو',
+      price: 'قريباً',
+      sub: 'للمنظمين في مرحلة النمو',
+      popular: true,
+      cta: 'انضم لقائمة الانتظار',
+      features: [
+        { label: 'البطولات', value: 'غير محدود' },
+        { label: 'الدوريات', value: true },
+        { label: 'مباريات ودية وتدريب', value: true },
+        { label: 'الصيغ', value: 'متقدم' },
+        { label: 'التأهيل والقرعة التلقائية', value: true },
+        { label: 'جدولة المباريات', value: 'تلقائي' },
+        { label: 'النتائج المباشرة', value: true },
+        { label: 'الترتيب المباشر', value: true },
+        { label: 'إدارة المشاركين', value: 'متقدم' },
+        { label: 'أنواع التسجيل', value: 'فردي / فريق / مختلط' },
+        { label: 'تحصيل المدفوعات', value: 'متكامل' },
+        { label: 'أدوات الرعاية', value: false },
+        { label: 'التحليلات والإحصاءات', value: 'أساسي' },
+        { label: 'العلامة التجارية', value: 'أساسي (شعار، ألوان)' },
+        { label: 'نطاق مخصص', value: false },
+        { label: 'مستوى الدعم', value: 'أولوية' },
+      ],
+    },
+    {
+      key: 'elite',
+      icon: Crown,
+      name: 'إيليت',
+      price: 'قريباً',
+      sub: 'للمنظمات والاتحادات',
+      popular: false,
+      cta: 'تواصل معنا',
+      features: [
+        { label: 'البطولات', value: 'غير محدود' },
+        { label: 'الدوريات', value: true },
+        { label: 'مباريات ودية وتدريب', value: true },
+        { label: 'الصيغ', value: 'متقدم' },
+        { label: 'التأهيل والقرعة التلقائية', value: true },
+        { label: 'جدولة المباريات', value: 'تلقائي' },
+        { label: 'النتائج المباشرة', value: true },
+        { label: 'الترتيب المباشر', value: true },
+        { label: 'إدارة المشاركين', value: 'متقدم' },
+        { label: 'أنواع التسجيل', value: 'مرونة كاملة' },
+        { label: 'تحصيل المدفوعات', value: 'متقدم + مخصص' },
+        { label: 'أدوات الرعاية', value: true },
+        { label: 'التحليلات والإحصاءات', value: 'متقدم' },
+        { label: 'العلامة التجارية', value: 'كاملة (white-label)' },
+        { label: 'نطاق مخصص', value: true },
+        { label: 'مستوى الدعم', value: 'مخصص' },
+      ],
+    },
+  ],
+};
 
-const sections = [
-  {
-    title: 'Competition Management',
-    features: [
-      { name: 'Tournaments', starter: 'Up to 8 teams / 32 players', pro: 'Unlimited', elite: 'Unlimited' },
-      { name: 'Leagues', starter: false, pro: true, elite: true },
-      { name: 'Friendly Games & Training', starter: 'Unlimited', pro: 'Unlimited', elite: 'Unlimited' },
-      { name: 'Formats (Knockout, Groups, Hybrid)', starter: 'Basic', pro: 'Advanced', elite: 'Advanced' },
-      { name: 'Seeding & Automated Draws', starter: false, pro: true, elite: true },
-      { name: 'Match Scheduling', starter: 'Basic', pro: 'Automated', elite: 'Automated' },
-      { name: 'Live Scores', starter: false, pro: true, elite: true },
-      { name: 'Live Standings & Rankings', starter: false, pro: true, elite: true },
-    ]
-  },
-  {
-    title: 'Registration & Participants',
-    features: [
-      { name: 'Participant Management', starter: 'Basic', pro: 'Advanced', elite: 'Advanced' },
-      { name: 'Registration Types', starter: 'Individual / Team', pro: 'Ind. / Team / Hybrid', elite: 'Full flexibility' },
-      { name: 'Event Publishing in App', starter: 'Basic', pro: 'Featured', elite: 'Priority' },
-    ]
-  },
-  {
-    title: 'Payments & Monetization',
-    features: [
-      { name: 'Payment Collection', starter: 'Basic (online)', pro: 'Integrated', elite: 'Advanced + custom' },
-      { name: 'Personal Payment Integration', starter: false, pro: 'Add-on / Included', elite: true },
-      { name: 'Sponsorship Tools', starter: false, pro: false, elite: true },
-      { name: 'Analytics & Insights', starter: false, pro: 'Basic', elite: 'Advanced' },
-    ]
-  },
-  {
-    title: 'Branding & Platform',
-    features: [
-      { name: 'Branding', starter: false, pro: 'Basic (logo, colors)', elite: 'Full (white-label)' },
-      { name: 'Custom Domain', starter: false, pro: false, elite: true },
-      { name: 'Mobile App Branding', starter: false, pro: false, elite: 'Custom app' },
-      { name: 'Multi-Admin Access', starter: false, pro: 'Limited', elite: 'Advanced' },
-      { name: 'Multi-Organization Management', starter: false, pro: false, elite: true },
-    ]
-  },
-  {
-    title: 'Support',
-    features: [
-      { name: 'Support Level', starter: 'Standard', pro: 'Priority', elite: 'Dedicated' },
-    ]
-  },
-];
-
-const CellValue = ({ value, isPro }) => {
+const FeatureValue = ({ value, popular }) => {
   if (value === true) {
     return (
       <div className="flex justify-center">
         <div
-          className="w-7 h-7 flex items-center justify-center rounded-full"
-          style={{ background: isPro ? 'hsla(var(--primary), 0.18)' : 'hsla(var(--primary), 0.10)' }}
+          className="w-6 h-6 rounded-full flex items-center justify-center"
+          style={{ background: popular ? 'rgba(255,255,255,0.2)' : 'hsla(var(--primary), 0.12)' }}
         >
-          <Check className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />
+          <Check
+            className="w-3.5 h-3.5"
+            style={{ color: popular ? 'white' : 'hsl(var(--primary))' }}
+          />
         </div>
       </div>
     );
@@ -75,28 +190,38 @@ const CellValue = ({ value, isPro }) => {
   if (value === false) {
     return (
       <div className="flex justify-center">
-        <X className="w-4 h-4 text-muted-foreground/25" />
+        <X
+          className="w-4 h-4"
+          style={{ color: popular ? 'rgba(255,255,255,0.3)' : 'hsl(var(--muted-foreground) / 0.3)' }}
+        />
       </div>
     );
   }
-  return <span className={`text-sm ${isPro ? 'font-semibold text-foreground' : 'text-muted-foreground'}`}>{value}</span>;
+  return (
+    <p
+      className="text-xs leading-snug text-center"
+      style={{ color: popular ? 'rgba(255,255,255,0.85)' : 'hsl(var(--muted-foreground))' }}
+    >
+      {value}
+    </p>
+  );
 };
 
 export const CompareTable = () => {
-  const { isRTL } = useLanguage();
-  const [openSection, setOpenSection] = useState(0);
+  const { isRTL, language } = useLanguage();
+  const plans = plansData[language] || plansData.en;
 
   return (
     <section
       data-testid="compare-plans-section"
-      className="py-16 md:py-24 bg-background relative overflow-hidden"
+      className="py-16 md:py-24 bg-background"
       dir={isRTL ? 'rtl' : 'ltr'}
     >
-      <div className="container mx-auto px-6 md:px-12 relative z-10 max-w-4xl">
+      <div className="container mx-auto px-6 md:px-12 max-w-6xl">
 
-        {/* ── Header ─────────────────────────────────────────── */}
+        {/* Header */}
         <motion.div
-          className="text-center max-w-2xl mx-auto mb-12"
+          className="text-center max-w-2xl mx-auto mb-14"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -112,141 +237,122 @@ export const CompareTable = () => {
           >
             {isRTL ? 'مقارنة الخطط' : 'Compare Plans'}
           </span>
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-4">
+          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground mb-4">
             {isRTL ? 'اختر الخطة المناسبة لك' : 'Find the right plan for your needs'}
           </h2>
-          <p className="text-base text-muted-foreground leading-relaxed">
+          <p className="text-base text-muted-foreground">
             {isRTL ? 'قارن الميزات عبر جميع الخطط' : 'Compare features across all plans side by side'}
           </p>
         </motion.div>
 
-        {/* ── Plan headers — sticky pills ──────────────────────── */}
-        <div className="grid grid-cols-[1.4fr_1fr_1fr_1fr] gap-2 mb-3 sticky top-2 z-20">
-          <div />
-          {plans.map((plan) => (
-            <div
-              key={plan.key}
-              className="text-center py-3 rounded-2xl"
-              style={{
-                background: plan.popular ? 'hsl(var(--primary))' : 'hsl(var(--card))',
-                border: plan.popular ? 'none' : '1px solid hsl(var(--border))',
-              }}
-            >
-              {plan.popular && (
-                <div className="flex items-center justify-center gap-1 mb-1">
-                  <Crown className="w-3 h-3 text-white" />
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-white">Popular</span>
-                </div>
-              )}
-              <p
-                className="font-heading text-sm font-bold"
-                style={{ color: plan.popular ? 'white' : 'hsl(var(--foreground))' }}
-              >
-                {plan.name}
-              </p>
-              <p
-                className="text-xs mt-0.5"
-                style={{ color: plan.popular ? 'rgba(255,255,255,0.75)' : 'hsl(var(--muted-foreground))' }}
-              >
-                {plan.price}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* ── Sections accordéon ───────────────────────────────── */}
-        <div className="space-y-3">
-          {sections.map((section, sIndex) => {
-            const isOpen = openSection === sIndex;
+        {/* 3 Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+          {plans.map((plan, pIndex) => {
+            const Icon = plan.icon;
             return (
               <motion.div
-                key={sIndex}
-                initial={{ opacity: 0, y: 15 }}
+                key={plan.key}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.05 * sIndex }}
-                className="rounded-2xl border overflow-hidden"
+                transition={{ duration: 0.45, delay: 0.1 * pIndex }}
+                data-testid={`plan-card-${plan.key}`}
+                className="relative rounded-3xl overflow-hidden flex flex-col"
                 style={{
-                  borderColor: isOpen ? 'hsl(var(--primary) / 0.30)' : 'hsl(var(--border))',
-                  background: 'hsl(var(--card))',
+                  background: plan.popular ? 'hsl(var(--primary))' : 'hsl(var(--card))',
+                  border: plan.popular ? 'none' : '1px solid hsl(var(--border))',
+                  boxShadow: plan.popular
+                    ? '0 20px 60px hsla(var(--primary), 0.35)'
+                    : '0 4px 24px rgba(0,0,0,0.06)',
+                  marginTop: plan.popular ? '-12px' : '0',
                 }}
-                data-testid={`compare-section-${sIndex}`}
               >
-                {/* Header section — clickable */}
-                <button
-                  onClick={() => setOpenSection(isOpen ? -1 : sIndex)}
-                  className="w-full flex items-center justify-between px-5 py-4 text-left"
-                >
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="w-1.5 h-5 rounded-full transition-colors duration-300"
-                      style={{ background: isOpen ? 'hsl(var(--primary))' : 'hsl(var(--border))' }}
-                    />
-                    <span className="font-heading text-sm font-bold text-foreground">
-                      {section.title}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      ({section.features.length})
+                {/* Popular badge */}
+                {plan.popular && (
+                  <div
+                    className={`absolute top-4 ${isRTL ? 'left-4' : 'right-4'} flex items-center gap-1 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full`}
+                  >
+                    <Crown className="w-3 h-3 text-white" />
+                    <span className="text-[10px] font-black uppercase tracking-wider text-white">
+                      {isRTL ? 'الأكثر شيوعاً' : 'Most Popular'}
                     </span>
                   </div>
-                  <motion.div
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.25 }}
-                  >
-                    <ChevronDown className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />
-                  </motion.div>
-                </button>
+                )}
 
-                {/* Contenu animé */}
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                      className="overflow-hidden"
+                {/* Plan header */}
+                <div className="p-7 pb-6">
+                  <div
+                    className="w-11 h-11 rounded-2xl flex items-center justify-center mb-5"
+                    style={{ background: plan.popular ? 'rgba(255,255,255,0.2)' : 'hsla(var(--primary), 0.12)' }}
+                  >
+                    <Icon
+                      className="w-5 h-5"
+                      style={{ color: plan.popular ? 'white' : 'hsl(var(--primary))' }}
+                    />
+                  </div>
+
+                  <h3
+                    className="font-heading text-xl font-black mb-1"
+                    style={{ color: plan.popular ? 'white' : 'hsl(var(--foreground))' }}
+                  >
+                    {plan.name}
+                  </h3>
+                  <p
+                    className="text-xs mb-5"
+                    style={{ color: plan.popular ? 'rgba(255,255,255,0.65)' : 'hsl(var(--muted-foreground))' }}
+                  >
+                    {plan.sub}
+                  </p>
+
+                  <div
+                    className="text-3xl font-black mb-5"
+                    style={{ color: plan.popular ? 'white' : 'hsl(var(--foreground))' }}
+                  >
+                    {plan.price}
+                  </div>
+
+                  <button
+                    className="w-full py-3 rounded-2xl text-sm font-bold transition-all duration-200 hover:opacity-90 active:scale-95"
+                    style={{
+                      background: plan.popular ? 'white' : 'hsl(var(--primary))',
+                      color: plan.popular ? 'hsl(var(--primary))' : 'white',
+                    }}
+                  >
+                    {plan.cta}
+                  </button>
+                </div>
+
+                {/* Divider */}
+                <div
+                  className="mx-7 border-t"
+                  style={{ borderColor: plan.popular ? 'rgba(255,255,255,0.15)' : 'hsl(var(--border))' }}
+                />
+
+                {/* Features list */}
+                <div className="p-7 pt-5 flex flex-col gap-3">
+                  {plan.features.map((feat, fIndex) => (
+                    <div
+                      key={fIndex}
+                      className="flex items-center justify-between gap-3"
+                      data-testid={`feature-${plan.key}-${fIndex}`}
                     >
-                      <div
-                        className="border-t"
-                        style={{ borderColor: 'hsl(var(--border))' }}
+                      <span
+                        className="text-xs leading-snug flex-1"
+                        style={{ color: plan.popular ? 'rgba(255,255,255,0.75)' : 'hsl(var(--muted-foreground))' }}
                       >
-                        {section.features.map((feature, fIndex) => (
-                          <motion.div
-                            key={fIndex}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.25, delay: 0.03 * fIndex }}
-                            className="grid grid-cols-[1.4fr_1fr_1fr_1fr] items-center px-5 py-3 border-b last:border-0 hover:bg-accent/30 transition-colors"
-                            style={{ borderColor: 'hsl(var(--border) / 0.5)' }}
-                            data-testid={`compare-row-${sIndex}-${fIndex}`}
-                          >
-                            <span className="text-sm font-medium text-foreground pr-2">
-                              {feature.name}
-                            </span>
-                            <div className="text-center"><CellValue value={feature.starter} /></div>
-                            <div
-                              className="text-center rounded-lg py-1"
-                              style={{ background: 'hsla(var(--primary), 0.04)' }}
-                            >
-                              <CellValue value={feature.pro} isPro />
-                            </div>
-                            <div className="text-center"><CellValue value={feature.elite} /></div>
-                          </motion.div>
-                        ))}
+                        {feat.label}
+                      </span>
+                      <div className="shrink-0 min-w-[56px] flex items-center justify-center">
+                        <FeatureValue value={feat.value} popular={plan.popular} />
                       </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                    </div>
+                  ))}
+                </div>
+
               </motion.div>
             );
           })}
         </div>
-
-        {/* ── CTA Row ──────────────────────────────────────────── */}
- 
-
-        
 
       </div>
     </section>
