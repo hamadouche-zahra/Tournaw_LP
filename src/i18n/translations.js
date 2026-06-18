@@ -664,7 +664,14 @@ export const translations = {
       successTitle: "Thank you!",
       successMessage: "We've received your request and will contact you within 24 hours.",
       close: "Close",
-      required: "Required"
+      required: "Required",
+      orgTypeFederation: "Federation",
+      orgTypeAcademy: "Academy",
+      orgTypeSchool: "School",
+      orgTypeClub: "Club",
+      orgTypeIndividualOrganizer: "Individual Organizer",
+      orgTypeFacility: "Sport Facility",
+      orgTypeAthlete: "Athlete",
     }
   },
   
@@ -1326,7 +1333,14 @@ catAnnouncement: "إعلان",
       successTitle: "شكراً لك!",
       successMessage: "لقد استلمنا طلبك وسنتواصل معك خلال 24 ساعة.",
       close: "إغلاق",
-      required: "مطلوب"
+      required: "مطلوب",
+      orgTypeFederation: "اتحاد رياضي",
+      orgTypeAcademy: "أكاديمية",
+      orgTypeSchool: "مدرسة",
+      orgTypeClub: "نادي",
+      orgTypeIndividualOrganizer: "منظم فردي",
+      orgTypeFacility: "منشأة رياضية",
+      orgTypeAthlete: "رياضي",
     }
   }
 };
