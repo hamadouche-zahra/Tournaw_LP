@@ -100,7 +100,7 @@ export default function ArticlePage() {
 
         {/* Back link */}
         <Link
-          to="/#insights"
+          to="/insights"
           className="absolute top-6 inset-x-6 md:inset-x-14 lg:inset-x-20 inline-flex items-center gap-2 text-white/85 hover:text-white text-xs font-medium transition-colors"
           data-testid="article-back-link"
         >
@@ -110,7 +110,7 @@ export default function ArticlePage() {
 
         {/* Tag + titre + meta, ancrés en bas de l'image */}
         <div className="absolute bottom-0 inset-x-0 px-6 md:px-14 lg:px-20 pb-8 md:pb-10">
-          <span className="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-sm text-white bg-primary mb-4">
+          <span className="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full text-white bg-primary mb-4">
             {article.tagLabel}
           </span>
 
@@ -290,7 +290,7 @@ export default function ArticlePage() {
                   <button
                     type="button"
                     onClick={handleShare}
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-white bg-primary hover:opacity-90 transition-opacity"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-full text-sm font-semibold text-white bg-primary hover:opacity-90 transition-opacity"
                   >
                     <Share2 className="w-4 h-4" />
                     {isRTL ? 'مشاركة' : 'Share'}
@@ -299,7 +299,7 @@ export default function ArticlePage() {
                     type="button"
                     onClick={handleCopyLink}
                     aria-label="Copy link"
-                    className="w-10 h-10 shrink-0 rounded-lg border border-border flex items-center justify-center text-foreground hover:bg-muted transition-colors"
+                    className="w-10 h-10 shrink-0 rounded-full border border-border flex items-center justify-center text-foreground hover:bg-muted transition-colors"
                   >
                     {copied ? <Check className="w-4 h-4 text-primary" /> : <Link2 className="w-4 h-4" />}
                   </button>

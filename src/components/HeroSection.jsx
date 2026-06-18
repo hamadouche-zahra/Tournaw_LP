@@ -4,7 +4,7 @@ import { PopupButton } from 'react-calendly';
 import { useLanguage } from '../i18n/LanguageContext';
 import { ContactFormModal } from './ContactFormModal';
 
-const DASHBOARD_IMG = "https://customer-assets.emergentagent.com/job_event-platform-54/artifacts/lk0ujnfn_Screenshot%202026-04-30%20at%202.25.03%E2%80%AFPM.png";
+const DASHBOARD_IMG = "/sports/dashboard.png";
 const MOBILE_IMG    = "https://customer-assets.emergentagent.com/job_event-platform-54/artifacts/5kqe35zk_home%20mockup.png";
 
 const AVATARS = [
