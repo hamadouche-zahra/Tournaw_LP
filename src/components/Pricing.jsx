@@ -241,9 +241,22 @@ export const Pricing = () => {
               url="https://calendly.com/tournwa/30min"
               rootElement={document.getElementById('root')}
               text={plan.cta}
-              className="w-full h-11 rounded-xl font-semibold text-sm text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
-              style={{ background: plan.badgeText }}
               data-testid={`pricing-cta-${plan.id}`}
+              styles={{
+                width: '100%',
+                height: '44px',
+                borderRadius: '0.75rem',
+                fontWeight: 600,
+                fontSize: '0.875rem',
+                color: '#ffffff',
+                background: plan.badgeText,
+                border: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'opacity 0.2s ease',
+              }}
             />
           ) : (
             <button
