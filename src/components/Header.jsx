@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   Sun, Moon, Menu, X, Plus, ChevronDown, 
   Dribbble, GraduationCap, Trophy, Calendar, MapPin, 
@@ -13,6 +13,9 @@ import { ContactFormModal } from './ContactFormModal';
 const LOGO_DARK  = "https://customer-assets.emergentagent.com/job_d34f459c-6fce-4979-aa1a-64d570b2fca9/artifacts/b665zz1q_Tournwa.png";
 const LOGO_LIGHT = "https://customer-assets.emergentagent.com/job_d34f459c-6fce-4979-aa1a-64d570b2fca9/artifacts/rdq092oq_logo%20PNG-03.png";
 
+// Hauteur de la navbar + marge de respiration pour le scroll offset
+const SCROLL_OFFSET = 110;
+
 export const Header = () => {
   const [isDark, setIsDark]               = useState(false);
   const [isMenuOpen, setIsMenuOpen]       = useState(false);
@@ -22,6 +25,7 @@ export const Header = () => {
   const [openMobileSection, setOpenMobileSection] = useState(null);
   const { t, toggleLanguage, isRTL }      = useLanguage();
   const location                          = useLocation();
+  const navigate                          = useNavigate();
   const isHome                            = location.pathname === '/';
   const navRef                            = useRef(null);
 
@@ -48,6 +52,40 @@ export const Header = () => {
     return () => document.removeEventListener('mousedown', onClick);
   }, []);
 
+  // Empêche le navigateur de faire son propre scroll instantané vers le #hash
+  // au chargement initial / refresh (sinon ça scroll sous la navbar avant que
+  // notre logique avec offset ait pu s'exécuter).
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  // Si l'URL contient un #hash (chargement direct, refresh, ou navigate('/#pricing')),
+  // on scrolle vers la section une fois qu'elle existe réellement dans le DOM.
+  useEffect(() => {
+    if (!location.hash) return;
+
+    const id = location.hash.replace('#', '');
+    let attempts = 0;
+    const maxAttempts = 40; // ~2s à 50ms d'intervalle, le temps que toutes les sections/images montent
+
+    const tryScroll = () => {
+      const el = document.getElementById(id);
+      if (el) {
+        scrollToSection(id);
+      } else if (attempts < maxAttempts) {
+        attempts += 1;
+        setTimeout(tryScroll, 50);
+      }
+    };
+
+    // on coupe court tout scroll natif déjà amorcé par le navigateur
+    window.scrollTo(0, 0);
+    const timer = setTimeout(tryScroll, 50);
+    return () => clearTimeout(timer);
+  }, [location.pathname, location.hash]);
+
   const toggleTheme = () => {
     const next = !isDark;
     setIsDark(next);
@@ -63,10 +101,41 @@ export const Header = () => {
     setOpenMobileSection((prev) => (prev === key ? null : key));
   };
 
+  // Scroll fluide vers une section en compensant la hauteur de la navbar fixe
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.pageYOffset - SCROLL_OFFSET;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
+  // Gère le clic sur un lien d'ancre (#pricing, #how-it-works, ...)
+  const handleAnchorClick = (e, sectionId) => {
+    e.preventDefault();
+    setIsMenuOpen(false);
+    setOpenDropdown(null);
+
+    if (isHome) {
+      // Déjà sur la home → simple scroll vers la section
+      scrollToSection(sectionId);
+      return;
+    }
+
+    // Pas sur la home : cas spécial Pricing → page dédiée /pricing
+    if (sectionId === 'pricing') {
+      navigate('/pricing');
+      return;
+    }
+
+    // Autres ancres : on navigue vers la home avec le hash,
+    // le useEffect ci-dessus se chargera de scroller une fois monté
+    navigate(`/#${sectionId}`);
+  };
+
   const navLinks = [
     { label: t('nav.howItWorks'), href: '#how-it-works' },
     { label: t('nav.useCases'),   href: '#use-cases'   },
-    { label: t('nav.pricing'),    href: '/pricing'     },
+    { label: t('nav.pricing'),    href: '#pricing', isPricing: true },
     { label: t('nav.faq'),        href: '#faq'         },
     { label: t('nav.news'),       href: '/insights'    },
   ];
@@ -300,17 +369,35 @@ export const Header = () => {
               </div>
 
               {navLinks.map((link, i) => {
-                const href    = link.href.startsWith('#') && !isHome ? `/${link.href}` : link.href;
-                const isRoute = href.startsWith('/');
-                const active  = location.pathname === href;
-                const cls = [
-                  'text-[13px] font-medium tracking-wide transition-colors whitespace-nowrap',
-                  active ? 'text-[hsl(var(--primary))]' : 'text-white/75 hover:text-white',
-                ].join(' ');
+                // Lien externe / route classique (ex: /insights)
+                if (!link.href.startsWith('#')) {
+                  const active = location.pathname === link.href;
+                  const cls = [
+                    'text-[13px] font-medium tracking-wide transition-colors whitespace-nowrap',
+                    active ? 'text-[hsl(var(--primary))]' : 'text-white/75 hover:text-white',
+                  ].join(' ');
+                  return <Link key={i} to={link.href} className={cls}>{link.label}</Link>;
+                }
 
-                return isRoute
-                  ? <Link key={i} to={href} className={cls}>{link.label}</Link>
-                  : <a    key={i} href={href} className={cls}>{link.label}</a>;
+                // Lien d'ancre (#how-it-works, #pricing, #faq, ...)
+                const sectionId = link.href.replace('#', '');
+                const cls = 'text-[13px] font-medium tracking-wide transition-colors whitespace-nowrap text-white/75 hover:text-white';
+                const fallbackHref = isHome
+                  ? link.href
+                  : sectionId === 'pricing'
+                    ? '/pricing'
+                    : `/${link.href}`;
+
+                return (
+                  <a
+                    key={i}
+                    href={fallbackHref}
+                    onClick={(e) => handleAnchorClick(e, sectionId)}
+                    className={cls}
+                  >
+                    {link.label}
+                  </a>
+                );
               })}
             </nav>
 
@@ -604,16 +691,37 @@ export const Header = () => {
 
                 {/* Standard nav links */}
                 {navLinks.map((link, i) => {
-                  const href    = link.href.startsWith('#') && !isHome ? `/${link.href}` : link.href;
-                  const isRoute = href.startsWith('/');
-                  const active  = location.pathname === href;
-                  const cls = [
-                    'text-sm font-medium transition-colors py-3 border-b border-white/10 last:border-0 block',
-                    active ? 'text-[hsl(var(--primary))]' : 'text-white/80 hover:text-white',
-                  ].join(' ');
-                  return isRoute
-                    ? <Link key={i} to={href} onClick={() => setIsMenuOpen(false)} className={cls}>{link.label}</Link>
-                    : <a    key={i} href={href} onClick={() => setIsMenuOpen(false)} className={cls}>{link.label}</a>;
+                  if (!link.href.startsWith('#')) {
+                    const active = location.pathname === link.href;
+                    const cls = [
+                      'text-sm font-medium transition-colors py-3 border-b border-white/10 last:border-0 block',
+                      active ? 'text-[hsl(var(--primary))]' : 'text-white/80 hover:text-white',
+                    ].join(' ');
+                    return (
+                      <Link key={i} to={link.href} onClick={() => setIsMenuOpen(false)} className={cls}>
+                        {link.label}
+                      </Link>
+                    );
+                  }
+
+                  const sectionId = link.href.replace('#', '');
+                  const cls = 'text-sm font-medium transition-colors py-3 border-b border-white/10 last:border-0 block text-white/80 hover:text-white';
+                  const fallbackHref = isHome
+                    ? link.href
+                    : sectionId === 'pricing'
+                      ? '/pricing'
+                      : `/${link.href}`;
+
+                  return (
+                    <a
+                      key={i}
+                      href={fallbackHref}
+                      onClick={(e) => handleAnchorClick(e, sectionId)}
+                      className={cls}
+                    >
+                      {link.label}
+                    </a>
+                  );
                 })}
 
                 {/* Compete options */}

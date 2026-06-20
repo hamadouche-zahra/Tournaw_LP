@@ -2,6 +2,7 @@ import "@/App.css";
 import "@/index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./i18n/LanguageContext";
+import { ScrollToTop } from "./components/ui/Scrolltotop";
 import { Header } from "./components/Header";
 import { HeroSection } from "./components/HeroSection";
 import { ProblemSection } from "./components/ProblemSection";
@@ -48,6 +49,8 @@ function App() {
   return (
     <BrowserRouter>
       <LanguageProvider>
+        {/* Monté UNE SEULE FOIS, au niveau racine — reste actif sur tous les changements de route */}
+        <ScrollToTop />
         <div className="App min-h-screen bg-background" data-testid="app-container">
           <Routes>
             <Route path="/" element={<LandingPage />} />
