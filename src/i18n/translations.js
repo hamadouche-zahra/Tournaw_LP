@@ -97,7 +97,7 @@ export const translations = {
       "statTournamentsCreated": "Tournaments created",
       "statSatisfaction": "Satisfaction",
       "bookDemo": "Discover Events",
-      "launchPlatform": "Become an Organizer"    },
+      "launchPlatform": "Organize Event"    },
     
     // Positioning Strip
     positioning: {
@@ -774,7 +774,7 @@ export const translations = {
       "statTournamentsCreated": "بطولة منظمة",
       "statSatisfaction": "نسبة الرضا",
       "bookDemo": "استكشف الفعاليات",
-      "launchPlatform": "أصبح منظّم فعاليات"
+      "launchPlatform": "نظّم فعالية"
 
       
     },
