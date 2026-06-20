@@ -183,7 +183,7 @@ export const UseCases = () => {
     <section
       id="use-cases"
       data-testid="use-cases-section"
-      className="py-20 md:py-28 bg-white dark:bg-background"
+      className="py-16 md:py-20 bg-white dark:bg-background"      
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <div className="container mx-auto px-6 md:px-12">
