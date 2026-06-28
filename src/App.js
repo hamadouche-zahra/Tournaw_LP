@@ -20,7 +20,7 @@ import ArticlePage from "./components/ArticlePage";
 import InsightsPage from "./components/InsightsPage";
 import PricingPage from "./components/PricingPage";
 import { EarlyAccessBanner } from './components/EarlyAccessBanner';
-
+import FederationsPage from "./components/FederationsPage";
 
 function LandingPage() {
   return (
@@ -57,6 +57,8 @@ function App() {
             <Route path="/insights" element={<InsightsPage />} />
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/insights/:slug" element={<ArticlePage />} />
+            <Route path="/sport-facilities" element={<FederationsPage />} />
+
           </Routes>
         </div>
       </LanguageProvider>

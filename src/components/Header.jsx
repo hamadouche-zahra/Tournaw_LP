@@ -152,8 +152,9 @@ export const Header = () => {
   };
 
   // Composant réutilisable avec icônes enveloppées dans un cercle
-  const NavLink = ({ children, icon: Icon }) => (
-    <li className="group flex items-center justify-between gap-2 cursor-pointer transition-colors text-white/85 hover:text-[hsl(var(--primary))]">
+ const NavLink = ({ children, icon: Icon, to }) => {
+  const content = (
+    <>
       <div className="flex items-center gap-3">
         {Icon && (
           <div className="flex items-center justify-center w-7 h-7 rounded-full bg-white/5 border border-white/10 transition-colors group-hover:bg-[hsl(var(--primary))]/10 group-hover:border-[hsl(var(--primary))]/20 flex-shrink-0">
@@ -166,8 +167,23 @@ export const Header = () => {
         size={12}
         className="opacity-0 -translate-x-1 -rotate-90 transition-all duration-150 group-hover:opacity-100 group-hover:translate-x-0 text-[hsl(var(--primary))] flex-shrink-0"
       />
+    </>
+  )
+
+  const className = "group flex items-center justify-between gap-2 cursor-pointer transition-colors text-white/85 hover:text-[hsl(var(--primary))]"
+
+  return (
+    <li>
+      {to ? (
+        <Link to={to} onClick={() => setOpenDropdown(null)} className={className}>
+          {content}
+        </Link>
+      ) : (
+        <div className={className}>{content}</div>
+      )}
     </li>
-  );
+  )
+}
 
   // Section accordéon pour le menu mobile
   const MobileAccordion = ({ id, title, children }) => (
@@ -256,7 +272,7 @@ export const Header = () => {
                           {t('nav.for')}
                         </h4>
                         <ul className="space-y-2 text-[13px]">
-                          <NavLink icon={Shield}>{t('nav.federations')}</NavLink>
+                          <NavLink icon={Shield}  to="/sport-facilities">{t('nav.federations')}</NavLink>
                           <NavLink icon={School}>{t('nav.academies')}</NavLink>
                           <NavLink icon={GraduationCap}>{t('nav.schools')}</NavLink>
                           <NavLink icon={Users}>{t('nav.clubs')}</NavLink>
