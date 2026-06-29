@@ -273,12 +273,12 @@ export const Header = () => {
                         </h4>
                         <ul className="space-y-2 text-[13px]">
                           <NavLink icon={Shield}  to="/sport-facilities">{t('nav.federations')}</NavLink>
-                          <NavLink icon={School}>{t('nav.academies')}</NavLink>
-                          <NavLink icon={GraduationCap}>{t('nav.schools')}</NavLink>
-                          <NavLink icon={Users}>{t('nav.clubs')}</NavLink>
-                          <NavLink icon={Award}>{t('nav.individualOrganizers')}</NavLink>
-                          <NavLink icon={Star}>{t('nav.sportFacilities')}</NavLink>
-                          <NavLink icon={Activity}>{t('nav.athletesCoaches')}</NavLink>
+                          <NavLink icon={School} to="/academies">{t('nav.academies')}</NavLink>
+                          <NavLink icon={GraduationCap} to="/schools">{t('nav.schools')}</NavLink>
+                          <NavLink icon={Users} to="/clubs">{t('nav.clubs')}</NavLink>
+                          <NavLink icon={Award} to="/organizers">{t('nav.individualOrganizers')}</NavLink>
+                          <NavLink icon={Star} to="/sport-facilities">{t('nav.sportFacilities')}</NavLink>
+                          <NavLink icon={Activity} to="/athletescoaches">{t('nav.athletesCoaches')}</NavLink>
                         </ul>
                       </div>
                     </motion.div>
@@ -620,13 +620,13 @@ export const Header = () => {
                     {t('nav.for')}
                   </p>
                   <ul className="space-y-2 text-[13px] pl-1">
-                    <NavLink icon={Shield}>{t('nav.federations')}</NavLink>
-                    <NavLink icon={School}>{t('nav.academies')}</NavLink>
-                    <NavLink icon={GraduationCap}>{t('nav.schools')}</NavLink>
-                    <NavLink icon={Users}>{t('nav.clubs')}</NavLink>
-                    <NavLink icon={Award}>{t('nav.individualOrganizers')}</NavLink>
-                    <NavLink icon={Star}>{t('nav.sportFacilities')}</NavLink>
-                    <NavLink icon={Activity}>{t('nav.athletesCoaches')}</NavLink>
+                          <NavLink icon={Shield}  to="/sport-facilities">{t('nav.federations')}</NavLink>
+                          <NavLink icon={School} to="/academies">{t('nav.academies')}</NavLink>
+                          <NavLink icon={GraduationCap} to="/schools">{t('nav.schools')}</NavLink>
+                          <NavLink icon={Users} to="/clubs">{t('nav.clubs')}</NavLink>
+                          <NavLink icon={Award} to="/organizers">{t('nav.individualOrganizers')}</NavLink>
+                          <NavLink icon={Star} to="/sport-facilities">{t('nav.sportFacilities')}</NavLink>
+                          <NavLink icon={Activity} to="/athletescoaches">{t('nav.athletesCoaches')}</NavLink>
                   </ul>
                 </MobileAccordion>
 

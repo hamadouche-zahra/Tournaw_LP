@@ -340,7 +340,7 @@ export const Federations = () => {
         {/* ══════════════════════════════════════
             1. HERO
         ══════════════════════════════════════ */}
-        <div className="relative pt-20 pb-10 overflow-hidden" style={{ background: 'linear-gradient(180deg, hsla(var(--primary), 0.06) 0%, hsl(var(--background)) 100%)' }}>
+        <div className="relative pt-28 pb-10 overflow-hidden" style={{ background: 'linear-gradient(180deg, hsla(var(--primary), 0.06) 0%, hsl(var(--background)) 100%)' }}>
           <Blob size="w-96 h-96" className="top-[-10%] left-[-5%]" delay={0} duration={9} />
           <Blob size="w-80 h-80" className="top-[-5%] right-[-5%]" delay={2} duration={8} />
 

@@ -21,7 +21,12 @@ import InsightsPage from "./components/InsightsPage";
 import PricingPage from "./components/PricingPage";
 import { EarlyAccessBanner } from './components/EarlyAccessBanner';
 import FederationsPage from "./components/FederationsPage";
-
+import AcademiesPage from "./components/AcademiesPage";
+import SchoolsPage from  "./components/SchoolsPage"
+import ClubsPage from  "./components/ClubsPage"
+import OrganizersPage from  "./components/OrganizersPage"
+import AthletescoachesPage from  "./components/AthletescoachesPage"
+import  SportfacilitiesPage  from  "./components/SportfacilitiesPage"
 function LandingPage() {
   return (
     <>
@@ -58,6 +63,12 @@ function App() {
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/insights/:slug" element={<ArticlePage />} />
             <Route path="/sport-facilities" element={<FederationsPage />} />
+            <Route path="/academies" element={<AcademiesPage />} />
+            <Route path="/schools" element={<SchoolsPage />} />
+            <Route path="/clubs" element={<ClubsPage />} />
+            <Route path="/organizers" element={<OrganizersPage />} />
+            <Route path="/athletescoaches" element={<AthletescoachesPage />} />
+            <Route path="/sport-facilities" element={<SportfacilitiesPage />} />
 
           </Routes>
         </div>
