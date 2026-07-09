@@ -497,12 +497,12 @@ export const Header = () => {
                       style={dropdownPanelStyle}
                     >
                       <div className="flex gap-2 mb-4">
-                        <Link to="/login" onClick={() => setOpenDropdown(null)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white border border-white/15 hover:bg-white/10 transition-colors">
+                        <a href="https://orgnizer.tournnwa.com/sign-in" onClick={() => setOpenDropdown(null)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white border border-white/15 hover:bg-white/10 transition-colors">
                           {t('nav.login')}
-                        </Link>
-                        <Link to="/signup" onClick={() => setOpenDropdown(null)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white transition-opacity hover:opacity-90" style={{ background: 'hsl(var(--primary))' }}>
+                        </a>
+                        <a href="https://orgnizer.tournnwa.com/sign-up" onClick={() => setOpenDropdown(null)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white transition-opacity hover:opacity-90" style={{ background: 'hsl(var(--primary))' }}>
                           {t('nav.signup')}
-                        </Link>
+                        </a>
                       </div>
                       <p className="text-center text-[12px] text-white/60 mb-1">{t('nav.exploreEvents')}</p>
                       <p className="text-center text-[11px] text-white/40 mb-3">{t('nav.or')}</p>
@@ -747,12 +747,12 @@ export const Header = () => {
                     {t('nav.compete')}
                   </p>
                   <div className="flex gap-2 mb-4">
-                    <Link to="/login" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white border border-white/15 hover:bg-white/10 transition-colors">
+                    <a href="https://orgnizer.tournnwa.com/sign-in" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white border border-white/15 hover:bg-white/10 transition-colors">
                       {t('nav.login')}
-                    </Link>
-                    <Link to="/signup" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white transition-opacity hover:opacity-90" style={{ background: 'hsl(var(--primary))' }}>
+                    </a>
+                    <a href="https://orgnizer.tournnwa.com/sign-up" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white transition-opacity hover:opacity-90" style={{ background: 'hsl(var(--primary))' }}>
                       {t('nav.signup')}
-                    </Link>
+                    </a>
                   </div>
                   <p className="text-center text-[12px] text-white/60 mb-1">{t('nav.exploreEvents')}</p>
                   <p className="text-center text-[11px] text-white/40 mb-3">{t('nav.or')}</p>

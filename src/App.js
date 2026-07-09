@@ -1,6 +1,7 @@
 import "@/App.css";
 import "@/index.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import { ScrollToTop } from "./components/ui/Scrolltotop";
 import { Header } from "./components/Header";
@@ -21,6 +22,7 @@ import InsightsPage from "./components/InsightsPage";
 import PricingPage from "./components/PricingPage";
 import { EarlyAccessBanner } from './components/EarlyAccessBanner';
 import { WhatsAppFloatingButton } from "./components/WhatsAppFloatingButton";
+import { ContactFormModal } from "./components/ContactFormModal";
 import FederationsPage from "./components/FederationsPage";
 import AcademiesPage from "./components/AcademiesPage";
 import SchoolsPage from  "./components/SchoolsPage"
@@ -51,6 +53,25 @@ function LandingPage() {
   );
 }
 
+function ContactPage() {
+  const navigate = useNavigate();
+  const [isContactOpen, setIsContactOpen] = useState(true);
+
+  const handleClose = () => {
+    setIsContactOpen(false);
+    navigate('/');
+  };
+
+  return (
+    <>
+      <Header />
+      <main className="min-h-screen bg-background" />
+      <Footer />
+      <ContactFormModal isOpen={isContactOpen} onClose={handleClose} />
+    </>
+  );
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -62,8 +83,9 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/insights" element={<InsightsPage />} />
             <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/insights/:slug" element={<ArticlePage />} />
-            <Route path="/sport-facilities" element={<FederationsPage />} />
+            <Route path="/federations" element={<FederationsPage />} />
             <Route path="/academies" element={<AcademiesPage />} />
             <Route path="/schools" element={<SchoolsPage />} />
             <Route path="/clubs" element={<ClubsPage />} />
