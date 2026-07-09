@@ -20,6 +20,7 @@ import ArticlePage from "./components/ArticlePage";
 import InsightsPage from "./components/InsightsPage";
 import PricingPage from "./components/PricingPage";
 import { EarlyAccessBanner } from './components/EarlyAccessBanner';
+import { WhatsAppFloatingButton } from "./components/WhatsAppFloatingButton";
 import FederationsPage from "./components/FederationsPage";
 import AcademiesPage from "./components/AcademiesPage";
 import SchoolsPage from  "./components/SchoolsPage"
@@ -71,6 +72,7 @@ function App() {
             <Route path="/sport-facilities" element={<SportfacilitiesPage />} />
 
           </Routes>
+          <WhatsAppFloatingButton />
         </div>
       </LanguageProvider>
     </BrowserRouter>

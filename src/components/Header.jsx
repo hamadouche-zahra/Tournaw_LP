@@ -139,6 +139,7 @@ export const Header = () => {
     { label: t('nav.faq'),        href: '#faq'         },
     { label: t('nav.news'),       href: '/insights'    },
   ];
+  const useCasesPath = '/#use-cases';
 
   const pillBg = isScrolled ? 'rgba(28, 28, 28, 0.92)' : 'rgba(28, 28, 28, 0.60)';
 
@@ -272,13 +273,13 @@ export const Header = () => {
                           {t('nav.for')}
                         </h4>
                         <ul className="space-y-2 text-[13px]">
-                          <NavLink icon={Shield}  to="/sport-facilities">{t('nav.federations')}</NavLink>
-                          <NavLink icon={School} to="/academies">{t('nav.academies')}</NavLink>
-                          <NavLink icon={GraduationCap} to="/schools">{t('nav.schools')}</NavLink>
-                          <NavLink icon={Users} to="/clubs">{t('nav.clubs')}</NavLink>
-                          <NavLink icon={Award} to="/organizers">{t('nav.individualOrganizers')}</NavLink>
-                          <NavLink icon={Star} >{t('nav.sportFacilities')}</NavLink>
-                          <NavLink icon={Activity} to="/athletescoaches">{t('nav.athletesCoaches')}</NavLink>
+                          <NavLink icon={Shield} to={useCasesPath}>{t('nav.federations')}</NavLink>
+                          <NavLink icon={School} to={useCasesPath}>{t('nav.academies')}</NavLink>
+                          <NavLink icon={GraduationCap} to={useCasesPath}>{t('nav.schools')}</NavLink>
+                          <NavLink icon={Users} to={useCasesPath}>{t('nav.clubs')}</NavLink>
+                          <NavLink icon={Award} to={useCasesPath}>{t('nav.individualOrganizers')}</NavLink>
+                          <NavLink icon={Star} to={useCasesPath}>{t('nav.sportFacilities')}</NavLink>
+                          <NavLink icon={Activity} to={useCasesPath}>{t('nav.athletesCoaches')}</NavLink>
                         </ul>
                       </div>
                     </motion.div>
@@ -620,13 +621,13 @@ export const Header = () => {
                     {t('nav.for')}
                   </p>
                   <ul className="space-y-2 text-[13px] pl-1">
-                          <NavLink icon={Shield}  to="/sport-facilities">{t('nav.federations')}</NavLink>
-                          <NavLink icon={School} to="/academies">{t('nav.academies')}</NavLink>
-                          <NavLink icon={GraduationCap} to="/schools">{t('nav.schools')}</NavLink>
-                          <NavLink icon={Users} to="/clubs">{t('nav.clubs')}</NavLink>
-                          <NavLink icon={Award} to="/organizers">{t('nav.individualOrganizers')}</NavLink>
-                          <NavLink icon={Star} >{t('nav.sportFacilities')}</NavLink>
-                          <NavLink icon={Activity} to="/athletescoaches">{t('nav.athletesCoaches')}</NavLink>
+                          <NavLink icon={Shield} to={useCasesPath}>{t('nav.federations')}</NavLink>
+                          <NavLink icon={School} to={useCasesPath}>{t('nav.academies')}</NavLink>
+                          <NavLink icon={GraduationCap} to={useCasesPath}>{t('nav.schools')}</NavLink>
+                          <NavLink icon={Users} to={useCasesPath}>{t('nav.clubs')}</NavLink>
+                          <NavLink icon={Award} to={useCasesPath}>{t('nav.individualOrganizers')}</NavLink>
+                          <NavLink icon={Star} to={useCasesPath}>{t('nav.sportFacilities')}</NavLink>
+                          <NavLink icon={Activity} to={useCasesPath}>{t('nav.athletesCoaches')}</NavLink>
                   </ul>
                 </MobileAccordion>
 
