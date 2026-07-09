@@ -134,7 +134,7 @@ export const Footer = () => {
             {/* Contact Info */}
             <div className="space-y-2 mb-7" data-testid="footer-contact">
               <p className="font-sans text-sm text-white/60">
-                <span className="font-medium text-white">{t('footer.email')}:</span> hello@tournwa.com
+                <span className="font-medium text-white">{t('footer.email')}:</span> hello@tournnwa.com
               </p>
               <p className="font-sans text-sm text-white/60">
                 <span className="font-medium text-white">{t('footer.address')}:</span> {t('footer.addressValue')}

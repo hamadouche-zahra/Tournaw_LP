@@ -232,14 +232,19 @@ export const HeroSection = () => {
                   <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
                 </svg>
               </button>
+              <button
+               data-testid="hero-launch-btn"
+               onClick={() => {
+               window.location.href = 'https://orgnizer.tournnwa.com/sign-in'
+              }}
+            className="flex items-center justify-center gap-2 font-semibold text-sm px-8 py-4 rounded-full transition-all active:scale-95 hover:scale-[1.03] border text-gray-800 dark:text-white bg-white/70 dark:bg-white/[0.08] border-gray-200 dark:border-white/15 backdrop-blur-sm"
 
-              <PopupButton
-                url="https://calendly.com/tournwa/30min"
-                rootElement={document.getElementById('root')}
-                text={t('hero.launchPlatform')}
-                data-testid="hero-launch-btn"
-                className="flex items-center justify-center gap-2 font-semibold text-sm px-8 py-4 rounded-full transition-all active:scale-95 hover:scale-[1.03] border text-gray-800 dark:text-white bg-white/70 dark:bg-white/[0.08] border-gray-200 dark:border-white/15 backdrop-blur-sm"
-              />
+           >
+            {t('hero.launchPlatform')}
+          </button>
+
+             
+             
             </motion.div>
           </div>
 

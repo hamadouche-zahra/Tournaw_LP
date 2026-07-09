@@ -277,7 +277,7 @@ export const Header = () => {
                           <NavLink icon={GraduationCap} to="/schools">{t('nav.schools')}</NavLink>
                           <NavLink icon={Users} to="/clubs">{t('nav.clubs')}</NavLink>
                           <NavLink icon={Award} to="/organizers">{t('nav.individualOrganizers')}</NavLink>
-                          <NavLink icon={Star} to="/sport-facilities">{t('nav.sportFacilities')}</NavLink>
+                          <NavLink icon={Star} >{t('nav.sportFacilities')}</NavLink>
                           <NavLink icon={Activity} to="/athletescoaches">{t('nav.athletesCoaches')}</NavLink>
                         </ul>
                       </div>
@@ -552,10 +552,10 @@ export const Header = () => {
                         {t('nav.create')}
                       </h4>
                       <ul className="space-y-2 text-[13px] mb-4">
-  <NavLink icon={Dribbble}>{t('nav.game')}</NavLink>
-  <NavLink icon={GraduationCap}>{t('nav.trainingClasses')}</NavLink>
-  <NavLink icon={Trophy}>{t('nav.tournament')}</NavLink>
-  <NavLink icon={Calendar}>{t('nav.league')}</NavLink>
+  <NavLink icon={Dribbble} to="https://orgnizer.tournnwa.com/sign-in">{t('nav.game')}</NavLink>
+  <NavLink icon={GraduationCap} to="https://orgnizer.tournnwa.com/training">{t('nav.trainingClasses')}</NavLink>
+  <NavLink icon={Trophy} to="https://orgnizer.tournnwa.com/tournaments">{t('nav.tournament')}</NavLink>
+  <NavLink icon={Calendar} to="https://orgnizer.tournnwa.com/leagues">{t('nav.league')}</NavLink>
   <li className="flex items-center justify-between gap-2 text-white/85">
     <div className="flex items-center gap-3">
       <div className="flex items-center justify-center w-7 h-7 rounded-full bg-white/5 border border-white/10 flex-shrink-0">
@@ -625,7 +625,7 @@ export const Header = () => {
                           <NavLink icon={GraduationCap} to="/schools">{t('nav.schools')}</NavLink>
                           <NavLink icon={Users} to="/clubs">{t('nav.clubs')}</NavLink>
                           <NavLink icon={Award} to="/organizers">{t('nav.individualOrganizers')}</NavLink>
-                          <NavLink icon={Star} to="/sport-facilities">{t('nav.sportFacilities')}</NavLink>
+                          <NavLink icon={Star} >{t('nav.sportFacilities')}</NavLink>
                           <NavLink icon={Activity} to="/athletescoaches">{t('nav.athletesCoaches')}</NavLink>
                   </ul>
                 </MobileAccordion>
@@ -774,10 +774,10 @@ export const Header = () => {
                     {t('nav.create')}
                   </p>
                   <ul className="space-y-2 text-[13px] mb-4">
-  <NavLink icon={Dribbble}>{t('nav.game')}</NavLink>
-  <NavLink icon={GraduationCap}>{t('nav.trainingClasses')}</NavLink>
-  <NavLink icon={Trophy}>{t('nav.tournament')}</NavLink>
-  <NavLink icon={Calendar}>{t('nav.league')}</NavLink>
+  <NavLink  to="https://orgnizer.tournnwa.com/sign-in" icon={Dribbble}>{t('nav.game')}</NavLink>
+  <NavLink to="https://orgnizer.tournnwa.com/training" icon={GraduationCap}>{t('nav.trainingClasses')}</NavLink>
+  <NavLink to="https://orgnizer.tournnwa.com/tournaments" icon={Trophy}>{t('nav.tournament')}</NavLink>
+  <NavLink to="https://orgnizer.tournnwa.com/leagues" icon={Calendar}>{t('nav.league')}</NavLink>
   <li className="flex items-center justify-between gap-2 text-white/85">
     <div className="flex items-center gap-3">
       <div className="flex items-center justify-center w-7 h-7 rounded-full bg-white/5 border border-white/10 flex-shrink-0">
