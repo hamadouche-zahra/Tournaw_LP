@@ -164,6 +164,7 @@ export const Footer = () => {
               <div className="flex flex-wrap gap-3">
                 <a
                   href="#"
+                  onClick={(e) => e.preventDefault()}
                   data-testid="app-store-link"
                   className="inline-flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/10 text-white rounded-xl hover:bg-white/10 transition-colors"
                 >
@@ -175,6 +176,7 @@ export const Footer = () => {
                 </a>
                 <a
                   href="#"
+                  onClick={(e) => e.preventDefault()}
                   data-testid="google-play-link"
                   className="inline-flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/10 text-white rounded-xl hover:bg-white/10 transition-colors"
                 >

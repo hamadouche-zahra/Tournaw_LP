@@ -125,6 +125,7 @@ const getTitle = (point) => {
               {/* Google Play */}
               <a
                 href="#"
+                onClick={(e) => e.preventDefault()}
                 data-testid="google-play-btn-promo"
                 className="inline-flex items-center gap-3 px-6 py-3.5 rounded-full font-semibold text-sm transition-all hover:opacity-85 active:scale-95"
                 style={{
@@ -146,6 +147,7 @@ const getTitle = (point) => {
               {/* App Store */}
               <a
                 href="#"
+                onClick={(e) => e.preventDefault()}
                 data-testid="app-store-btn-promo"
                 className="inline-flex items-center gap-3 px-6 py-3.5 rounded-full font-semibold text-sm transition-all hover:opacity-85 active:scale-95"
                 style={{

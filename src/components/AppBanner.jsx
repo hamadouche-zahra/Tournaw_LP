@@ -62,6 +62,7 @@ export const AppBanner = () => {
               {/* Bug 1 corrigé : balise <a> manquante */}
               <a
                 href="#"
+                onClick={(e) => e.preventDefault()}
                 data-testid="app-store-btn"
                 className="inline-flex items-center gap-1.5 h-8 px-3.5 rounded-lg text-white text-[12px] font-medium transition-all active:scale-95"
                 style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
@@ -73,6 +74,7 @@ export const AppBanner = () => {
               {/* Bug 1 corrigé : balise <a> manquante */}
               <a
                 href="#"
+                onClick={(e) => e.preventDefault()}
                 data-testid="google-play-btn"
                 className="inline-flex items-center gap-1.5 h-8 px-3.5 rounded-lg text-white text-[12px] font-medium transition-all active:scale-95"
                 style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}

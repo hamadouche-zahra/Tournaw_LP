@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { PopupButton } from 'react-calendly';
 import { useLanguage } from '../i18n/LanguageContext';
-import { ContactFormModal } from './ContactFormModal';
 
 const DASHBOARD_IMG = "/sports/dashboard.png";
 const MOBILE_IMG    = "https://customer-assets.emergentagent.com/job_event-platform-54/artifacts/5kqe35zk_home%20mockup.png";
@@ -125,7 +123,6 @@ function SportsMarquee({ isRTL }) {
 
 export const HeroSection = () => {
   const { t, isRTL } = useLanguage();
-  const [isContactOpen, setIsContactOpen] = useState(false);
   const [statsStarted, setStatsStarted] = useState(false);
   const statsRef = useRef(null);
 
@@ -218,7 +215,8 @@ export const HeroSection = () => {
             >
               <button
                 data-testid="hero-book-demo-btn"
-                onClick={() => setIsContactOpen(true)}
+                type="button"
+                aria-disabled="true"
                 className="flex items-center justify-center gap-2 font-bold text-sm px-8 py-4 rounded-full transition-all active:scale-95 hover:scale-[1.03]"
                 style={{
                   background: 'hsl(var(--primary))',
@@ -320,8 +318,6 @@ export const HeroSection = () => {
         </motion.div>
 
       </section>
-
-      <ContactFormModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </>
   );
 };

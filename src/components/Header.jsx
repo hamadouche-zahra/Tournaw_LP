@@ -497,22 +497,22 @@ export const Header = () => {
                       style={dropdownPanelStyle}
                     >
                       <div className="flex gap-2 mb-4">
-                        <a href="https://orgnizer.tournnwa.com/sign-in" onClick={() => setOpenDropdown(null)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white border border-white/15 hover:bg-white/10 transition-colors">
+                        <button type="button" onClick={() => setOpenDropdown(null)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white border border-white/15 hover:bg-white/10 transition-colors">
                           {t('nav.login')}
-                        </a>
-                        <a href="https://orgnizer.tournnwa.com/sign-up" onClick={() => setOpenDropdown(null)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white transition-opacity hover:opacity-90" style={{ background: 'hsl(var(--primary))' }}>
+                        </button>
+                        <button type="button" onClick={() => setOpenDropdown(null)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white transition-opacity hover:opacity-90" style={{ background: 'hsl(var(--primary))' }}>
                           {t('nav.signup')}
-                        </a>
+                        </button>
                       </div>
                       <p className="text-center text-[12px] text-white/60 mb-1">{t('nav.exploreEvents')}</p>
                       <p className="text-center text-[11px] text-white/40 mb-3">{t('nav.or')}</p>
                       <p className="text-center text-[12px] text-white/60 mb-4">{t('nav.downloadAppExperience')}</p>
                       <div className="flex flex-col gap-2">
-                        <a href="#" className="flex items-center justify-center gap-2 text-center py-3 rounded-2xl text-[13px] font-medium text-white transition-colors hover:opacity-85" style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}>
+                        <a href="#" onClick={(e) => e.preventDefault()} className="flex items-center justify-center gap-2 text-center py-3 rounded-2xl text-[13px] font-medium text-white transition-colors hover:opacity-85" style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}>
                           <svg width="16" height="16" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26-2 52.5-15.2 69.5-34.3z"/></svg>
                           {t('nav.appStore')}
                         </a>
-                        <a href="#" className="flex items-center justify-center gap-2 text-center py-3 rounded-2xl text-[13px] font-medium text-white transition-colors hover:opacity-85" style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}>
+                        <a href="#" onClick={(e) => e.preventDefault()} className="flex items-center justify-center gap-2 text-center py-3 rounded-2xl text-[13px] font-medium text-white transition-colors hover:opacity-85" style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}>
                           <svg width="16" height="16" viewBox="0 0 512 512" fill="currentColor"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34.9 6.3 27 17.8 27 32v448c0 14.2 7.9 25.7 20 32l281.9-281L47 0zm417.2 213.8L268.4 256l195.8 42.2C474.6 290 484 273.8 484 256s-9.4-34-19.8-42.2zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
                           {t('nav.googlePlay')}
                         </a>
@@ -747,22 +747,22 @@ export const Header = () => {
                     {t('nav.compete')}
                   </p>
                   <div className="flex gap-2 mb-4">
-                    <a href="https://orgnizer.tournnwa.com/sign-in" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white border border-white/15 hover:bg-white/10 transition-colors">
+                    <button type="button" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white border border-white/15 hover:bg-white/10 transition-colors">
                       {t('nav.login')}
-                    </a>
-                    <a href="https://orgnizer.tournnwa.com/sign-up" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white transition-opacity hover:opacity-90" style={{ background: 'hsl(var(--primary))' }}>
+                    </button>
+                    <button type="button" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-2.5 rounded-full text-[13px] font-semibold text-white transition-opacity hover:opacity-90" style={{ background: 'hsl(var(--primary))' }}>
                       {t('nav.signup')}
-                    </a>
+                    </button>
                   </div>
                   <p className="text-center text-[12px] text-white/60 mb-1">{t('nav.exploreEvents')}</p>
                   <p className="text-center text-[11px] text-white/40 mb-3">{t('nav.or')}</p>
                   <p className="text-center text-[12px] text-white/60 mb-4">{t('nav.downloadAppExperience')}</p>
                   <div className="flex flex-col gap-2">
-                    <a href="#" className="flex items-center justify-center gap-2 text-center py-3 rounded-2xl text-[13px] font-medium text-white transition-colors hover:opacity-85" style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}>
+                    <a href="#" onClick={(e) => e.preventDefault()} className="flex items-center justify-center gap-2 text-center py-3 rounded-2xl text-[13px] font-medium text-white transition-colors hover:opacity-85" style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}>
                       <svg width="16" height="16" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26-2 52.5-15.2 69.5-34.3z"/></svg>
                       {t('nav.appStore')}
                     </a>
-                    <a href="#" className="flex items-center justify-center gap-2 text-center py-3 rounded-2xl text-[13px] font-medium text-white transition-colors hover:opacity-85" style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}>
+                    <a href="#" onClick={(e) => e.preventDefault()} className="flex items-center justify-center gap-2 text-center py-3 rounded-2xl text-[13px] font-medium text-white transition-colors hover:opacity-85" style={{ background: '#000', border: '1px solid rgba(255,255,255,0.12)' }}>
                       <svg width="16" height="16" viewBox="0 0 512 512" fill="currentColor"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34.9 6.3 27 17.8 27 32v448c0 14.2 7.9 25.7 20 32l281.9-281L47 0zm417.2 213.8L268.4 256l195.8 42.2C474.6 290 484 273.8 484 256s-9.4-34-19.8-42.2zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
                       {t('nav.googlePlay')}
                     </a>
