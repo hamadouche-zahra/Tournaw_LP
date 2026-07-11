@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../i18n/LanguageContext';
 
-const DASHBOARD_IMG = "/sports/dashboard.png";
-const MOBILE_IMG    = "https://customer-assets.emergentagent.com/job_event-platform-54/artifacts/5kqe35zk_home%20mockup.png";
+const DASHBOARD_IMG = "/sports/desktop.png";
+const MOBILE_IMG    = "/sports/PHONE.png";
 
 const AVATARS = [
   'https://randomuser.me/api/portraits/men/32.jpg',
