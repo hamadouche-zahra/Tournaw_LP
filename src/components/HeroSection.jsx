@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../i18n/LanguageContext';
 
-const DASHBOARD_IMG = "/sports/desktop.png";
-const MOBILE_IMG    = "/sports/PHONE.png";
+const DASHBOARD_IMG = "/sports/desktop-1600.jpg";
+const MOBILE_IMG    = "/sports/phone-500.jpg";
 
 const AVATARS = [
   'https://randomuser.me/api/portraits/men/32.jpg',
@@ -273,8 +273,8 @@ export const HeroSection = () => {
                 src={DASHBOARD_IMG}
                 alt="Tournwa Dashboard"
                 data-testid="dashboard-screenshot"
-                width="3360"
-                height="1924"
+                width="1600"
+                height="916"
                 fetchPriority="high"
                 decoding="async"
                 className="w-full h-auto rounded-2xl shadow-2xl object-cover object-top border border-white/10"
@@ -290,9 +290,8 @@ export const HeroSection = () => {
                   src={MOBILE_IMG}
                   alt="Tournwa Mobile"
                   data-testid="mobile-screenshot"
-                  width="1376"
-                  height="2824"
-                  loading="lazy"
+                  width="500"
+                  height="1026"
                   decoding="async"
                   className="w-full h-auto drop-shadow-2xl"
                   animate={{ y: [0, -8, 0] }}
