@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '../i18n/LanguageContext';
 
 const DASHBOARD_IMG = "/sports/desktop-1600.jpg";
-const MOBILE_IMG    = "/sports/phone-500.jpg";
+const MOBILE_IMG    = "/sports/phone-500.png";
 
 const AVATARS = [
   'https://randomuser.me/api/portraits/men/32.jpg',
