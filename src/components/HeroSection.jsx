@@ -269,16 +269,19 @@ export const HeroSection = () => {
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <img
-                src={DASHBOARD_IMG}
-                alt="Tournwa Dashboard"
-                data-testid="dashboard-screenshot"
-                width="1600"
-                height="916"
-                fetchPriority="high"
-                decoding="async"
-                className="w-full h-auto rounded-2xl shadow-2xl object-cover object-top border border-white/10"
-              />
+              <picture>
+                <source media="(max-width: 767px)" srcSet="/sports/desktop-900.jpg" />
+                <img
+                  src={DASHBOARD_IMG}
+                  alt="Tournwa Dashboard"
+                  data-testid="dashboard-screenshot"
+                  width="1600"
+                  height="916"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="w-full h-auto rounded-2xl shadow-2xl object-cover object-top border border-white/10"
+                />
+              </picture>
 
               <motion.div
                 className="absolute -bottom-10 -right-6 md:-right-12 z-20 w-[140px] md:w-[200px] lg:w-[230px]"
