@@ -197,10 +197,18 @@ export const HeroSection = () => {
               {t('hero.headline')}
             </motion.h1>
 
-            {/* Subline */}
+            {/* SEO heading + subline */}
+            <motion.h2
+              className="text-base lg:text-lg font-semibold leading-relaxed max-w-2xl mb-3 text-gray-700 dark:text-white/75"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.2 }}
+            >
+              {t('hero.seoH2')}
+            </motion.h2>
             <motion.p
               data-testid="hero-subheadline"
-              className="text-base lg:text-lg leading-relaxed max-w-2xl mb-10 text-gray-500 dark:text-white/55"
+              className="text-sm lg:text-base leading-relaxed max-w-2xl mb-10 text-gray-500 dark:text-white/55"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.2 }}

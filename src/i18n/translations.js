@@ -87,7 +87,8 @@ export const translations = {
     // Hero Section
     hero: {
       overline: "Automated Sports Ecosystem",
-      headline: "The first sports ecosystem platform in the GCC.",
+      headline: "The Ultimate Sports Ecosystem Platform",
+      seoH2: "Everything you need to organize, manage, and grow sports competitions.",
       subheadline: "Launch, manage, and grow your own sports tournaments, leagues, and programs — all in one automated and customizable platform.",
       bullet1: "Simplified tournament management from start to finish",
       bullet2: "Built for organizers, clubs, academies, and schools",
@@ -764,7 +765,8 @@ export const translations = {
     // Hero Section
     hero: {
       overline: "المنظومة الرياضية المؤتمتة",
-      headline: "أول منصة رياضية متكاملة في منطقة الخليج.",
+      headline: "المنصة الرياضية المتكاملة الأولى",
+      seoH2: "كل ما تحتاجه لتنظيم وإدارة وتنمية المنافسات الرياضية.",
       subheadline: "أطلق وأدِر ونمِّ بطولاتك ودورياتك وبرامجك الرياضية — كل ذلك في منصة واحدة آلية وقابلة للتخصيص.",
       bullet1: "إدارة مبسطة للبطولات من البداية إلى النهاية",
       bullet2: "مصممة للمنظمين والأندية والأكاديميات والمدارس",
