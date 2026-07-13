@@ -166,6 +166,9 @@ export const HeroSection = () => {
                     key={i}
                     src={src}
                     alt="avatar"
+                    width="32"
+                    height="32"
+                    decoding="async"
                     className="w-8 h-8 rounded-full border-2 border-white dark:border-[#0b0f1a] object-cover"
                     style={{
                       marginLeft: i === 0 ? 0 : '-10px',
@@ -270,6 +273,10 @@ export const HeroSection = () => {
                 src={DASHBOARD_IMG}
                 alt="Tournwa Dashboard"
                 data-testid="dashboard-screenshot"
+                width="3360"
+                height="1924"
+                fetchPriority="high"
+                decoding="async"
                 className="w-full h-auto rounded-2xl shadow-2xl object-cover object-top border border-white/10"
               />
 
@@ -283,6 +290,10 @@ export const HeroSection = () => {
                   src={MOBILE_IMG}
                   alt="Tournwa Mobile"
                   data-testid="mobile-screenshot"
+                  width="1376"
+                  height="2824"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto drop-shadow-2xl"
                   animate={{ y: [0, -8, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}

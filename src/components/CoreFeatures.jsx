@@ -41,6 +41,7 @@ export const CoreFeatures = () => {
           muted
           loop
           playsInline
+          preload="metadata"
           poster="https://cdn.prod.website-files.com/69c50fae5042bca93cbc3540%2F69ed8e2baabd0693926ed41a_People_training_in_gym_outdoor_delpmaspu__poster.0000000.jpg"
           className="w-full h-full object-cover object-center"
         >
@@ -118,6 +119,8 @@ export const CoreFeatures = () => {
                 <img
                   src={CARD_IMAGES[i]}
                   alt={cat.title}
+                  loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
                 />
 

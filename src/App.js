@@ -1,52 +1,79 @@
 import "@/App.css";
 import "@/index.css";
-import { useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import { ScrollToTop } from "./components/ui/Scrolltotop";
 import { Header } from "./components/Header";
 import { HeroSection } from "./components/HeroSection";
-import { ProblemSection } from "./components/ProblemSection";
-import { SolutionSection } from "./components/SolutionSection";
-import { HowItWorks } from "./components/HowItWorks";
-import { CoreFeatures } from "./components/CoreFeatures";
-import { FacilitiesBooking } from "./components/FacilitiesBooking";
-import { UseCases } from "./components/UseCases";
-import { AppPromo } from "./components/AppPromo";
-import { Pricing } from "./components/Pricing";
-import { FAQ } from "./components/FAQ";
-import { FinalCTA } from "./components/FinalCTA";
 import { Footer } from "./components/Footer";
-import ArticlePage from "./components/ArticlePage";
-import InsightsPage from "./components/InsightsPage";
-import PricingPage from "./components/PricingPage";
-import { EarlyAccessBanner } from './components/EarlyAccessBanner';
 import { WhatsAppFloatingButton } from "./components/WhatsAppFloatingButton";
-import { ContactFormModal } from "./components/ContactFormModal";
-import FederationsPage from "./components/FederationsPage";
-import AcademiesPage from "./components/AcademiesPage";
-import SchoolsPage from  "./components/SchoolsPage"
-import ClubsPage from  "./components/ClubsPage"
-import OrganizersPage from  "./components/OrganizersPage"
-import AthletescoachesPage from  "./components/AthletescoachesPage"
-import  SportfacilitiesPage  from  "./components/SportfacilitiesPage"
+
+const ProblemSection = lazy(() => import("./components/ProblemSection").then(({ ProblemSection }) => ({ default: ProblemSection })));
+const SolutionSection = lazy(() => import("./components/SolutionSection").then(({ SolutionSection }) => ({ default: SolutionSection })));
+const CoreFeatures = lazy(() => import("./components/CoreFeatures").then(({ CoreFeatures }) => ({ default: CoreFeatures })));
+const HowItWorks = lazy(() => import("./components/HowItWorks").then(({ HowItWorks }) => ({ default: HowItWorks })));
+const UseCases = lazy(() => import("./components/UseCases").then(({ UseCases }) => ({ default: UseCases })));
+const FacilitiesBooking = lazy(() => import("./components/FacilitiesBooking").then(({ FacilitiesBooking }) => ({ default: FacilitiesBooking })));
+const AppPromo = lazy(() => import("./components/AppPromo").then(({ AppPromo }) => ({ default: AppPromo })));
+const Pricing = lazy(() => import("./components/Pricing").then(({ Pricing }) => ({ default: Pricing })));
+const EarlyAccessBanner = lazy(() => import("./components/EarlyAccessBanner").then(({ EarlyAccessBanner }) => ({ default: EarlyAccessBanner })));
+const FAQ = lazy(() => import("./components/FAQ").then(({ FAQ }) => ({ default: FAQ })));
+const FinalCTA = lazy(() => import("./components/FinalCTA").then(({ FinalCTA }) => ({ default: FinalCTA })));
+
+const ArticlePage = lazy(() => import("./components/ArticlePage"));
+const InsightsPage = lazy(() => import("./components/InsightsPage"));
+const PricingPage = lazy(() => import("./components/PricingPage"));
+const FederationsPage = lazy(() => import("./components/FederationsPage"));
+const AcademiesPage = lazy(() => import("./components/AcademiesPage"));
+const SchoolsPage = lazy(() => import("./components/SchoolsPage"));
+const ClubsPage = lazy(() => import("./components/ClubsPage"));
+const OrganizersPage = lazy(() => import("./components/OrganizersPage"));
+const AthletescoachesPage = lazy(() => import("./components/AthletescoachesPage"));
+const SportfacilitiesPage = lazy(() => import("./components/SportfacilitiesPage"));
+
+function DeferredSection({ component: Component, minHeight }) {
+  const ref = useRef(null);
+  const [shouldRender, setShouldRender] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldRender(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "600px 0px" }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} style={shouldRender ? undefined : { minHeight }}>
+      {shouldRender && <Suspense fallback={<div style={{ minHeight }} />}><Component /></Suspense>}
+    </div>
+  );
+}
 function LandingPage() {
   return (
     <>
       <Header />
       <main>
         <HeroSection />
-        <ProblemSection/>
-        <SolutionSection/>
-        <CoreFeatures />
-        <HowItWorks />
-        <UseCases />
-        <FacilitiesBooking />
-        <AppPromo />
-        <Pricing />
-        <EarlyAccessBanner />
-        <FAQ />
-        <FinalCTA />
+        <DeferredSection component={ProblemSection} minHeight={700} />
+        <DeferredSection component={SolutionSection} minHeight={650} />
+        <DeferredSection component={CoreFeatures} minHeight={700} />
+        <DeferredSection component={HowItWorks} minHeight={700} />
+        <DeferredSection component={UseCases} minHeight={700} />
+        <DeferredSection component={FacilitiesBooking} minHeight={600} />
+        <DeferredSection component={AppPromo} minHeight={650} />
+        <DeferredSection component={Pricing} minHeight={700} />
+        <DeferredSection component={EarlyAccessBanner} minHeight={300} />
+        <DeferredSection component={FAQ} minHeight={650} />
+        <DeferredSection component={FinalCTA} minHeight={450} />
       </main>
       <Footer />
     </>
@@ -79,6 +106,7 @@ function App() {
         {/* Monté UNE SEULE FOIS, au niveau racine — reste actif sur tous les changements de route */}
         <ScrollToTop />
         <div className="App min-h-screen bg-background" data-testid="app-container">
+          <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/insights" element={<InsightsPage />} />
@@ -94,6 +122,7 @@ function App() {
             <Route path="/sport-facilities" element={<SportfacilitiesPage />} />
 
           </Routes>
+          </Suspense>
           <WhatsAppFloatingButton />
         </div>
       </LanguageProvider>
